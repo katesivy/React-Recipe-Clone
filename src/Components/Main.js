@@ -1,66 +1,86 @@
 import React from "react";
-//  import Recipes from './Recipes';
+import Recipes from './Recipes';
 import axios from 'axios';
-
-
-
 
 class Main extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            allRecipes: []
+            allRecipes: [],
+            allDirections: []
         }
     }
+   async componentDidMount() {
+        await this.getRecipes()
+         await this.getDirections()
+   }
 
-    async componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/recipes')
+   getRecipes() {
+        let result = axios.get('http://127.0.0.1:8000/api/recipes')
             .then(response => {
-                this.setState({
-                    allRecipes: response.data.data
-                })
-                console.log(response);
-
+                console.log(result);
+                return response.data.data;
             })
             .catch(function (error) {
                 console.log(error);
             })
             .finally(function () {
-            });
+            })
+        this.setState({
+            allRecipes : result
+        });
+
+    }
+    
+   getDirections() {
+        let result = axios.get('http://127.0.0.1:8000/api/directions')
+            .then(response => {
+                console.log(result);
+                return response.data.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(function () {
+            })
+        this.setState({
+            allDirections : result
+        });
 
     }
 
 
     render() {
+
+
+
+        // const recipeInfo = this.state.allRecipes.map((allRecipes, index) => {
+        //     return <>
+
+        //         <Recipes key={index} 
+        //             title={allRecipes.title}
+        //             image={allRecipes.image}
+        //             servings={allRecipes.servings}
+        //             cooking_time={allRecipes.cooking_time}
+        //         />
+                {/* <Directions key={index} 
+                    direction={allRecipes.direction}    
+                /> */}
+
+            // </>
+        // });
+
         return (
-       
-        <div className="row mt-lg-5 ml-lg-5 mr-lg-5" >
-            {this.state.allRecipes.map((allRecipes, index) => (
-           <div className="row ">
-                <div className="card text-center  "   >
-                    <div className="card-header col-12 p-5 border border-dark"  >
-               
-                        <h4>Title: {allRecipes.title}</h4>
-                        <div className="card-body" >
-                            <p className="card-text">
-                                Ingredients: {allRecipes.ingredients}
-                            </p>
-                            <p className="card-text">
-                                Directions: {allRecipes.directions}
-                            </p>
-                            <p> Nutrition Facts: {allRecipes.nutrition_facts}</p>
-                    </div>
-                
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
-       
+            // <>
+            //     <div className="row">
+            //         {recipeInfo}
+            //     </div>
+            // </>
+
+<h1>hello</h1>
         );
-    }
 
-
+     }
 
 
 

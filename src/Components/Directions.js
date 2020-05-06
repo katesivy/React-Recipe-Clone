@@ -1,6 +1,6 @@
 import React from "react";
 
-function Recipes(props) {
+function Directions(props) {
     return (
         <>
                 <div className="col-4 p-2">
@@ -29,4 +29,4 @@ function Recipes(props) {
     )
 }
 
-export default Recipes;
+export default Directions;
