@@ -5,9 +5,6 @@ import axios from 'axios';
 function Main() {
     const [recipes, setRecipes] = useState([]);
     
-    // const [allDirections, getDirections] = useState([]);
-
-
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/api/recipes')
             .then(response => {
@@ -15,6 +12,7 @@ function Main() {
             });
     }, [recipes]
     );
+
     console.log(recipes);
     const recipesMap = recipes.map((recipe, index) => {
         return (
@@ -30,6 +28,7 @@ function Main() {
     return (
         <div className="row">
             {recipesMap}
+            
         </div>
     );
 }

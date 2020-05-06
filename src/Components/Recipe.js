@@ -6,19 +6,15 @@ function Recipe(props) {
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/api/directions/' + props.id)
             .then(response => {
-                setDirections(response.data.data)
+                setDirections(response.data)
+                console.log(response)
             });
     }, [directions]
     );
     console.log(directions);
     const directionsMap = directions.map((direction, index) => {
         return (
-            <li key={index}
-                title={direction.title}
-                image={direction.image}
-                servings={direction.servings}
-                cooking_time={direction.cooking_time}
-            />
+            <li key={index}>{direction.direction} </li>      
         )
     });
     return (
