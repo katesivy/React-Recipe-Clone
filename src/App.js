@@ -8,12 +8,16 @@ import './App.css';
 import Main from './Components/Main';
 import Home from './Components/Home';
 import Navbar from './Components/Navbar';
+import Jumbotron from './Components/Jumbotron';
+// import Carousel from './Components/Carousel';
 import Footer from './Components/Footer';
 
 function App() {
   return (
     <div className="App">
     <Navbar />
+    {/* <Carousel /> */}
+    <Jumbotron />
     <Home />
      <Main />
     <Footer />
