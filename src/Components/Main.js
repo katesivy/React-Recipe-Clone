@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Recipe from './Recipe';
 import axios from 'axios';
 
+
 function Main() {
     const [recipes, setRecipes] = useState([]);
     
@@ -13,6 +14,7 @@ function Main() {
     }, [recipes]
     );
 
+
     console.log(recipes);
     const recipesMap = recipes.map((recipe, index) => {
         return (
@@ -22,6 +24,11 @@ function Main() {
                 servings={recipe.servings}
                 cooking_time={recipe.cooking_time}
                 id ={recipe.id}
+                directions={recipe.directions}
+                tags={recipe.tags}
+                ingredients={recipe.ingredients}
+                user={recipe.user}
+                
             />
         )
     });

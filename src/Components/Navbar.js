@@ -26,13 +26,12 @@ function Navbar() {
                                 <a className="dropdown-item" href="#">Main Ingredient</a>
                                 <a className="dropdown-item" href="#">Diet</a>
                                 <a className="dropdown-item" href="#">Cooking Method</a>
-                                {/* <a className="dropdown-item" href="#">Diet</a>
-                                <a className="dropdown-item" href="#">Cooking Method</a> */}
                             </div>
                         </li>
                     </ul>
                     <span className="navbar-text text-right  mr-sm-2">
-                    <a className="nav-link" href="#">Login/Register</a> 
+
+                    <a className="nav-link" href="#Login">Login/Register</a> 
                       </span>
                 </div>
             </nav>
