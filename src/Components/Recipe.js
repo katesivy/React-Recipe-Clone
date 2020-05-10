@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Row,
-    Col, 
-    Card
-} from 'reactstrap';
 
-function Recipe(props) {
-   
+
+export default function Recipe(props) {
 
     const directionsMap = props.directions.map((direction, index) => {
         return (
@@ -14,14 +9,11 @@ function Recipe(props) {
         )
     });
 
-   
-
     const ingredientsMap = props.ingredients.map((ingredient, index) => {
         return (
             <li key={index}>{ingredient.ingredient } { ingredient.pivot.quantity }  </li>
         )
     });
-
 
     const tagsMap = props.tags.map((tag, index) => {
         return (
@@ -32,7 +24,7 @@ function Recipe(props) {
    
     return (
         <div className="col-4 p-2">
-            <Card> className="card ">
+            <div className="card ">
                 <div className="card-header text-center text-wrap overflow-auto" id="recipeCard" >
                     <h4 className="font-weight-bold">{props.title}</h4>
                     <div className="card-body text-left" >
@@ -65,8 +57,8 @@ function Recipe(props) {
                         </p>
                     </div>
                 </div>
-                </Card>
+            </div>
         </div>
     )
 }
-export default Recipe;
+

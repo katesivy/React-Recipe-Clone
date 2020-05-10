@@ -3,7 +3,7 @@ import Recipe from './Recipe';
 import axios from 'axios';
 
 
-function Main() {
+export default function Main() {
     const [recipes, setRecipes] = useState([]);
     
     useEffect(() => {
@@ -14,8 +14,8 @@ function Main() {
     }, [recipes]
     );
 
-
     console.log(recipes);
+
     const recipesMap = recipes.map((recipe, index) => {
         return (
             <Recipe key={index}
@@ -40,4 +40,3 @@ function Main() {
     );
 }
 
-export default Main;

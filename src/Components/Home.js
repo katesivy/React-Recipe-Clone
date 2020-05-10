@@ -1,17 +1,22 @@
 import React from "react";
 
-function Home() {
+export default function Home() {
     return (
         <>
-             <div className="jumbotron jumbotron-fluid">
+            <div className="jumbotron jumbotron-fluid" id="jumbContainer">
+                <div className="container" >
+                    <img src="https://images.unsplash.com/photo-1457666134378-6b77915bd5f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" className="card-img-top" id="jumbotron" alt="..." ></img>
+                </div>
+            </div>
+            <div className="jumbotron jumbotron-fluid">
                 <div className="container">
                     <h1 className="display-4">Let's make some food!</h1>
                     <p className="lead">~find a recipe by category or ingredient or create your own~</p>
                 </div>
             </div>
-            
-           <div className="row p-3" id="cardRow">
-              
+
+            <div className="row p-3" id="cardRow">
+
                 <div className="col-lg-3 col-sm-12  offset 1">
                     <div className="card" >
                         <img src="./Images/D99F0BD2-DC13-4FEB-BDD0-512EC7265DF0_1_105_c.jpeg" className="card-img-top" id="categoryPic" alt="..." />
@@ -42,7 +47,7 @@ function Home() {
                             <a href="#" className="btn btn-secondary">See more</a>
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div className="col-lg-3 col-sm-12 offset 1">
                     <div className="card" >
@@ -53,20 +58,10 @@ function Home() {
                             <a href="#" className="btn btn-secondary">See more</a>
                         </div>
                     </div>
-                </div> 
-            </div> 
-
-                {/* <ul className="list-group">
-                <li className="list-group-item">Cras justo odio</li>
-                <li className="list-group-item">Dapibus ac facilisis in</li>
-                <li className="list-group-item">Morbi leo risus</li>
-                <li className="list-group-item">Porta ac consectetur ac</li>
-                <li className="list-group-item">Vestibulum at eros</li>
-            </ul> */}
+                </div>
+            </div>
         </>
 
     );
 
 }
-
-export default Home;

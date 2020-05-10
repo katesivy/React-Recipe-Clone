@@ -4,7 +4,8 @@ function Navbar() {
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light " id="navbar">
-                <a className="navbar-brand p-2" href="#">What's Cookin'?</a>
+                <a className="navbar-brand p-2" href="#">
+                <img src="./Images/logo.png" className="card-img-top" id="categoryPic" alt="..." /></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -29,7 +30,7 @@ function Navbar() {
                             </div>
                         </li>
                     </ul>
-                    <span className="navbar-text text-right  mr-sm-2">
+                    <span className="navbar-text text-content-right  mr-sm-2">
 
                     <a className="nav-link" href="#Login">Login/Register</a> 
                       </span>
