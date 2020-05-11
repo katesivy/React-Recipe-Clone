@@ -1,11 +1,14 @@
 import React from "react";
-// import RecipeList from 
+import Navbar from './Navbar';
+// import Main from './Main';
 
-export default function Categories() {
-   
+export default function RecipeList(props) {
+
   return (
-
-
+    <>
+      <Navbar />
+      {/* <Main /> */}
+    </>
 
 
   )

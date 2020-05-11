@@ -11,7 +11,7 @@ export default function Recipe(props) {
 
     const ingredientsMap = props.ingredients.map((ingredient, index) => {
         return (
-            <li key={index}>{ingredient.ingredient } { ingredient.pivot.quantity }  </li>
+            <li key={index}>{ingredient.ingredient} {ingredient.pivot.quantity}  </li>
         )
     });
 
@@ -21,7 +21,7 @@ export default function Recipe(props) {
         )
     });
 
-   
+
     return (
         <div className="col-4 p-2">
             <div className="card ">
@@ -31,26 +31,17 @@ export default function Recipe(props) {
                         <p className="card-text">
                             <img src={props.image} className="card-img" id="pic" alt="pic"></img>
                         </p>
-
                         <p className="font-weight-bold">Ingredients:</p>
-                       
                         <p> {ingredientsMap}</p>
-
-
-                        <p className="font-weight-bold">Directions </p>
+                        <p className="font-weight-bold">Directions: </p>
                         <p>{directionsMap}</p>
-                        <p className="card-text font-weight-bold">
-                            Servings:
+                        <p className="card-text font-weight-bold">Servings:
                         </p>
                         <p>{props.servings}</p>
-                        <p className="card-text font-weight-bold">
-                            Cooking Time:
+                        <p className="card-text font-weight-bold">Cooking Time:
                       </p>
-
                         {props.cooking_time}
-
-                        <p className="card-text font-weight-bold">
-                            Tags:
+                        <p className="card-text font-weight-bold">Tags:
                           </p>
                         <p>
                             {tagsMap}

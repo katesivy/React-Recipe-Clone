@@ -7,13 +7,16 @@ import './App.css';
 // library.add(fab, faCheckSquare, faCoffee)
 import Home from './Components/Home';
 import Profile from './Components/Profile';
-// import Categories from './Components/Categories';
 import Main from './Components/Main';
 import Navbar from './Components/Navbar';
 import Login from './Components/Login';
 import Footer from './Components/Footer';
 import CategoryPage from './Components/CategoryPage';
-import SubCategory from './Components/SubCategory';
+import SubCategoryType from './Components/SubCategoryType';
+import SubCategoryMains from './Components/SubCategoryMains';
+import SubCategoryDiet from './Components/SubCategoryDiet';
+import SubCategoryMethod from './Components/SubCategoryMethod';
+import RecipeList from './Components/RecipeList';
 
 
 import {
@@ -36,17 +39,21 @@ export default function App() {
           <Route path="/categories">
             <CategoryPage />
           </Route>
+
           <Route path="/type">
-            <CategoryType />
+            <SubCategoryType />
           </Route>
           <Route path="/mains">
-            <CategoryMains />
+            <SubCategoryMains />
           </Route>
           <Route path="/diet">
-            <CategoryDiet />
+            <SubCategoryDiet />
           </Route>
           <Route path="/method">
-            <CategoryMethod />
+            <SubCategoryMethod />
+          </Route>
+          <Route path="/recipeList">
+            <RecipeList />
           </Route>
 
           <Route path="/">
@@ -62,85 +69,6 @@ export default function App() {
 }
 
 
-  
-
-
-function CategoryType() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Meal Type</h2>
-      {/* <ul>
-        <li>
-          <Link to={`${url}/type`}>Meal Type</Link>
-        </li>
-      </ul> */}
-      <Switch>
-        <Route path={`${path}/:type`}>
-          <SubCategoryType />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-function CategoryMains() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Main Ingredient</h2>
-      {/* <ul>
-        <li>
-          <Link to={`${url}/mains`}>Main Ingredient</Link>
-        </li>
-      </ul> */}
-      <Switch>
-        <Route path={`${path}/:mains`}>
-          <SubCategoryMains />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-function CategoryDiet() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      {/* <h2>Diet</h2>
-      <ul>
-        <li>
-          <Link to={`${url}/diet`}>Diet</Link>
-        </li>
-      </ul> */}
-      <Switch>
-        <Route path={`${path}/:diet`}>
-          <SubCategoryDiet />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-function CategoryMethod() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Cooking Method</h2>
-      {/* <ul>
-        <li>
-          <Link to={`${url}/method`}>Cooking Method</Link>
-        </li> */}
-      {/* </ul> */}
-      <Switch>
-        <Route path={`${path}/:method`}>
-          <SubCategoryMethod />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
 function Category() {
 
   let { categoryId } = useParams();
@@ -151,117 +79,3 @@ function Category() {
     </div>
   );
 }
-
-function SubCategoryType() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Sub-Categories</h2>
-      <ul>
-        <li>
-          <Link to={`${url}/breakfast`}>Breakfast</Link>
-        </li>
-        <li>
-          <Link to={`${url}/lunch`}>Lunch</Link>
-        </li>
-        <li>
-          <Link to={`${url}/dinner`}>Dinner</Link>
-        </li>
-        <li>
-          <Link to={`${url}/dessert`}>Dessert</Link>
-        </li>
-      </ul>
-
-      <Switch>
-        <Route path={`${path}/:categoryId`}>
-          <SubCategoryType />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-function SubCategoryMains() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Sub-Categories</h2>
-      <ul>
-        <li>
-          <Link to={`${url}/chicken`}>Chicken</Link>
-        </li>
-        <li>
-          <Link to={`${url}/beef`}>Beef</Link>
-        </li>
-        <li>
-          <Link to={`${url}/rice`}>Rice</Link>
-        </li>
-        <li>
-          <Link to={`${url}/eggs`}>Eggs</Link>
-        </li>
-      </ul>
-
-      <Switch>
-        <Route path={`${path}/:categoryId`}>
-          <Category />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-function SubCategoryMethod() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Sub-Categories</h2>
-      <ul>
-        <li>
-          <Link to={`${url}/instant`}>Instant Pot</Link>
-        </li>
-        <li>
-          <Link to={`${url}/slowcooker`}>Slow Cooker</Link>
-        </li>
-        <li>
-          <Link to={`${url}/quick`}>Quick Prep</Link>
-        </li>
-      </ul>
-
-      <Switch>
-        <Route path={`${path}/:categoryId`}>
-          <Category />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-function SubCategoryDiet() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Sub-Categories</h2>
-      <ul>
-        <li>
-          <Link to={`${url}/gf`}>Gluten Free</Link>
-        </li>
-        <li>
-          <Link to={`${url}/keto`}>Keto</Link>
-        </li>
-        <li>
-          <Link to={`${url}/vegetarian`}>Vegetarian</Link>
-        </li>
-      </ul>
-
-      <Switch>
-        <Route path={`${path}/:categoryId`}>
-          <Category />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-
-
-
-
-
-
