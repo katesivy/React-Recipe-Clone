@@ -34,11 +34,12 @@ function Navbar() {
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Categories
                              </a>
+                             {/* if categories are clicked, send to user category "page" */}
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a className="dropdown-item" href="/type">Meal Type</a>
-                                    <a className="dropdown-item" href="/mains">Main Ingredient</a>
-                                    <a className="dropdown-item" href="/diet">Diet</a>
-                                    <a className="dropdown-item" href="/method">Cooking Method</a>
+                                    <a className="dropdown-item" href="/category">Meal Type</a>
+                                    <a className="dropdown-item" href="/category">Main Ingredient</a>
+                                    <a className="dropdown-item" href="/category">Diet</a>
+                                    <a className="dropdown-item" href="/category">Cooking Method</a>
                                 </div>
                             </li>
                         </ul>

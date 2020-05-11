@@ -1,6 +1,7 @@
 import React from "react";
+import OptionsPage from "./OptionsPage";
 
-export default function Home() {
+export default function Home(props) {
     return (
         <>
             <div className="jumbotron jumbotron-fluid" id="jumbContainer">
@@ -16,49 +17,9 @@ export default function Home() {
             </div>
 
             <div className="row p-3" id="cardRow">
+                {/* if cards are clicked, display recipeList */}
+                <OptionsPage options={props.attributeArray} goTo={props.setUrl} />
 
-                <div className="col-lg-3 col-sm-12  offset 1">
-                    <div className="card" >
-                        <img src="./Images/oatmeal.jpeg" className="card-img-top" id="categoryPic" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Breakfast</h5>
-                            {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
-                            <a href="#" className="btn btn-secondary">See more</a>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-lg-3 col-sm-12 offset 1">
-                    <div className="card" >
-                        <img src="./Images/sandwich.jpeg" className="card-img-top" id="categoryPic" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Lunch</h5>
-                            {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
-                            <a href="#" className="btn btn-secondary">See more</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-lg-3 col-sm-12   offset 1">
-                    <div className="card" >
-                        <img src="./Images/pizza.jpeg" className="card-img-top" id="categoryPic" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Dinner</h5>
-                            {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
-                            <a href="#" className="btn btn-secondary">See more</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-lg-3 col-sm-12 offset 1">
-                    <div className="card" >
-                        <img src="./Images/cake.jpeg" className="card-img-top" id="categoryPic" alt="picture of cake" />
-                        <div className="card-body">
-                            <h5 className="card-title">Dessert</h5>
-                            {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
-                            <a href="#" className="btn btn-secondary">See more</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </>
 
