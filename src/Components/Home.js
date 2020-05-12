@@ -17,9 +17,9 @@ export default function Home(props) {
             </div>
 
             <div className="row p-3" id="cardRow">
-                {/* if cards are clicked, display recipeList */}
-                <OptionsPage options={props.attributeArray} goTo={props.setUrl} />
-
+{/* if cards are clicked, display recipeList */}
+             <OptionsPage options={props.optionsArray} goTo={props.setUrl}/>
+              
             </div>
         </>
 

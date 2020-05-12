@@ -11,7 +11,7 @@ import Navbar from './Components/Navbar';
 // import Login from './Components/Login';
 import Footer from './Components/Footer';
 import RecipeList from './Components/RecipeList';
-// import Category from './Components/Category';
+import SubCategory from './Components/SubCategory';
 import OptionsPage from './Components/OptionsPage';
 import axios from 'axios';
 
@@ -28,11 +28,11 @@ import {
 
 function App() {
   const history = useHistory();
-  console.log(history);
+  // console.log(history);
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState(history.location.pathname.split('/recipes')[1]);
-  console.log(url);
+  // console.log(url);
   useEffect(() => {
 
     const fetchData = async () => {
@@ -41,12 +41,11 @@ function App() {
       console.log(result.data.data);
       setIsLoading(false);
     }
-
     fetchData();
   }, []);
 
-  console.log(recipes);
-  const attributeArray = [{
+  // console.log(recipes);
+  const optionsArray = [{
     type: 'meal type',
     image: './Images/panini.jpeg',
     subtypes: ['breakfast', 'lunch', 'dinner', 'dessert'],
@@ -54,64 +53,52 @@ function App() {
   }, {
     type: 'main ingredient',
     image: './Images/chowder.jpeg',
-    subtypes: ['breakfast', 'lunch', 'dinner', 'dessert'],
+    subtypes: ['chicken', 'beef', 'rice', 'eggs'],
     url: '/mainingredient'
   }, {
     type: 'diet',
     image: './Images/pizza.jpeg',
-    subtypes: ['breakfast', 'lunch', 'dinner', 'dessert'],
+    subtypes: ['gluten free', 'keto', 'vegetarian', 'dairy free'],
     url: '/diet'
   }, {
     type: 'cooking method',
     image: './Images/poundcake.jpeg',
-    subtypes: ['breakfast', 'lunch', 'dinner', 'dessert'],
+    subtypes: ['quick prep', 'slow cooker', 'instant pot', 'one dish'],
     url: '/cookingmethod'
   }]
+  
   return (
-   
 
-      
-      <Switch>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-     
+    <Switch>
+      <Route path="/profile">
+        <Profile />
+      </Route>
 
-        <Route path="/recipes">
-          <RecipeList url={url} options={attributeArray} recipes={recipes}/>
-        </Route>
+      <Route path="/recipes/1">
+        <RecipeList options={optionsArray}  recipes={recipes} />
+      </Route>
 
-        <Route path="/">
+      <Route path="/recipes/:url">
+        <SubCategory url={url} options={optionsArray} recipes={recipes} />
+      </Route>
 
-          {/* <Login /> */}
-          <Home attributeArray={attributeArray} setUrl={setUrl} />
+      <Route path="/">
 
+        {/* <Login /> */}
+        <Home optionsArray={optionsArray} setUrl={setUrl} />
 
-        </Route>
-      </Switch>
-      
-
-   
+      </Route>
+    </Switch>
   );
 }
 
 function Wrapper() {
   return (
     <Router>
-    <Navbar />
-    <App />
-    <Footer />
+      <Navbar />
+      <App />
+      <Footer />
     </Router>
   )
 }
 export default Wrapper;
-// function Category() {
-
-//   let { categoryId } = useParams();
-
-//   return (
-//     <div>
-//       <h3>{categoryId}</h3>
-//     </div>
-//   );
-// }

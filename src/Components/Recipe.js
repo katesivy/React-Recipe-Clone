@@ -38,10 +38,11 @@ export default function Recipe(props) {
                         <p className="card-text font-weight-bold">Servings:
                         </p>
                         <p>{props.servings}</p>
-                        <p className="card-text font-weight-bold">Cooking Time:
+                        <p className="card-text font-weight-bold">Cooking Time:           
                       </p>
                         {props.cooking_time}
                         <p className="card-text font-weight-bold">Tags:
+  
                           </p>
                         <p>
                             {tagsMap}
