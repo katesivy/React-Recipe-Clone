@@ -40,7 +40,7 @@ export default function Recipe(props) {
                         <p>{props.servings}</p>
                         <p className="card-text font-weight-bold">Cooking Time:           
                       </p>
-                        {props.cooking_time}
+                        {props.cooking_time}minutes
                         <p className="card-text font-weight-bold">Tags:
   
                           </p>

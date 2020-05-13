@@ -1,5 +1,5 @@
 import React from "react";
-import OptionsPage from "./OptionsPage";
+import Options from "./Options";
 
 export default function Home(props) {
     return (
@@ -17,8 +17,8 @@ export default function Home(props) {
             </div>
 
             <div className="row p-3" id="cardRow">
-{/* if cards are clicked, display recipeList */}
-             <OptionsPage options={props.optionsArray} goTo={props.setUrl}/>
+
+             <Options options={props.optionsArray} goTo={props.setUrl}/>
               
             </div>
         </>

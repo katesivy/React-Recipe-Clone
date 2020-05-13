@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useHistory,
+    Link,
+    useParams,
+    useRouteMatch
+} from "react-router-dom";
 
-function Navbar() {
+function Navbar(props) {
     return (
         <>
             <nav className="navbar navbar-light bg-light">
@@ -34,12 +43,14 @@ function Navbar() {
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Categories
                              </a>
+                            {console.log(props.type)};
                              {/* if categories are clicked, send to user category "page" */}
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a className="dropdown-item" href="/category">Meal Type</a>
-                                    <a className="dropdown-item" href="/category">Main Ingredient</a>
-                                    <a className="dropdown-item" href="/category">Diet</a>
-                                    <a className="dropdown-item" href="/category">Cooking Method</a>
+                                    {/* <Link onClick={() => setSubtype(props.item)} to={url + '/' + item}>{props.type}</Link> */}
+                                    {/* <a className="dropdown-item" href="/SubCategory">Meal Type</a> */}
+                                    {/* <a className="dropdown-item" href="/SubCategory">Main Ingredient</a>
+                                    <a className="dropdown-item" href="/SubCategory">Diet</a>
+                                    <a className="dropdown-item" href="/SubCategory">Cooking Method</a> */}
                                 </div>
                             </li>
                         </ul>
