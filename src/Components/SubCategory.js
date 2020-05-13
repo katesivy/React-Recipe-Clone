@@ -29,8 +29,8 @@ export default function SubCategory(props) {
 
     const subcategories = props.options ? option.subtypes.map((item, index) => {
         console.log(item);
+        {console.log(option.image)}
         return (
-
             <div className="col-lg-3 col-sm-12  offset 1" >
                 <Link onClick={() => setSubtype(item)} to={url + '/' + item}>
                     <div className="card" key={index} >

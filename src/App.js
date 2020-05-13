@@ -76,7 +76,7 @@ function App() {
       </Route>
 
       <Route path="/">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} />
+        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
         <Home optionsArray={optionsArray} setUrl={setUrl} />
       </Route>
     </Switch>

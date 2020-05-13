@@ -32,16 +32,17 @@ export default function RecipeList(props) {
           <div className="card ">
             <div className="card-header text-center text-wrap overflow-auto" id="recipeCard" >
               <h4 className="font-weight-bold"> {item.title}</h4>
-              <img src={item.image} className="card-img" id="pic" alt="pic"></img>
+              <img src="./Images/sandwich.png" className="card-img" id="pic" alt="pic"></img>
               <p className="font-weight-bold">Ingredients:</p>
                      
-                              {item.directions.map((direction, key)=>   
+                              {/* {item.directions.map((direction, key)=>   
                                <p>{direction} </p>    
-                               )}
+                               )} */}
                               {console.log(item.directions)}
                           
               <p className="font-weight-bold">Directions: </p>
                         <p>{item.directions[0].direction}</p>
+
               <p className="card-text font-weight-bold">Servings:</p>
               <p>{item.servings}</p>
               <p className="card-text font-weight-bold">Cooking Time:</p>
