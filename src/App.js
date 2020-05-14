@@ -6,7 +6,8 @@ import Profile from './Components/Profile';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import SubCategory from './Components/SubCategory';
-// import Login from './Components/Login';
+import Login from './Components/Login';
+import Register from './Components/Register';
 import axios from 'axios';
 
 
@@ -43,21 +44,29 @@ function App() {
     type: 'Meal Type',
     image: './Images/panini.jpeg',
     subtypes: ['breakfast', 'lunch', 'dinner', 'dessert'],
+    subtypeImage: ['/Image/eggs.png', '/Image/poptarts.png', '/Image/pizza.png',
+      '/Image/ribeye.png'],
     url: '/mealtype',
   }, {
     type: 'Main Ingredient',
     image: './Images/chowder.jpeg',
     subtypes: ['chicken', 'beef', 'rice', 'eggs'],
+    subtypeImage: ['/Image/eggs.png', '/Image/poptarts.png', '/Image/pizza.png',
+      '/Image/ribeye.png'],
     url: '/mainingredient'
   }, {
     type: 'Diet',
     image: './Images/pizza.jpeg',
     subtypes: ['gluten free', 'keto', 'vegetarian', 'dairy free'],
+    subtypeImage: ['/Image/eggs.png', '/Image/poptarts.png', '/Image/pizza.png',
+      '/Image/ribeye.png'],
     url: '/diet'
   }, {
     type: 'Cooking Method',
     image: './Images/poundcake.jpeg',
     subtypes: ['quick prep', 'slow cooker', 'instant pot', 'one dish'],
+    subtypeImage: ['/Image/eggs.png', '/Image/poptarts.png', '/Image/pizza.png',
+      '/Image/ribeye.png'],
     url: '/cookingmethod'
   }]
 
@@ -65,9 +74,19 @@ function App() {
 
     <Switch>
       <Route path="/profile">
+        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
         <Profile />
       </Route>
 
+      <Route path="/login">
+        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
+        <Login />
+      </Route>
+      
+      <Route path="/register">
+        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
+        <Register />
+      </Route>
 
 
       <Route path="/recipes/:url">
@@ -79,6 +98,8 @@ function App() {
         <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
         <Home optionsArray={optionsArray} setUrl={setUrl} />
       </Route>
+
+     
     </Switch>
   );
 }

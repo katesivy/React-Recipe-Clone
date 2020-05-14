@@ -25,16 +25,22 @@ export default function SubCategory(props) {
     //  console.log(option);
     let { path, url } = useRouteMatch();
     // console.log({ path });
-     console.log(option.subtypes);
-
+     console.log(option.subtypeImage);
+    const pic= option.subtypeImage.map((image, key)=>  { 
+        return (
+            image 
+        ) 
+    }); 
+    console.log(pic[0]);
     const subcategories = props.options ? option.subtypes.map((item, index) => {
-        console.log(item);
-        {console.log(option.image)}
+        // console.log(option.subtypeImage);
+         
         return (
             <div className="col-lg-3 col-sm-12  offset 1" >
                 <Link onClick={() => setSubtype(item)} to={url + '/' + item}>
-                    <div className="card" key={index} >
-                        <img src={option.image} className="card-img-top" id="categoryPic" alt="category picture" />
+                    <div className="card bg bg-secondary text-light" key={index} >
+                        {/* <img src={pic}       
+                        className="card-img-top" id="categoryPic" alt="category picture" /> */}
                         <div className="card-body">
                             <h5 className="card-title">{item}</h5>
                         </div>
@@ -42,12 +48,14 @@ export default function SubCategory(props) {
                 </Link>
             </div>
         )
+       
     }) : <h2>no recipes found</h2>;
 
     return (
         <>
             <div className="row">
                 {subcategories}
+
             </div>
 
             <Switch>

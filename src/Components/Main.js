@@ -89,3 +89,84 @@
     //         mappedRecipes
     //     )
     // // };
+
+
+       // protected function generateAccessToken($user)
+    // {
+    //     $token = $user->createToken($user->email.'-'.now());
+
+    //     return $token->accessToken;
+    // }
+    // public function register(Request $request)
+    // {
+    //     $name = $request->input(‘name’);
+    //     $this->validate(request(), [
+    //         ‘name’ => ‘required’,
+    //         ‘email’ => ‘required|email’,
+    //         ‘password’ => ‘required’
+    //     ]);
+    //     $user = User::create([
+    //         ‘name’ => $request[‘name’],
+    //         ‘email’ => $request[‘email’],
+    //         ‘password’ => Hash::make($request[‘password’]),
+    //     ]);
+    //     $token = $user->createToken(‘Laravel Password Grant Client’)->accessToken;
+    //     $user->profile = $createprofile;
+    //     $user->role = $request->role;
+    //     $response = [
+    //         ‘token’ => $token,
+    //         ‘user’ => $user,
+    //     ];
+    //     return response($response, 200);
+    // }
+
+
+
+
+// public function register(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required', 
+    //         'email' => 'required|email', 
+    //         'password' => 'required|min:6'
+    //     ]);
+
+
+    //     $user = User::create([
+    //         'name' => $request->name, 
+    //         'email' => $request->email, 
+    //         'password' => bcrypt($request->password)
+    //     ]);
+
+    //     return response()->json($user);
+    // }
+
+    // public function login(Request $request)
+    // {
+    //     $user = User::where('email', $request->email)->first();
+    //     if ($user) {
+    //         if (Hash::check($request->password, $user->password) {
+    //             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+
+    //                 'token' => $token,
+    //                 'user' => $user
+    //             ];
+    //             return response($response, 200);
+    //         } else {
+    //             $response = 'Password mismatch';
+    //             return response($response, 422);
+    //         } else {
+    //             $response = 'User doesn\t exist';
+    //             return response ($response, 422);
+    //         }
+    //     }
+    //     if( Auth::attempt(['email'=>$request->email, 'password'=>$request->password]) ) {
+    //     $user = Auth::user();
+
+    //     $token = $user->createToken($user->email.'-'.now());
+
+    //     return response()->json([
+    //         'token' => $token->accessToken
+    //          ]);
+    //     }
+    // }

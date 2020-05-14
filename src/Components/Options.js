@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Options(props) {
     const mappedOptions = props.options.map((item, index) => {
-
+// console.log(item.image)
         return (
         
             <div className="col-lg-3 col-sm-12  offset 1" key={index}>
