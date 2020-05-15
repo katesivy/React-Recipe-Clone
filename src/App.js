@@ -75,7 +75,7 @@ function App() {
     <Switch>
       <Route path="/profile">
         <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
-        <Profile />
+        <Profile optionsArray={optionsArray} recipes={recipes}/>
       </Route>
 
       <Route path="/login">

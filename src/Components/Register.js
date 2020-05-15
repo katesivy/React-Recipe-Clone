@@ -74,10 +74,10 @@ export default function Register() {
                         <label for="exampleInputPassword1">Password</label>
                         <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" value={password} className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label for="exampleInputPassword2">Confirm Password</label>
                         <input onChange={(e) => setPassword(e.target.value)} type="password" name="confirmPassword" value={confirmPassword} className="form-control" id="exampleInputPassword2" placeholder="Confirm Password"></input>
-                    </div>
+                    </div> */}
                     <button type="submit" className="btn btn-secondary">Register</button>
                 </form>
             </div>

@@ -15,9 +15,8 @@ import {
 export default function SubCategory(props) {
     // console.log(props.options);
     // const lowerprops = props.subtype.toLowerCase();
-    console.log(props);
+    // console.log(props);
     const [subtype, setSubtype] = useState('');
-
     // console.log(props.url);
     const splitUrl = '/' + props.url.split('/')[1];
     // console.log(splitUrl, props);
@@ -25,13 +24,13 @@ export default function SubCategory(props) {
     //  console.log(option);
     let { path, url } = useRouteMatch();
     // console.log({ path });
-     console.log(option.subtypeImage);
+    //  console.log(option.subtypeImage);
     const pic= option.subtypeImage.map((image, key)=>  { 
         return (
             image 
         ) 
     }); 
-    console.log(pic[0]);
+    // console.log(pic[0]);
     const subcategories = props.options ? option.subtypes.map((item, index) => {
         // console.log(option.subtypeImage);
          
