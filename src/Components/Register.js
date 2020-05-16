@@ -8,7 +8,7 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     // const [info, setInfo] = useState('');
-    const [regInfo, setRegInfo] = useState('');
+    // const [regInfo, setRegInfo] = useState('');
     const [activeTab, setActiveTab] = useState('register');
     const [loggedIn, setLoggedIn] = useState(false);
 
@@ -19,12 +19,13 @@ export default function Register() {
             name: name,
             email: email,
             password: password,
-            confirmPassword: confirmPassword
+            // confirmPassword: confirmPassword
         }
         axios.post('http://127.0.0.1:8000/api/register', regInfo)
             .then(response => {
-                setRegInfo(response.data.data)
+                // setRegInfo(response.data.data)
                 console.log(response.data.data)
+                // set loggedIn=true
             })
             .catch(error => {
                 console.log(error)

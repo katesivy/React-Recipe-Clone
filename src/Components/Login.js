@@ -14,6 +14,7 @@ export default function Login() {
     const [activeTab, setActiveTab] = useState('');
     const [loggedIn, setLoggedIn] = useState('');
     const [url, setUrl] = useState('');
+    const [auth, setAuth] = useState({});
 
 
      const userLogin = async (e) =>  {
@@ -27,32 +28,36 @@ export default function Login() {
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
+                let x = JSON.stringify(response.data);
+                localStorage.setItem('auth', x);
+                setLoggedIn(true);
+                setAuth(response.data);
             })
             .catch(error => {
                 console.log(error)
             });
- 
-        setLoggedIn(true);
-         // if (loggedIn === true) {
-        //     <Profile info={info}/>
-        // }
     }
+    
     const userLogout = (e) => {
         e.preventDefault();
-        const info = {
-            email: email,
-            password: password
+        // const info = {
+        //     email: email,
+        //     password: password
+        // }
+        const logOut = {
+            headers: {Authorization: "Bearer" + auth.token }
         }
-        axios.post('http://127.0.0.1:8000/api/logout', info)
+        axios.post('http://127.0.0.1:8000/api/logout', logOut)
             .then(response => {
-                setInfo(response.data)
+                // setInfo(response.data)
                 console.log(response.data);
             })
             .catch(error => {
                 console.log(error)
             });
 
-        // setLoggedIn(false);
+        setLoggedIn(false);
+        localStorage.clear();
        
     }
 
@@ -60,30 +65,38 @@ export default function Login() {
    
     return (
         <>
-            <div className="row ">
+            <div className="row text-light">
                 <div className="col-4">
                 </div>
-                <div className="col-2  p-3 bg bg-light text-dark border border-dark">
-                    <ul className="nav nav-pills nav-fill ">
-                        <li className="nav-item ">
+                <div className="col-2  p-3 " id="btn">
+                    {/* <ul className="nav nav-pills nav-fill" > */}
+                    <button type="button" className="btn btn-secondary text-light" id="btn1">
                             <a className={activeTab === "login" ? "active" : ''} href="/login"
                                 onClick={() => setActiveTab('login')}>Login</a>
-                        </li>
-                    </ul>
+                       </button>
+                    {/* </ul> */}
                 </div>
-                <div className="col-2  p-3 bg bg-light text-dark border border-dark">
-                    <ul className="nav nav-pills nav-fill ">
-                        <li className="nav-item ">
+                <div className="col-2  p-3" id="btn">
+                    
+                        <button type="button" className="btn btn-secondary text-light" id="btn1" >
                             <a className={activeTab === "register" ? "active" : ''} href="/register"
                                 onClick={() => setActiveTab('register')}>Register</a>
-                        </li>
-                    </ul>
+                        </button>
+                   
                 </div>
                 <div className="col-4">
                 </div>
             </div>
 
-
+    {loggedIn ? 
+        <div className="row">
+                <div className="col-10 offset-1">
+                    <form onSubmit={userLogout}>
+                        <button type="submit" className="btn btn-secondary">Logout</button>
+                    </form>
+                </div>
+            </div>
+            :
             <div className="row">
                 <div className="col-10 offset-1">
                     <form onSubmit={userLogin}>
@@ -103,14 +116,8 @@ export default function Login() {
                     </form>
                 </div>
             </div>
-
-            <div className="row">
-                <div className="col-10 offset-1">
-                    <form onSubmit={userLogout}>
-                        <button type="submit" className="btn btn-secondary">Logout</button>
-                    </form>
-                </div>
-            </div>
+           
+    }
         </>
     )
 }
