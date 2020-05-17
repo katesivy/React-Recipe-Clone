@@ -1,6 +1,6 @@
 import React, { useState, useEffect, userLogin } from 'react';
 import Profile from './Profile';
-import { Link } from 'react-router-dom';
+import { Link, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
@@ -15,7 +15,7 @@ export default function Login() {
     const [loggedIn, setLoggedIn] = useState('');
     const [url, setUrl] = useState('');
     const [auth, setAuth] = useState({});
-
+    const [storageData, setStorageData] = useState({});
 
      const userLogin = async (e) =>  {
         e.preventDefault();
@@ -28,8 +28,8 @@ export default function Login() {
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
-                let x = JSON.stringify(response.data);
-                localStorage.setItem('auth', x);
+                let storageData = JSON.stringify(response.data);
+                localStorage.setItem('auth', storageData);
                 setLoggedIn(true);
                 setAuth(response.data);
             })
@@ -37,6 +37,7 @@ export default function Login() {
                 console.log(error)
             });
     }
+    console.log(storageData);
     
     const userLogout = (e) => {
         e.preventDefault();
@@ -69,20 +70,20 @@ export default function Login() {
                 <div className="col-4">
                 </div>
                 <div className="col-2  p-3 " id="btn">
-                    {/* <ul className="nav nav-pills nav-fill" > */}
+                    <ul className="nav nav-pills nav-fill" >
                     <button type="button" className="btn btn-secondary text-light" id="btn1">
                             <a className={activeTab === "login" ? "active" : ''} href="/login"
                                 onClick={() => setActiveTab('login')}>Login</a>
                        </button>
-                    {/* </ul> */}
+                    </ul>
                 </div>
                 <div className="col-2  p-3" id="btn">
-                    
+                <ul className="nav nav-pills nav-fill" >
                         <button type="button" className="btn btn-secondary text-light" id="btn1" >
                             <a className={activeTab === "register" ? "active" : ''} href="/register"
                                 onClick={() => setActiveTab('register')}>Register</a>
                         </button>
-                   
+                        </ul>
                 </div>
                 <div className="col-4">
                 </div>
@@ -110,14 +111,14 @@ export default function Login() {
                             <label for="exampleInputPassword1">Password</label>
                             <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" value={password} className="form-control " id="exampleInputPassword1" placeholder="Password"></input>
                         </div>
-                        {/* <Link onClick={() => setUrl(url)} to={'/profile'}>  */}
+                        <Link onClick={() => setUrl(url)} to={'/profile'} storageData={storageData}> 
                         <button type="submit" className="btn btn-secondary">Login</button>
-                        {/* </Link> */}
+                        </Link>
                     </form>
                 </div>
             </div>
-           
-    }
+          
+        }
         </>
     )
 }

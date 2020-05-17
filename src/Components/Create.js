@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-export default function CreateRecipeForm(props) {
+export default function Create(props) {
     const [info, setInfo] = useState('');
     // const [ingredientsList, setIngredientsList] = useState([]);
     const [tagsList, setTagsList] = useState([]);
@@ -14,20 +14,6 @@ export default function CreateRecipeForm(props) {
     const [cooking_time, setCooking_time] = useState('');
     const [image, setImage] = useState('');
     const [tags, setTags] = useState('');
-
-
-    useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/tags')
-            .then(response => {
-                console.log(response.data.data);
-                setTagsList(response.data.data);
-            })
-            .catch(error => {
-                console.log(error)
-            });
-
-    }, []);
-
 
     const ingredList = props.ingredientsList.map((item, index) => {
         return (
@@ -104,8 +90,9 @@ export default function CreateRecipeForm(props) {
             });
     }
 
-
+    console.log(props.storageData);
     return (
+        <div className="container" id="createform">
         <div className="row text-center">
             <div className="col-10 offset-1">
                 <br></br>
@@ -166,6 +153,6 @@ export default function CreateRecipeForm(props) {
                 </form>
             </div>
         </div>
-
+        </div>
     )
 }

@@ -34,10 +34,10 @@ export default function Register() {
 
     return (
         <>
-        <div className="row ">
+        <div className="row">
             <div className="col-4">
             </div>
-            <div className="col-2  p-3 bg bg-light text-dark border border-dark">
+            <div className="col-2  p-3 m-3 text-white border border-dark" id="logregBtn">
                 <ul className="nav nav-pills nav-fill ">
                     <li className="nav-item ">
                         <a className={activeTab === "login" ? "active" : ''} href="/login"
@@ -45,7 +45,7 @@ export default function Register() {
                     </li>
                 </ul>
             </div>
-            <div className="col-2  p-3 bg bg-light text-dark border border-dark">
+            <div className="col-2  p-3 m-3 text-white border border-dark" id="logregBtn">
                 <ul className="nav nav-pills nav-fill ">
                     <li className="nav-item ">
                         <a className={activeTab === "register" ? "active" : ''} href="/register"
