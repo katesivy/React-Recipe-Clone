@@ -54,7 +54,7 @@ export default function SubCategory(props) {
                 <Route exact path={path}>
                 </Route>
                 <Route path={`${path}/:subtype`}>
-                    <RecipeList recipes={props.recipes} subtype={subtype} />
+                    <RecipeList recipes={props.recipes} subtype={subtype} options={props.optionsArray} setId={props.setId}/>
                 </Route>
             </Switch>
 

@@ -34,7 +34,6 @@ export default function Create(props) {
     for (let i = 0; i < numRows; i++) {
         let inputIngredient = "inputIngredient" + i;
         let inputQuantity = "inputQuantity" + i;
-        // console.log(inputIngredient);
         ingredientRows.push(
             <div className="form-group row">
                 <label for={inputIngredient} className="col-sm-2 col-form-label">Ingredients</label>
@@ -55,38 +54,13 @@ export default function Create(props) {
     console.log({ingredValue});
     console.log(inputIngred);
 
-    // ,  ingredients.push({ingredValue})
 const createRecipe = (e) => {
     e.preventDefault();
-    console.log(ingredValue);
-        console.log('createRecipe');
-        // let ingredLength = ingredList.length;
-        //build ingredient array
-        let ingredArray = props.ingredientsList.map((item, index) => {
-            return (
-                item.ingredient
-            )
-        })
-        // console.log(ingredArray);
-        //look thru the form for ingredientN elements
-        console.log(ingredients);
-        // let newIngredList = ingredArray.push(inputIngredient);
-        // console.log(newIngredList);    
-
-        //add an object to the array for each ingrenientN element
-        const info = {
-            title: title,
-            // ingredients: [{ 'id': 1, 'quantity': '3cups' },],
-            ingredients: [{ 'id': ingredients.id, 'quantity': quantity}],
-            directions: direction,
-            servings: servings,
-            cooking_time: cooking_time,
-            image: image,
-            tags: tags
-
-        }
+   
+    
+       
         console.log(info);
-        axios.post('http://127.0.0.1:8000/api/createform', info)
+        axios.post('http://127.0.0.1:8000/api/updateform', info)
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);

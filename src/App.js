@@ -10,6 +10,8 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import Create from './Components/Create';
 import View from './Components/View';
+import AllRecipes from './Components/AllRecipes';
+import RecipeDisplay from './Components/RecipeDisplay';
 import axios from 'axios';
 
 
@@ -32,6 +34,7 @@ function App() {
   const [tagsList, setTagsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState(history.location.pathname.split('/recipes')[1]);
+  const [id, setId] = useState('');
   //  console.log(url);
 
   useEffect(() => {
@@ -64,7 +67,7 @@ function App() {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/tags')
       .then(response => {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         setTagsList(response.data.data);
       })
       .catch(error => {
@@ -97,52 +100,52 @@ function App() {
   }]
 
   return (
+    <>
+      <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} setId={setId} />
+      <Switch>
+        <Route path="/profile">
+          <Profile setUrl={setUrl} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} tagsList={tagsList} />
+        </Route>
 
-    <Switch>
-      <Route path="/profile">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
-        <Profile setUrl={setUrl} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} tagsList={tagsList} />
-      </Route>
+        <Route path="/create">
+          <Profile />
+          <Create recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
+        </Route>
 
-      <Route path="/create">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
-        <Profile />
-        <Create recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
-      </Route>
+        <Route path="/view">
+          <Profile setId={setId} />
+          <View recipes={recipes} setUrl={setUrl} goTo={setUrl} setId={setId} />
+        </Route>
 
-      <Route path="/view">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
-        <Profile />
-        <View recipes={recipes} setUrl={setUrl} goTo={setUrl} />
-      </Route>
+        <Route path="/recipe">
+          <RecipeDisplay recipes={recipes} id={id} />
+        </Route>
 
-      <Route path="/login">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
-        <Login />
-
-      </Route>
-
-      <Route path="/register">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
-        <Register />
-
-      </Route>
+        <Route path="/all">
+          <AllRecipes recipes={recipes} setId={setId} />
+        </Route>
 
 
-      <Route path="/recipes/:url">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} />
-        <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} />
+        <Route path="/login">
+          <Login />
+        </Route>
 
-      </Route>
-
-      <Route path="/">
-        <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
-        <Home optionsArray={optionsArray} setUrl={setUrl} />
-
-      </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
 
 
-    </Switch>
+        <Route path="/recipes/:url">
+          <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} setId={setId} />
+        </Route>
+
+        <Route exact path="/">
+          <Home optionsArray={optionsArray} setUrl={setUrl} />
+        </Route>
+
+      </Switch>
+      <Footer />
+    </>
   );
 }
 
@@ -150,7 +153,6 @@ function Wrapper() {
   return (
     <Router>
       <App />
-      <Footer />
     </Router>
   )
 }

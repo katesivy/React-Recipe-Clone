@@ -12,9 +12,9 @@ export default function Home(props) {
 
             <div className="row p-3" id="cardRow">
 
-             <Options options={props.optionsArray} goTo={props.setUrl}/>
-              
+                <Options options={props.optionsArray} goTo={props.setUrl} />
             </div>
+
         </>
 
     );

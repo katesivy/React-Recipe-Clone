@@ -27,13 +27,12 @@ export default function View(props) {
 
     const displayedRecipes = userRecipes.map((item, index) => {
         return (
-        //    Link to view recipe as full page
+        //    Link to reroute to ModifyForm
+        // include props w/ displayedRecipes
                 <div className="col-sm-12 col-lg-4 " key={index}>
                     <div className=" text-left  p-3" id="recipe">
                         <div className="card-header text-center text-wrap overflow-auto m-3 " id="recipeView" >
-                        {/* <Link onClick={() => props.setId(item.id)} to={'/recipe'}> */}
                             <h4 className=" border border-secondary p-2"> {item.title}</h4>
-                            {/* </Link> */}
                           <br></br>
                             <p className="font-weight-bold text-left">Ingredients:</p>
                             {item.ingredients.map((ingredient, key) =>
