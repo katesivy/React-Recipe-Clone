@@ -8,7 +8,7 @@ import {
 
 
 function Navbar(props) {
-    console.log(props);
+    // console.log(props);
     const history = useHistory();
     const [url, setUrl] = useState(history.location.pathname.split('/recipes')[1]);
     const [loggedIn, setLoggedIn] = useState('');

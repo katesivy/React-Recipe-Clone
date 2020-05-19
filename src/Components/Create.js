@@ -1,93 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 export default function Create(props) {
-    const [info, setInfo] = useState('');
-    const [ingredientsList, setIngredientsList] = useState([]);
-    const [tagsList, setTagsList] = useState([]);
+    // State variables
     const [title, setTitle] = useState('');
-    const [ingredients, setIngredients] = useState([]);
     const [direction, setDirection] = useState('');
-    const [quantity, setQuantity] = useState('');
     const [servings, setServings] = useState('');
     const [cooking_time, setCooking_time] = useState('');
     const [image, setImage] = useState('');
     const [tags, setTags] = useState('');
-    const [ingredValue, setIngredValue] = useState('');
-    const [userAddedingredients, setUserAddedIngredients] = useState([]);
-
-    const ingredList = props.ingredientsList.map((item, index) => {
+    //const use_this_array = props.newRecipe ? [] : props.recipies[props.specific_recipe].ingredientslist
+    const [ingredientRows, setIngredientRows] = useState( [] )//use_this_array);
+    
+    const ingredientOptions = props.ingredientsList.map((item, index) => {
         return (
-            <option key={index}>{item.ingredient}</option>
+            <option key={index} value={item.id}> {item.ingredient} </option>
         )
     });
 
-    const tagList = tagsList.map((item, index) => {
+    const tagList = props.tagsList.map((item, index) => {
         return (
-            <option key={index}>{item.category}</option>
+            <option key={index} value={item.id}>{item.category}</option>
         )
     });
 
-    const [numRows, setNumRows] = useState(1);
-    let inputIngred = [];
-    let ingredientRows = [];
-    for (let i = 0; i < numRows; i++) {
-        let inputIngredient = "inputIngredient" + i;
-        let inputQuantity = "inputQuantity" + i;
-        // console.log(inputIngredient);
-        ingredientRows.push(
-            <div className="form-group row">
-                <label for={inputIngredient} className="col-sm-2 col-form-label">Ingredients</label>
-                <div className="col-sm-6">
-                    <select onChange={(e) =>setIngredValue(e.target.value)} type="dropdown" className="form-control" id={inputIngredient}  placeholder="Choose an ingredient">
-                        <option>select</option>
-                        {ingredList}
-                    </select>
-
-                </div>
-                <label for={inputQuantity} className="col-sm-2 col-form-label">Quantity</label>
-                <div className="col-sm-2">
-                    <input type="text" className="form-control" id={inputQuantity} placeholder="Quantity"></input>
-                </div>
-            </div>
-        )
+    const addUserIngredient = () => {
+        setIngredientRows([...ingredientRows, { index: ingredientRows.length }])
     }
-    userAddedingredients.push({'id':0, 'quantity':""});
-    console.log({ingredValue});
-    console.log(inputIngred);
-const addUserIngredient = (e) => {
-    // add a blank ingredient object to the state ingredientArray
-    userAddedingredients.push({'id':0, 'quantity':""});
-    setUserAddedIngredients(userAddedingredients);
-}
 
-const updateUserIngredient = (e) => {
-    // update an item
-    // i would be the identifier of the form element
-    // property would be the form element property
-    // userAddedingredients[i][property] = e.target.value;
-    setUserAddedIngredients(userAddedingredients);
-}
+    function updateIngredientName(e, i) {
+        console.log("upadate name", e.target.value, i, props, ingredientRows)
+       
+        let newIngredientRows = [...ingredientRows]
 
-    // ,  ingredients.push({ingredValue})
-const createRecipe = (e) => {
-    e.preventDefault();
-    console.log(ingredValue);
+        for (var item of newIngredientRows) {
+            if (item.index == i) {
+                console.log("found specific item", item, i)
+                item.ingredient_id = e.target.value
+                break; //Stop this loop, we found it!
+            }
+        }
+        setIngredientRows([...newIngredientRows])
+    }
+    function updateIngredientQuantity(e, i) {
+
+        console.log("upadate quantity", e.target.value, i, props, ingredientRows)
+
+
+        let newIngredientRows = [...ingredientRows]
+
+        for (var item of newIngredientRows) {
+            if (item.index == i) {
+                console.log("found specific item", item, i)
+                item.quantity = e.target.value
+
+                break; //Stop this loop, we found it!
+            }
+        }
+        setIngredientRows([...newIngredientRows])
+    }
+
+
+
+    const createRecipe = (e) => {
+        e.preventDefault();
+        //console.log(ingredValue);
         console.log('createRecipe');
-        // let ingredLength = ingredList.length;
 
         // console.log(ingredArray);
         //look thru the form for ingredientN elements
-        console.log(ingredients);
-        // let newIngredList = ingredArray.push(inputIngredient);
-        // console.log(newIngredList);    
-
         //add an object to the array for each ingrenientN element
         const info = {
             title: title,
             // ingredients: [{ 'id': 1, 'quantity': '3cups' },],
-            ingredients: userAddedingredients,
+            ingredients: ingredientRows,
             directions: direction,
             servings: servings,
             cooking_time: cooking_time,
@@ -98,13 +84,36 @@ const createRecipe = (e) => {
         console.log(info);
         axios.post('http://127.0.0.1:8000/api/createform', info)
             .then(response => {
-                setInfo(response.data)
+                // setInfo(response.data)
                 console.log(response.data);
             })
             .catch(error => {
                 console.log(error)
             });
     }
+
+    const renderIngredientRows = ingredientRows.map((item, i) => {
+
+        let inputIngredient = "inputIngredient" + i;
+        let inputQuantity = "inputQuantity" + i;
+        return (
+            <div className="form-group row">
+                <label for={inputIngredient} className="col-sm-2 col-form-label">Ingredients</label>
+                <div className="col-sm-6">
+                    <select
+                        onChange={(e) => updateIngredientName(e, i)}
+                        type="dropdown" className="form-control" id={inputIngredient} placeholder="Choose an ingredient">
+                        <option>select</option>
+                        {ingredientOptions}
+                    </select>
+
+                </div>
+                <label for={inputQuantity} className="col-sm-2 col-form-label">Quantity</label>
+                <div className="col-sm-2">
+                    <input onChange={(e) => updateIngredientQuantity(e, i)} type="text" className="form-control" id={inputQuantity} placeholder="Quantity"></input>
+                </div>
+            </div>)
+    })
 
     return (
         <div className="container bg bg-light" id="createform">
@@ -121,7 +130,7 @@ const createRecipe = (e) => {
                             </div>
                         </div>
 
-                        {ingredientRows}
+                        {renderIngredientRows}
 
                         <div onClick={addUserIngredient} type="submit" class="btn btn-secondary my-1">Add Ingredient</div>
 
@@ -163,8 +172,8 @@ const createRecipe = (e) => {
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-secondary">Submit</button>
-
+                        <button type="submit" className="btn btn-secondary ">Submit</button>
+                        {/*  conditionally render disabled */}
                     </form>
                 </div>
             </div>
