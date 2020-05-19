@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 export default function Profile(props) {
 
+    const [url, setUrl] = useState('');
 
-    var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    var userInfo = JSON.parse(localStorage.getItem("auth"));
 
 
     return (
@@ -23,31 +24,33 @@ export default function Profile(props) {
 
                         <div className="col-sm-4" >
                             <div className="card text-center bg-light" id="profileCard">
-                                <div className="card-body">
+                                <div className="card-body mb-3">
                                     <h5 className="card-body">Create recipes</h5>
-                                    {/* <p className="card-text">Store your own rec.</p> */}
-                                    {/* <Link onClick={() =>props.goTo(url)} to={'/create'}>  */}
-                                    <a href="/create" className="btn btn-secondary text-light">Create</a>
+                                    <Link onClick={() => setUrl(url)} to={"/create"}>
+                                    <button className="btn btn-secondary">Create</button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-sm-4" >
                             <div className="card text-center bg-light" id="profileCard">
-                                <div className="card-body">
+                                <div className="card-body mb-3">
                                     <h5 className="card-body">Modify your recipes</h5>
-                                    {/* <p className="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                                    <a href="/modify" className="btn btn-secondary text-light">Modify</a>
+                                    <Link onClick={() => setUrl(url)} to={"/modify"}>
+                                    <button className="btn btn-secondary">Modify</button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-sm-4" >
                             <div className="card text-center bg-light" id="profileCard">
-                                <div className="card-body">
+                                <div className="card-body mb-3">
                                     <h5 className="card-body">View your recipes</h5>
-                                    {/* <p className="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                                    <a href="/view" className="btn btn-secondary text-light">View</a>
+                                    <Link onClick={() => setUrl(url)} to={"/view"}>
+                                    <button className="btn btn-secondary">View</button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -58,10 +61,23 @@ export default function Profile(props) {
 
             :
             <>
-                <h2>not logged in</h2>
-                <Link onClick={() => props.setUrl(props.url)} to={"/login"}>
-                    <button type="submit" className="btn btn-secondary">Login</button>
-                </Link>
+                <div className="card text-center">
+                    <div className="card-header">
+                        <br></br>
+                    </div>
+                    <div className="card-body">
+
+                        <h5 className="card-title">Please sign in</h5>
+                        <Link onClick={() => props.setUrl(props.url)} to={"/login"}>
+                            <button type="submit" className="btn btn-secondary">Login</button>
+                        </Link>
+                    </div>
+                    <div className="card-footer text-muted">
+                        <br></br>
+                    </div>
+                </div>
+
+
             </>
     )
 }

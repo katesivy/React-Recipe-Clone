@@ -34,9 +34,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState(history.location.pathname.split('/recipes')[1]);
   const [recipeId, setRecipeId] = useState(0);
-  const [userInfo, setUserInfo] = useState({});
+  // const [userInfo, setUserInfo] = useState({});
 
-// axios
+  // axios
   useEffect(() => {
     const fetchData = async () => {
       await axios.get('http://127.0.0.1:8000/api/recipes')
@@ -81,41 +81,41 @@ function App() {
   function storeId(recipeId) {
     setRecipeId(recipeId);
     localStorage.setItem("id", JSON.stringify(recipeId))
-};
+  };
 
-  function storeUserInfo(userInfo) {
-    setUserInfo(userInfo);
-    localStorage.setItem("user", JSON.stringify(userInfo))
-};
- 
+  // function storeUserInfo(userInfo) {
+  //   setUserInfo(userInfo);
+  //   localStorage.setItem("user", JSON.stringify(userInfo))
+  // };
+
   const optionsArray = [{
     type: 'Meal Type',
-    image: './Images/panini.jpeg',
+    image: './Images/pizza.jpeg',
     subtypes: ['breakfast', 'lunch', 'dinner', 'dessert'],
     url: '/mealtype',
   }, {
     type: 'Main Ingredient',
-    image: './Images/chowder.jpeg',
+    image: './Images/cake.jpeg',
     subtypes: ['chicken', 'broccoli', 'rice', 'eggs', 'cheese', 'chocolate', 'beef', 'potatoes', 'beans', 'tomatoes', 'corn', 'peaches'],
     url: '/mainingredient'
   }, {
     type: 'Diet',
-    image: './Images/pizza.jpeg',
+    image: './Images/chowder.jpeg',
     subtypes: ['gluten free', 'keto', 'vegetarian', 'dairy free'],
     url: '/diet'
   }, {
     type: 'Cooking Method',
-    image: './Images/poundcake.jpeg',
+    image: './Images/tourtiere.jpeg',
     subtypes: ['quick prep', 'slow cooker', 'instant pot', 'one dish'],
     url: '/cookingmethod'
   }]
 
   return (
     <>
-      <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl}  />
+      <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
       <Switch>
         <Route path="/profile">
-          <Profile setUrl={setUrl} recipes={recipes} setUrl={setUrl} ingredientsList={ingredientsList} tagsList={tagsList} storeUserInfo={storeUserInfo}/>
+          <Profile setUrl={setUrl} recipes={recipes} setUrl={setUrl} ingredientsList={ingredientsList} tagsList={tagsList} />
         </Route>
 
         <Route path="/create">
@@ -124,30 +124,29 @@ function App() {
         </Route>
 
         <Route path="/view">
-          <Profile  />
-          <View recipes={recipes} setUrl={setUrl} goTo={setUrl}  />
+          <Profile />
+          <View recipes={recipes} setUrl={setUrl}  />
         </Route>
 
         <Route path="/recipe">
-          <RecipeDisplay recipes={recipes} recipeId={recipeId}  />
+          <RecipeDisplay recipes={recipes} recipeId={recipeId} />
         </Route>
 
         <Route path="/all">
-          <AllRecipes recipes={recipes}  storeId={storeId} />
-        </Route>
-
-
-        <Route path="/login">
-          <Login setUrl={setUrl}/>
+          <AllRecipes recipes={recipes} storeId={storeId} />
         </Route>
 
         <Route path="/register">
-          <Register />
+          <Register setUrl={setUrl}/>
+        </Route>
+      
+        <Route path="/login">
+          <Login setUrl={setUrl} />
         </Route>
 
 
         <Route path="/recipes/:url">
-          <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList}  />
+          <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} storeId={storeId}/>
         </Route>
 
         <Route exact path="/">

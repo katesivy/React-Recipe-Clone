@@ -14,7 +14,7 @@ import {
 
 export default function View(props) {
     const [url, setUrl] = ('');
-    var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    var userInfo = JSON.parse(localStorage.getItem("auth"));
     var storageId = userInfo.user.id;
     console.log(storageId);
     

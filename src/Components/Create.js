@@ -15,6 +15,7 @@ export default function Create(props) {
     const [image, setImage] = useState('');
     const [tags, setTags] = useState('');
     const [ingredValue, setIngredValue] = useState('');
+    const [userAddedingredients, setUserAddedIngredients] = useState([]);
 
     const ingredList = props.ingredientsList.map((item, index) => {
         return (
@@ -52,8 +53,22 @@ export default function Create(props) {
             </div>
         )
     }
+    userAddedingredients.push({'id':0, 'quantity':""});
     console.log({ingredValue});
     console.log(inputIngred);
+const addUserIngredient = (e) => {
+    // add a blank ingredient object to the state ingredientArray
+    userAddedingredients.push({'id':0, 'quantity':""});
+    setUserAddedIngredients(userAddedingredients);
+}
+
+const updateUserIngredient = (e) => {
+    // update an item
+    // i would be the identifier of the form element
+    // property would be the form element property
+    // userAddedingredients[i][property] = e.target.value;
+    setUserAddedIngredients(userAddedingredients);
+}
 
     // ,  ingredients.push({ingredValue})
 const createRecipe = (e) => {
@@ -61,12 +76,7 @@ const createRecipe = (e) => {
     console.log(ingredValue);
         console.log('createRecipe');
         // let ingredLength = ingredList.length;
-        //build ingredient array
-        let ingredArray = props.ingredientsList.map((item, index) => {
-            return (
-                item.ingredient
-            )
-        })
+
         // console.log(ingredArray);
         //look thru the form for ingredientN elements
         console.log(ingredients);
@@ -77,7 +87,7 @@ const createRecipe = (e) => {
         const info = {
             title: title,
             // ingredients: [{ 'id': 1, 'quantity': '3cups' },],
-            ingredients: [{ 'id': ingredients.id, 'quantity': quantity}],
+            ingredients: userAddedingredients,
             directions: direction,
             servings: servings,
             cooking_time: cooking_time,
@@ -113,7 +123,7 @@ const createRecipe = (e) => {
 
                         {ingredientRows}
 
-                        <div onClick={() => setNumRows(numRows + 1)} type="submit" class="btn btn-secondary my-1">Add Ingredient</div>
+                        <div onClick={addUserIngredient} type="submit" class="btn btn-secondary my-1">Add Ingredient</div>
 
 
                         <div className="form-group row">

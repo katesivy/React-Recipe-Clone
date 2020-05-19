@@ -39,7 +39,7 @@ export default function RecipeList(props) {
       <div className="col-sm-12 col-lg-6  d-flex" key={index}>
         <div className="card text-left" id="recipe">
           <div className="card-header text-center text-wrap overflow-auto m-3" id="recipeCard" >
-          <Link onClick={() => props.setId(item.id)} to={'/recipe'}>
+          <Link onClick={() => props.storeId(item.id)} to={'/recipe'}>
               <h4 className="" id="link"> {item.title}</h4>
             </Link>
             <img src={item.image} className="card-img-top" id="recipePic" alt="pic"></img>
