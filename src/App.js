@@ -28,21 +28,22 @@ import {
 
 function App() {
   const history = useHistory();
-  // console.log(history);
   const [recipes, setRecipes] = useState([]);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [tagsList, setTagsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState(history.location.pathname.split('/recipes')[1]);
-  const [id, setId] = useState('');
-  //  console.log(url);
+  const [recipeId, setRecipeId] = useState(0);
+  const [userInfo, setUserInfo] = useState({});
 
+// axios
   useEffect(() => {
     const fetchData = async () => {
       await axios.get('http://127.0.0.1:8000/api/recipes')
         .then(response => {
           console.log(response.data.data);
           setRecipes(response.data.data);
+          window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
           setIsLoading(false);
         })
         .catch(error => {
@@ -55,8 +56,8 @@ function App() {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/ingredients')
       .then(response => {
-        // console.log(response.data.data);
         setIngredientsList(response.data.data);
+        // window.localStorage.setItem("ingredients", JSON.stringify(response.data.data));
       })
       .catch(error => {
         console.log(error)
@@ -69,6 +70,7 @@ function App() {
       .then(response => {
         // console.log(response.data.data);
         setTagsList(response.data.data);
+        // window.localStorage.setItem("tags", JSON.stringify(response.data.data));
       })
       .catch(error => {
         console.log(error)
@@ -76,7 +78,16 @@ function App() {
 
   }, []);
 
-  // console.log(recipes);
+  function storeId(recipeId) {
+    setRecipeId(recipeId);
+    localStorage.setItem("id", JSON.stringify(recipeId))
+};
+
+  function storeUserInfo(userInfo) {
+    setUserInfo(userInfo);
+    localStorage.setItem("user", JSON.stringify(userInfo))
+};
+ 
   const optionsArray = [{
     type: 'Meal Type',
     image: './Images/panini.jpeg',
@@ -101,10 +112,10 @@ function App() {
 
   return (
     <>
-      <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} setId={setId} />
+      <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl}  />
       <Switch>
         <Route path="/profile">
-          <Profile setUrl={setUrl} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} tagsList={tagsList} />
+          <Profile setUrl={setUrl} recipes={recipes} setUrl={setUrl} ingredientsList={ingredientsList} tagsList={tagsList} storeUserInfo={storeUserInfo}/>
         </Route>
 
         <Route path="/create">
@@ -113,21 +124,21 @@ function App() {
         </Route>
 
         <Route path="/view">
-          <Profile setId={setId} />
-          <View recipes={recipes} setUrl={setUrl} goTo={setUrl} setId={setId} />
+          <Profile  />
+          <View recipes={recipes} setUrl={setUrl} goTo={setUrl}  />
         </Route>
 
         <Route path="/recipe">
-          <RecipeDisplay recipes={recipes} id={id} />
+          <RecipeDisplay recipes={recipes} recipeId={recipeId}  />
         </Route>
 
         <Route path="/all">
-          <AllRecipes recipes={recipes} setId={setId} />
+          <AllRecipes recipes={recipes}  storeId={storeId} />
         </Route>
 
 
         <Route path="/login">
-          <Login />
+          <Login setUrl={setUrl}/>
         </Route>
 
         <Route path="/register">
@@ -136,7 +147,7 @@ function App() {
 
 
         <Route path="/recipes/:url">
-          <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} setId={setId} />
+          <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList}  />
         </Route>
 
         <Route exact path="/">

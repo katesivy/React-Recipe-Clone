@@ -11,7 +11,8 @@ export default function Register() {
     // const [regInfo, setRegInfo] = useState('');
     const [activeTab, setActiveTab] = useState('register');
     const [loggedIn, setLoggedIn] = useState(false);
-
+    const [auth, setAuth] = useState({});
+    const [storageData, setStorageData] = useState({});
 
     const userRegister = (e) => {
         e.preventDefault();
@@ -24,8 +25,10 @@ export default function Register() {
         axios.post('http://127.0.0.1:8000/api/register', regInfo)
             .then(response => {
                 // setRegInfo(response.data.data)
-                console.log(response.data.data)
-                // set loggedIn=true
+                console.log(response.data)
+                window.localStorage.setItem("userInfo", JSON.stringify(response.data));
+                setLoggedIn(true);
+                
             })
             .catch(error => {
                 console.log(error)

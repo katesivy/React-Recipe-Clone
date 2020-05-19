@@ -14,15 +14,18 @@ import {
 
 export default function View(props) {
     const [url, setUrl] = ('');
-
-    const userId = props.recipes.map(item => {
-        return (
-            <h1>{item.user_id}</h1>
-        )
-    });
+    var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    var storageId = userInfo.user.id;
+    console.log(storageId);
+    
+    // const userId = props.recipes.map(item => {
+    //     return (
+    //         <h1>{item.user_id}</h1>
+    //     )
+    // });
 
     console.log(props);
-    const userRecipes = props.recipes.filter(item => item.user_id == 4);
+    const userRecipes = props.recipes.filter(item => item.user_id == storageId);
     console.log(userRecipes);
 
     const displayedRecipes = userRecipes.map((item, index) => {

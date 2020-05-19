@@ -17,7 +17,7 @@ export default function AllRecipes(props) {
                 <div className=" text-left" id="allrecipes">
                     <div className="card-header  text-center text-wrap overflow-auto m-3 " id="recipeView" >
 
-                        <Link onClick={() => props.setId(item.id)} to={'/recipe'}>
+                        <Link onClick={() => props.storeId(item.id)} to={'/recipe'}>
                             <h4 className="text-center p-2" id="link"> {item.title}</h4>
                         </Link>
 
