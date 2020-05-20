@@ -8,10 +8,11 @@ import Footer from './Components/Footer';
 import SubCategory from './Components/SubCategory';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import Create from './Components/Create';
 import View from './Components/View';
 import AllRecipes from './Components/AllRecipes';
 import RecipeDisplay from './Components/RecipeDisplay';
+import RecipeForm from './Components/RecipeForm';
+import Modify from './Components/Modify';
 import axios from 'axios';
 
 
@@ -57,7 +58,6 @@ function App() {
     axios.get('http://127.0.0.1:8000/api/ingredients')
       .then(response => {
         setIngredientsList(response.data.data);
-        // window.localStorage.setItem("ingredients", JSON.stringify(response.data.data));
       })
       .catch(error => {
         console.log(error)
@@ -70,7 +70,6 @@ function App() {
       .then(response => {
         // console.log(response.data.data);
         setTagsList(response.data.data);
-        // window.localStorage.setItem("tags", JSON.stringify(response.data.data));
       })
       .catch(error => {
         console.log(error)
@@ -82,11 +81,6 @@ function App() {
     setRecipeId(recipeId);
     localStorage.setItem("id", JSON.stringify(recipeId))
   };
-
-  // function storeUserInfo(userInfo) {
-  //   setUserInfo(userInfo);
-  //   localStorage.setItem("user", JSON.stringify(userInfo))
-  // };
 
   const optionsArray = [{
     type: 'Meal Type',
@@ -120,12 +114,17 @@ function App() {
 
         <Route path="/create">
           <Profile />
-          <Create recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
+          <RecipeForm recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
+        </Route>
+
+        <Route path="/modify">
+          <Profile />
+          <Modify recipes={recipes} storeId={storeId}  />
         </Route>
 
         <Route path="/view">
           <Profile />
-          <View recipes={recipes} setUrl={setUrl}  />
+          <View recipes={recipes} storeId={storeId}  />
         </Route>
 
         <Route path="/recipe">

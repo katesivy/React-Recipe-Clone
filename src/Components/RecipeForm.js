@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, Switch, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Create(props) {
@@ -9,16 +10,26 @@ export default function Create(props) {
     const [cooking_time, setCooking_time] = useState('');
     const [image, setImage] = useState('');
     const [tags, setTags] = useState('');
-    //const use_this_array = props.newRecipe ? [] : props.recipies[props.specific_recipe].ingredientslist
-    const [ingredientRows, setIngredientRows] = useState( [] )//use_this_array);
-    
+    const [tagsList, setTagsList] = useState('');
+    const [recipe_id, setRecipe_id] = useState('');
+    const [user_id, setUser_id] = useState('');
+    const [url, setUrl] = useState('');
+    const history = useHistory();
+    //const use_this_array = props.newRecipe ? [] : props.recipes[props.specific_recipe].ingredientslist
+    const [ingredientRows, setIngredientRows] = useState([])//use_this_array);
+    const [tagRows, setTagRows] = useState([])//use_this_array);
+
+    var userInfo = JSON.parse(localStorage.getItem("auth"));
+    // console.log(userInfo.user.id);
+    // console.log(props.recipes.length);
+
     const ingredientOptions = props.ingredientsList.map((item, index) => {
         return (
             <option key={index} value={item.id}> {item.ingredient} </option>
         )
     });
 
-    const tagList = props.tagsList.map((item, index) => {
+    const tagOptions = props.tagsList.map((item, index) => {
         return (
             <option key={index} value={item.id}>{item.category}</option>
         )
@@ -28,72 +39,101 @@ export default function Create(props) {
         setIngredientRows([...ingredientRows, { index: ingredientRows.length }])
     }
 
+    const addTag = () => {
+        setTagRows([...tagRows, { index: tagRows.length }])
+    }
+
     function updateIngredientName(e, i) {
-        console.log("upadate name", e.target.value, i, props, ingredientRows)
-       
+        // console.log("update name", e.target.value, i, props, ingredientRows)
         let newIngredientRows = [...ingredientRows]
 
         for (var item of newIngredientRows) {
             if (item.index == i) {
-                console.log("found specific item", item, i)
+                // console.log("found specific item", item, i)
                 item.ingredient_id = e.target.value
-                break; //Stop this loop, we found it!
+                break;
             }
         }
         setIngredientRows([...newIngredientRows])
     }
+
+
     function updateIngredientQuantity(e, i) {
-
-        console.log("upadate quantity", e.target.value, i, props, ingredientRows)
-
-
+        // console.log("update quantity", e.target.value, i, props, ingredientRows)
         let newIngredientRows = [...ingredientRows]
 
         for (var item of newIngredientRows) {
             if (item.index == i) {
-                console.log("found specific item", item, i)
+                // console.log("found specific item", item, i)
                 item.quantity = e.target.value
-
-                break; //Stop this loop, we found it!
+                break;
             }
         }
         setIngredientRows([...newIngredientRows])
     }
 
+    function updateTags(e, i) {
+        // console.log("update tag", e.target.value, i, tagOptions)
+        let newTagRows = [...tagRows]
 
+        for (var item of newTagRows) {
+            if (item.index == i) {
+                // console.log("found tag", item, i)
+                item.tag_id = e.target.value
+                break;
+            }
+        }
+        setTagRows([...newTagRows])
+    }
 
     const createRecipe = (e) => {
         e.preventDefault();
-        //console.log(ingredValue);
-        console.log('createRecipe');
 
-        // console.log(ingredArray);
-        //look thru the form for ingredientN elements
-        //add an object to the array for each ingrenientN element
+        // console.log('createRecipe');
+
         const info = {
             title: title,
-            // ingredients: [{ 'id': 1, 'quantity': '3cups' },],
-            ingredients: ingredientRows,
-            directions: direction,
+            ingredient: ingredientRows,
+            direction: direction,
             servings: servings,
             cooking_time: cooking_time,
             image: image,
-            tags: tags
-
+            tags: tagRows,
+            user_id: userInfo.user.id
         }
         console.log(info);
         axios.post('http://127.0.0.1:8000/api/createform', info)
             .then(response => {
                 // setInfo(response.data)
                 console.log(response.data);
+                window.localStorage.setItem("info", JSON.stringify(response.data.data));
+                setUrl(url);
+                history.push('/view');
             })
             .catch(error => {
                 console.log(error)
             });
     }
 
-    const renderIngredientRows = ingredientRows.map((item, i) => {
+    const renderTagRows = tagRows.map((item, i) => {
+        let inputTag = "inputTag" + i;
+        return (
+            <div className="form-group row">
+                <label for={inputTag} className="col-sm-2 col-form-label">Tags</label>
+                <div className="col-sm-6">
+                    <select
+                        onChange={(e) => updateTags(e, i)}
+                        type="dropdown" className="form-control" id={inputTag}
+                        placeholder="Tags">
+                        <option>select</option>
+                        {tagOptions}
+                    </select>
+                </div>
+            </div>
+        )
+    })
 
+    const renderIngredientRows = ingredientRows.map((item, i) => {
         let inputIngredient = "inputIngredient" + i;
         let inputQuantity = "inputQuantity" + i;
         return (
@@ -163,15 +203,11 @@ export default function Create(props) {
                             </div>
                         </div>
 
-                        <div className="form-group row">
-                            <label for="inputTags" className="col-sm-2 col-form-label">Tags</label>
-                            <div className="col-sm-6">
-                                <select onChange={(e) => setTags(e.target.value)} value={tags} type="dropdown" className="form-control" id="inputTags" placeholder="Tags">
-                                    <option>select</option>
-                                    {tagList}
-                                </select>
-                            </div>
-                        </div>
+                        {renderTagRows}
+
+                        <div onClick={addTag} type="submit" class="btn btn-secondary  my-1">Add a Tag</div>
+                        <div></div>
+                        <br></br>
                         <button type="submit" className="btn btn-secondary ">Submit</button>
                         {/*  conditionally render disabled */}
                     </form>

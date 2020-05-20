@@ -17,13 +17,7 @@ export default function View(props) {
     var userInfo = JSON.parse(localStorage.getItem("auth"));
     var storageId = userInfo.user.id;
     console.log(storageId);
-    
-    // const userId = props.recipes.map(item => {
-    //     return (
-    //         <h1>{item.user_id}</h1>
-    //     )
-    // });
-
+   
     console.log(props);
     const userRecipes = props.recipes.filter(item => item.user_id == storageId);
     console.log(userRecipes);
@@ -34,9 +28,9 @@ export default function View(props) {
                 <div className="col-sm-12 col-lg-4 " key={index}>
                     <div className=" text-left  p-3" id="recipe">
                         <div className="card-header text-center text-wrap overflow-auto m-3 " id="recipeView" >
-                        {/* <Link onClick={() => props.setId(item.id)} to={'/recipe'}> */}
+                         <Link onClick={() => props.storeId(item.id)} to={'/recipe'}> 
                             <h4 className=" border border-secondary p-2"> {item.title}</h4>
-                            {/* </Link> */}
+                            </Link>
                           <br></br>
                             <p className="font-weight-bold text-left">Ingredients:</p>
                             {item.ingredients.map((ingredient, key) =>
