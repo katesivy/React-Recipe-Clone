@@ -11,3 +11,116 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+#jumbotron {
+  max-height: 200px;
+  max-width: 400px;
+  
+}
+
+#jumbContainer {
+margin: 0px 5px 10px;
+padding: 10px 0px;
+
+}
+
+#cardRow {
+  color: #809574;
+  min-height: 20px;
+   background-color: grey; 
+}
+
+#navbar {
+  color: black;
+  /* color: #809574; */
+  /* background-color: grey; */
+  
+}
+
+#logo {
+  min-height: 200px;
+}
+
+#optionCards {
+  font-weight: bold;
+  color: #809574;
+  min-height: 30em;
+  max-height:30em;
+}
+
+
+#footer {
+  background-color: #809574;
+}
+
+ #optionPic {
+   min-height: 24em;
+   max-height: 24em;
+ }
+ #recipePic {
+   min-height: 24em;
+   max-height: 24em;
+   min-width: 253px;
+ }
+
+ #recipeCard {
+   max-height: 50em;
+   /* max-width: 20em;
+   min-width: 20em; */
+   /* background-color: #809574; */
+   /* background-color: grey; */
+ }
+
+ #recipeView {
+  max-height: 25em;
+  min-height: 25em;
+  min-width: 20em;
+ }
+
+ #profileContainer {
+   background-color: lightgray;
+ }
+
+ /* #profileCard {
+   min-height: 10em;
+   max-height: 10em;
+   
+ } */
+
+ #link {
+  color: #809574;
+ }
+
+ a:link {
+   color: #809574;
+ }
+ a:hover {
+   color: #809574;
+ }
+ /* a:active { */
+
+ #allrecipes {
+   color: #809574;
+ }
+
+ #btn1 {
+   color: white;
+  /* background-color: #809574; */
+}
+ /* #searchBtn {
+   color: white;
+  /* background-color: #809574; */
+   /* background-color: grey;  */
+  /* border: none; */
+/* } */ 
+
+#logregBtn {
+  color: white;
+  background-color: grey;
+}
+
+#createform {
+  /* background-color: #809574; */
+  border: #809574;
+}
