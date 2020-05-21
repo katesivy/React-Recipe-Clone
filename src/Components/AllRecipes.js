@@ -12,7 +12,6 @@ export default function AllRecipes(props) {
     const mappedRecipes = adminRecipes.map((item, index) => {
         return (
 
-
             <div className="col-sm-12 bg bg-light col-lg-4 p-3" key={index}>
                 <div className=" text-left" id="allrecipes">
                     <div className="card-header  text-center text-wrap overflow-auto m-3 " id="recipeView" >
@@ -36,7 +35,7 @@ export default function AllRecipes(props) {
                         <p className="text-left">{item.servings}</p>
                         <p className="card-text font-weight-bold text-left">Cooking Time:</p>
                         <p className="text-left"> {item.cooking_time} minutes</p>
-                        <img src={item.image} className="card-img-bottom img-fluid  mx-auto d-block" id="recipePic" alt="pic"></img>
+                        <img src={`/Images/${item.image}`} className="card-img-bottom img-fluid  mx-auto d-block" id="recipePic" alt="pic"></img>
 
                     </div>
 

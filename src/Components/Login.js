@@ -24,7 +24,7 @@ export default function Login(props) {
             email: email,
             password: password
         }
-        await axios.post('http://127.0.0.1:8000/api/login', info)
+        await axios.post(props.apiLink + '/login', info)
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);

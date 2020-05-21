@@ -3,7 +3,7 @@ import React, { useState, useEffect, userLogin } from 'react';
 import { Link, Switch, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Register() {
+export default function Register(props) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,7 +26,7 @@ export default function Register() {
             password: password,
             // confirmPassword: confirmPassword
         }
-       await axios.post('http://127.0.0.1:8000/api/register', regInfo)
+       await axios.post(props.apiLink + '/register', regInfo)
             .then(response => {
                 // setRegInfo(response.data.data)
                 setRegInfo(response.data)

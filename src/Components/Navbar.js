@@ -25,7 +25,7 @@ function Navbar(props) {
                 'Accept': 'application/json'
             }
         }
-        axios.post('http://127.0.0.1:8000/api/logout', logOut, config)
+        axios.post(props.apiLink + '/logout', logOut, config)
             .then(response => {
                 console.log(response.data);
                 setUrl(url);
@@ -39,6 +39,7 @@ function Navbar(props) {
     }
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
+
     const navOptions =
         userInfo == null ?
             <>

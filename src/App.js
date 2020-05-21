@@ -37,10 +37,12 @@ function App() {
   const [recipeId, setRecipeId] = useState(0);
   // const [userInfo, setUserInfo] = useState({});
 
+  // const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
+  const apiLink =  "http://127.0.0.1:8000/api";
   // axios
   useEffect(() => {
     const fetchData = async () => {
-      await axios.get('http://127.0.0.1:8000/api/recipes')
+      await axios.get(apiLink + '/recipes')
         .then(response => {
           console.log(response.data.data);
           setRecipes(response.data.data);
@@ -55,7 +57,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/ingredients')
+    axios.get(apiLink + '/ingredients')
       .then(response => {
         setIngredientsList(response.data.data);
       })
@@ -66,7 +68,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/tags')
+    axios.get(apiLink + '/tags')
       .then(response => {
         // console.log(response.data.data);
         setTagsList(response.data.data);
@@ -84,22 +86,22 @@ function App() {
 
   const optionsArray = [{
     type: 'Meal Type',
-    image: './Images/pizza.jpeg',
+    image: '/pizza.jpeg',
     subtypes: ['breakfast', 'lunch', 'dinner', 'dessert'],
     url: '/mealtype',
   }, {
     type: 'Main Ingredient',
-    image: './Images/cake.jpeg',
+    image: '/cake.jpeg',
     subtypes: ['chicken', 'broccoli', 'rice', 'eggs', 'cheese', 'chocolate', 'beef', 'potatoes', 'beans', 'tomatoes', 'corn', 'peaches'],
     url: '/mainingredient'
   }, {
     type: 'Diet',
-    image: './Images/chowder.jpeg',
+    image: '/chowder.jpeg',
     subtypes: ['gluten free', 'keto', 'vegetarian', 'dairy free'],
     url: '/diet'
   }, {
     type: 'Cooking Method',
-    image: './Images/tourtiere.jpeg',
+    image: '/tourtiere.jpeg',
     subtypes: ['quick prep', 'slow cooker', 'instant pot', 'one dish'],
     url: '/cookingmethod'
   }]

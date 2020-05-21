@@ -42,7 +42,7 @@ export default function RecipeList(props) {
           <Link onClick={() => props.storeId(item.id)} to={'/recipe'}>
               <h4 className="" id="link"> {item.title}</h4>
             </Link>
-            <img src={item.image} className="card-img-top" id="recipePic" alt="pic"></img>
+            <img src={`/Images/${item.image}`} className="card-img-top" id="recipePic" alt="pic"></img>
             <p className="font-weight-bold text-left">Ingredients:</p>
             {item.ingredients.map((ingredient) =>
               <li className="text-left">{ingredient.pivot.quantity} {ingredient.ingredient}  </li>
