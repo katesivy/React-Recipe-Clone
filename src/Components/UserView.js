@@ -14,8 +14,7 @@ import {
 
 export default function UserView(props) {
     // const [url, setUrl] = ('');
-    // var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
-
+    
     var propsRecipes = props.recipes;
     console.log(propsRecipes);
     var userInfo = JSON.parse(localStorage.getItem("auth"));
