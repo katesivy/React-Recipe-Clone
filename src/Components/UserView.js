@@ -12,18 +12,26 @@ import {
 } from "react-router-dom";
 
 
-export default function View(props) {
+export default function UserView(props) {
     // const [url, setUrl] = ('');
+    // var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
+
+    var propsRecipes = props.recipes;
+    console.log(propsRecipes);
     var userInfo = JSON.parse(localStorage.getItem("auth"));
-    var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
-    console.log(lsRecipes);
     var storageId = userInfo.user.id;
     console.log(storageId);
+    // console.log(props);
+    const lsRecipes = JSON.parse(localStorage.getItem("recipes"));
+    console.log(lsRecipes);
+    const userRecipes = lsRecipes.filter(item => item.user_id == storageId);
+    const userPropsRecipes = propsRecipes.filter(item => item.user_id == storageId);
 
-    console.log(props);
-    const userRecipes = props.recipes.filter(item => item.user_id == storageId);
+    // if (lsRecipes) {
+    // } else {
+    // } 
+
     console.log(userRecipes);
-    // props.fetchData();
 
     const displayedRecipes = userRecipes.map((item, index) => {
         return (

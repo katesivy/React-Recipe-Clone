@@ -229,7 +229,7 @@ export default function Update(props) {
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
-                window.localStorage.setItem("info", JSON.stringify(response.data.data));
+                window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
                 setUrl(url);
                 // props.fetchData();
                 history.push('/view');
@@ -243,7 +243,7 @@ export default function Update(props) {
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
-                window.localStorage.setItem("info", JSON.stringify(response.data.data));
+                window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
                 setUrl(url);
                 // props.fetchData();
                 history.push('/view');

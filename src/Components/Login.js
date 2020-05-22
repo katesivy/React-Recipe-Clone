@@ -41,7 +41,7 @@ export default function Login(props) {
                 console.log(error)
             });
     }
-    console.log(storageData);
+    
 
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));

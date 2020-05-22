@@ -107,7 +107,7 @@ export default function Create(props) {
             .then(response => {
                 // setInfo(response.data)
                 console.log(response.data);
-                window.localStorage.setItem("info", JSON.stringify(response.data.data));
+                window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
                 setUrl(url);
                 history.push('/view');
             })

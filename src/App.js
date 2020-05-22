@@ -8,7 +8,7 @@ import Footer from './Components/Footer';
 import SubCategory from './Components/SubCategory';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import View from './Components/View';
+import UserView from './Components/UserView';
 import AllRecipes from './Components/AllRecipes';
 import RecipeDisplay from './Components/RecipeDisplay';
 import RecipeForm from './Components/RecipeForm';
@@ -126,7 +126,7 @@ function App() {
 
         <Route path="/view">
           <Profile />
-          <View recipes={recipes} storeId={storeId}  />
+          <UserView recipes={recipes} storeId={storeId}  />
         </Route>
 
         <Route path="/recipe">

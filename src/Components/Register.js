@@ -29,7 +29,6 @@ export default function Register(props) {
        await axios.post('https://recipe-final-project.uc.r.appspot.com/api/register', regInfo)
     //    await axios.post('http://127.0.0.1:8000/api/register', regInfo)
             .then(response => {
-                // setRegInfo(response.data.data)
                 setRegInfo(response.data)
                 console.log(response.data);
                 let storageData = JSON.stringify(response.data);

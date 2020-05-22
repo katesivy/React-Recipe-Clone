@@ -36,7 +36,7 @@ function Navbar(props) {
                 console.log(error)
             });
         setLoggedIn(false);
-        localStorage.clear();
+        localStorage.clear("auth");
     }
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
