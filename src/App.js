@@ -37,8 +37,8 @@ function App() {
   const [recipeId, setRecipeId] = useState(0);
   // const [userInfo, setUserInfo] = useState({});
 
-  // const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
-  const apiLink =  "http://127.0.0.1:8000/api";
+   const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
+  //  const apiLink =  "http://127.0.0.1:8000/api";
   // axios
   useEffect(() => {
     const fetchData = async () => {
