@@ -24,7 +24,8 @@ export default function Login(props) {
             email: email,
             password: password
         }
-        await axios.post('http://127.0.0.1:8000/api/login', info)
+        // await axios.post('http://127.0.0.1:8000/api/login', info)
+        await axios.post('https://recipe-final-project.uc.r.appspot.com/api/login', info)
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
@@ -40,7 +41,7 @@ export default function Login(props) {
                 console.log(error)
             });
     }
-    console.log(storageData);
+    
 
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));

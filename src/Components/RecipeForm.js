@@ -102,11 +102,12 @@ export default function Create(props) {
             user_id: userInfo.user.id
         }
         console.log(info);
-        axios.post('http://127.0.0.1:8000/api/createform', info)
+        // axios.post('http://127.0.0.1:8000/api/createform', info)
+        axios.post('https://recipe-final-project.uc.r.appspot.com/api/createform', info)
             .then(response => {
                 // setInfo(response.data)
                 console.log(response.data);
-                window.localStorage.setItem("info", JSON.stringify(response.data.data));
+                window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
                 setUrl(url);
                 history.push('/view');
             })

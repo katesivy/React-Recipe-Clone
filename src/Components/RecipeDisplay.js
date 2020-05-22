@@ -21,7 +21,7 @@ export default function RecipeDisplay(props) {
                 <div className="card mb-3" >
                     <div className="row no-gutters">
                         <div className="col-md-4">
-                            <img src={clickedRecipe.image} className="card-img" alt="recipe pic"></img>
+                            <img src={`/Images/${clickedRecipe.image}`} className="card-img" alt="recipe pic"></img>
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">

@@ -1,26 +1,47 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     useHistory,
     Link,
+    useParams,
+    useRouteMatch
 } from "react-router-dom";
 
-export default function AllRecipes(props) {
-    const adminRecipes = props.recipes.filter(item => item.user_id == 1);
-    const mappedRecipes = adminRecipes.map((item, index) => {
+
+export default function UserView(props) {
+    // const [url, setUrl] = ('');
+    
+    var propsRecipes = props.recipes;
+    console.log(propsRecipes);
+    var userInfo = JSON.parse(localStorage.getItem("auth"));
+    var storageId = userInfo.user.id;
+    console.log(storageId);
+    // console.log(props);
+    const lsRecipes = JSON.parse(localStorage.getItem("recipes"));
+    console.log(lsRecipes);
+    const userRecipes = lsRecipes.filter(item => item.user_id == storageId);
+    const userPropsRecipes = propsRecipes.filter(item => item.user_id == storageId);
+
+    // if (lsRecipes) {
+    // } else {
+    // } 
+
+    console.log(userRecipes);
+
+    const displayedRecipes = userRecipes.map((item, index) => {
         return (
-
-            <div className="col-sm-12 bg bg-light col-lg-4 p-3" key={index}>
-                <div className=" text-left" id="allrecipes">
-                    <div className="card-header  text-center text-wrap overflow-auto m-3 " id="recipeView" >
-
-                        <Link onClick={() => props.storeId(item.id)} to={'/recipe'}>
-                            <h4 className="text-center p-2" id="link"> {item.title}</h4>
+            //    Link to view recipe as full page
+            <div className="col-sm-12 col-lg-4 " key={index}>
+                <div className=" text-left  p-3" id="recipe">
+                    <div className="card-header text-center text-wrap overflow-auto m-3 " id="recipeView" >
+                        <Link onClick={() => props.storeId(item.id)} to={'/recipe'} id="link">
+                            <h4 className=" p-2"> {item.title}</h4>
                         </Link>
-
-                            <br></br>
+                        <br></br>
                         <p className="font-weight-bold text-left">Ingredients:</p>
                         {item.ingredients.map((ingredient, key) =>
                             <li className="text-left">{ingredient.pivot.quantity} {ingredient.ingredient}  </li>
@@ -38,7 +59,6 @@ export default function AllRecipes(props) {
                         <img src={`/Images/${item.image}`} className="card-img-bottom img-fluid  mx-auto d-block" id="recipePic" alt="pic"></img>
 
                     </div>
-
                 </div>
             </div>
 
@@ -50,8 +70,8 @@ export default function AllRecipes(props) {
 
     return (
 
-        <div className="row bg content-justify-center bg bg-secondary  p-3" >
-            {mappedRecipes}
+        <div className="row bg content-justify-center p-5" >
+            {displayedRecipes}
         </div>
 
     );

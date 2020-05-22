@@ -16,23 +16,25 @@ export default function View(props) {
     const [url, setUrl] = ('');
     var userInfo = JSON.parse(localStorage.getItem("auth"));
     var storageId = userInfo.user.id;
-    console.log(storageId);
-    console.log(props);
+    // window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
+    // console.log(storageId);
+    // console.log(props);
 
     const userRecipes = props.recipes.filter(item => item.user_id == storageId);
-    console.log(userRecipes);
+    // console.log(userRecipes);
 
     const displayedRecipes = userRecipes.map((item, index) => {
         return (
-        //    Link to view recipe as full page
-                   
+            //    Link to view recipe as full page
+            <>
+
                 <div className="col-sm-12 col-lg-4 " key={index}>
-                    <div className=" text-left  p-3" id="recipe">
+                    <div className=" text-left  p-3" id="allrecipes">
                         <div className="card-header text-center text-wrap overflow-auto m-3 " id="recipeView" >
-                        <Link onClick={() => props.storeId(item.id)} to={'/create'}>
-                            <h4 className=" border border-secondary p-2"> {item.title}</h4>
+                            <Link onClick={() => props.storeId(item.id)} to={'/create'} id="link">
+                                <h4 className="  p-2"> {item.title}</h4>
                             </Link>
-                          <br></br>
+                            <br></br>
                             <p className="font-weight-bold text-left">Ingredients:</p>
                             {item.ingredients.map((ingredient, key) =>
                                 <li className="text-left">{ingredient.pivot.quantity} {ingredient.ingredient}  </li>
@@ -52,18 +54,24 @@ export default function View(props) {
                         </div>
                     </div>
                 </div>
-           
+            </>
         )
-
-
     });
 
 
     return (
-  
-        <div className="row bg content-justify-center p-3" >
-            {displayedRecipes}
-        </div>
-       
+        <>
+            <div className="row bg content-justify-center p-3">
+                <div className="col-sm-12 col-lg-12 text-center bg bg-light ">
+                <br></br>
+                    <h5>click a recipe to update</h5>
+                    <br></br>
+                </div>
+            </div>
+            <div className="row bg content-justify-center p-3" >
+                {displayedRecipes}
+            </div>
+        </>
+
     );
 }

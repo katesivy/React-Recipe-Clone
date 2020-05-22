@@ -25,7 +25,8 @@ function Navbar(props) {
                 'Accept': 'application/json'
             }
         }
-        axios.post('http://127.0.0.1:8000/api/logout', logOut, config)
+        axios.post('https://recipe-final-project.uc.r.appspot.com/api/logout', logOut, config)
+        // axios.post('http://127.0.0.1:8000/api/logout', logOut, config)
             .then(response => {
                 console.log(response.data);
                 setUrl(url);
@@ -35,14 +36,15 @@ function Navbar(props) {
                 console.log(error)
             });
         setLoggedIn(false);
-        localStorage.clear();
+        localStorage.removeItem("auth");
     }
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
+
     const navOptions =
         userInfo == null ?
             <>
-                <span className="navbar-text text-content-right  mr-sm-2 flex-sm-fill">
+                <span className="navbar-text text-content-right  mr-sm-2 flex-sm-fill bg bg-white">
                     <Link className="a:hover text-justify-center " id="link" onClick={() => setUrl(url)} to={'/login'}>Login</Link>
                 </span>
                 <span className="navbar-text text-content-right  mr-sm-2 flex-sm-fill">
@@ -61,14 +63,14 @@ function Navbar(props) {
     return (
         <>
             <div className="row">
-                <nav className="navbar navbar-expand-lg navbar-light sticky-top">
+                <nav className="navbar navbar-expand-lg navbar-light sticky-top bg bg-white">
                     <a className="navbar-brand p-2" href="/">
                         <img src="./Images/logo.png" className="card-img-top img-fluid mx-auto" id="logo" alt="..." /></a>
                 </nav>
             </div>
 
             <div className="row text-right mb-2 flex-sm-fill  sticky-top bg bg-white p-3 ml-5">
-                <div className="col-lg-12 ml-5  text-justify-right">
+                <div className="col-lg-12 ml-5  text-justify-right bg bg-white">
                     {/* <nav className="navbar flex-sm-fill navbar-expand-lg navbar-light " id="navbar"> */}
                     {/* <form className="form-inline">
                             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
