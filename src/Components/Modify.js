@@ -16,18 +16,14 @@ export default function View(props) {
     const [url, setUrl] = ('');
     var userInfo = JSON.parse(localStorage.getItem("auth"));
     var storageId = userInfo.user.id;
-    // window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
-    // console.log(storageId);
-    // console.log(props);
-
-    const userRecipes = props.recipes.filter(item => item.user_id == storageId);
-    // console.log(userRecipes);
-
+    const lsRecipes = JSON.parse(localStorage.getItem("recipes"));
+    console.log(lsRecipes);
+    const userRecipes = lsRecipes.filter(item => item.user_id == storageId);
+    
     const displayedRecipes = userRecipes.map((item, index) => {
         return (
-            //    Link to view recipe as full page
+          
             <>
-
                 <div className="col-sm-12 col-lg-4 " key={index}>
                     <div className=" text-left  p-3" id="allrecipes">
                         <div className="card-header text-center text-wrap overflow-auto m-3 " id="recipeView" >

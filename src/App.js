@@ -8,7 +8,7 @@ import Footer from './Components/Footer';
 import SubCategory from './Components/SubCategory';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import UserView from './Components/UserView';
+import UserRecipes from './Components/UserRecipes';
 import AllRecipes from './Components/AllRecipes';
 import RecipeDisplay from './Components/RecipeDisplay';
 import RecipeForm from './Components/RecipeForm';
@@ -37,8 +37,8 @@ function App() {
   const [recipeId, setRecipeId] = useState(0);
   // const [userInfo, setUserInfo] = useState({});
 
-   const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
-  //  const apiLink =  "http://127.0.0.1:8000/api";
+  //  const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
+   const apiLink =  "http://127.0.0.1:8000/api";
   // axios
   useEffect(() => {
     const fetchData = async () => {
@@ -121,12 +121,12 @@ function App() {
 
         <Route path="/modify">
           <Profile />
-          <Modify recipes={recipes} storeId={storeId}  />
+          <RecipeForm recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
         </Route>
 
         <Route path="/view">
           <Profile />
-          <UserView recipes={recipes} storeId={storeId}  />
+          <UserRecipes recipes={recipes} storeId={storeId}  />
         </Route>
 
         <Route path="/recipe">

@@ -9,6 +9,7 @@ import {
 
 export default function AllRecipes(props) {
     const adminRecipes = props.recipes.filter(item => item.user_id == 1);
+    console.log(adminRecipes);
     const mappedRecipes = adminRecipes.map((item, index) => {
         return (
 

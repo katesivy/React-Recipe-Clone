@@ -78,15 +78,16 @@ padding: 10px 0px;
   min-width: 20em;
  }
 
- #profileContainer {
-   background-color: lightgray;
+ #profileContainer { 
+   /* background-color:#809574; */
  }
 
- /* #profileCard {
-   min-height: 10em;
-   max-height: 10em;
-   
- } */
+ #profileCard {
+   /* min-height: 10em;
+   max-height: 10em; */
+  /* background-color: lightgray;  */
+  /* background-color:  #809574; */
+ } 
 
  #link {
   color: #809574;
