@@ -44,12 +44,11 @@ export default function RecipeDisplay(props) {
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
-                console.log(clickedRecipe);//recipe to be deleted
-                console.log(lsRecipes);//existing list of all recipes
+                // console.log(clickedRecipe);//recipe to be deleted
+                // console.log(lsRecipes);//existing list of all recipes
                 var newRecipes = lsRecipes.filter(item => item.id != clickedRecipe.id);
-                console.log(newRecipes);//recipe list without deleted recipe
-                localStorage.setItem("recipes", JSON.stringify(newRecipes));
-                
+                // console.log(newRecipes);//recipe list without deleted recipe
+                localStorage.setItem("recipes", JSON.stringify(newRecipes));  
                 history.push('/view');
             })
             .catch(error => {

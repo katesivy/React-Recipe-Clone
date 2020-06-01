@@ -34,6 +34,17 @@ export default function RecipeForm(props) {
 
     useEffect(() => {
         // console.log(clickedRecipe, lsId);
+        var titleInfo = clickedRecipe ? clickedRecipe.title : title
+        setTitle(titleInfo);
+        var directionsInfo = clickedRecipe ? clickedRecipe.directions[0].direction : direction
+        setDirection(directionsInfo);
+        var servingsInfo = clickedRecipe ? clickedRecipe.servings : servings
+        setServings(servingsInfo);
+        var cookingTimeInfo = clickedRecipe ? clickedRecipe.cooking_time : servings
+        setCooking_time(cookingTimeInfo);
+        var imageInfo = clickedRecipe ? clickedRecipe.image : image
+        setImage(imageInfo);
+
         var ingredArray = clickedRecipe ? clickedRecipe.ingredients : []
         var i = 1
 
@@ -60,6 +71,7 @@ export default function RecipeForm(props) {
         }
     }, [loading]
     )
+
 
     const addUserIngredient = () => {
         setIngredientRows([...ingredientRows, { index: ingredientRows.length }])
@@ -190,18 +202,25 @@ export default function RecipeForm(props) {
 
     const createRecipe = (e) => {
         e.preventDefault();
-        // console.log(title);
-        console.log(tagRows);
+        // console.log(tagRows);
         if (clickedRecipe) {
         const info = {
-            title: clickedRecipe.title != title ? title : clickedRecipe.title ,
-            ingredient: clickedRecipe.ingredients != ingredientRows ? ingredientRows : clickedRecipe.ingredients,
+            title:  title, 
+            ingredient: ingredientRows,
             direction: direction,
-            servings: clickedRecipe.servings != servings ? servings : clickedRecipe.servings,
-            cooking_time: clickedRecipe ? clickedRecipe.cooking_time : cooking_time,
-            image: clickedRecipe ? clickedRecipe.image : image,
-             tags: clickedRecipe ? clickedRecipe.tags : tagRows,
-             user_id: userInfo.user.id,
+            servings:  servings,
+            cooking_time: cooking_time,
+            image:  image,
+            tags:  tagRows,
+            user_id: userInfo.user.id,
+            // title: clickedRecipe.title != title ? title : clickedRecipe.title ,
+            // ingredient: clickedRecipe.ingredients != ingredientRows ? ingredientRows : clickedRecipe.ingredients,
+            // direction: direction,
+            // servings: clickedRecipe.servings != servings ? servings : clickedRecipe.servings,
+            // cooking_time: clickedRecipe ? clickedRecipe.cooking_time : cooking_time,
+            // image: clickedRecipe ? clickedRecipe.image : image,
+            //  tags: clickedRecipe ? clickedRecipe.tags : tagRows,
+            //  user_id: userInfo.user.id,
             recipe_id: clickedRecipe ? clickedRecipe.id : null
         }
 
@@ -262,7 +281,7 @@ export default function RecipeForm(props) {
                             <div className="col-sm-10">
                                 <input onChange={(e) => setTitle(e.target.value)} type="text" className="form-control" id="inputTitle" placeholder="Title"
 
-                                    defaultValue={clickedRecipe ? clickedRecipe.title  : null }></input>
+                                    defaultValue={clickedRecipe ? clickedRecipe.title : null}></input>
                                
                             </div>
                         </div>
