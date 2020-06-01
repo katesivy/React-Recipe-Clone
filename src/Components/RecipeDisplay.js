@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Link,
+    Link, useHistory
 } from "react-router-dom";
+import axios from 'axios';
 
 export default function RecipeDisplay(props) {
+    const [info, setInfo] = useState('');
+    const [url, setUrl] = useState('');
+    const history = useHistory();
     console.log(props);
     console.log(props.recipeId);
-    const [url, setUrl] = useState('');
 
     var lsId = props.recipeId != 0 ? props.recipeId : JSON.parse(localStorage.getItem("id"))
     // lsId = lsId ? lsId : 0;
@@ -17,17 +20,57 @@ export default function RecipeDisplay(props) {
     const clickedRecipe = lsRecipes.find(item => item.id == lsId);
     console.log(clickedRecipe);
 
+    // localStorage.setItem('clickedRecipe', [{clickedRecipe}]);
     // var userInfo = JSON.parse(localStorage.getItem("auth"));
     // const storageId = userInfo.user.id;
     // console.log(storageId);
-    // const userRecipes = props.recipes.filter(item => item.user_id == 1);
-    // console.log(userRecipes);
+
+
+    const deleteRecipe = (e) => {
+        e.preventDefault();
+
+        const info = {
+            title: clickedRecipe.title,
+            ingredient: clickedRecipe.ingredients,
+            direction: clickedRecipe.directions,
+            servings: clickedRecipe.servings,
+            cooking_time: clickedRecipe.cooking_time,
+            image: clickedRecipe.image,
+            tags: clickedRecipe.tags,
+            recipe_id: clickedRecipe.id
+        }
+        axios.post("http://127.0.0.1:8000/api/deleteRecipe", info)
+            // axios.post("https://recipe-final-project.uc.r.appspot.com/api/deleteRecipe", info)
+            .then(response => {
+                setInfo(response.data)
+                console.log(response.data);
+                console.log(clickedRecipe);//recipe to be deleted
+                console.log(lsRecipes);//existing list of all recipes
+                var newRecipes = lsRecipes.filter(item => item.id != clickedRecipe.id);
+                console.log(newRecipes);//recipe list without deleted recipe
+                localStorage.setItem("recipes", JSON.stringify(newRecipes));
+                
+                history.push('/view');
+            })
+            .catch(error => {
+                console.log(error)
+            });
+        }
+
+    const deleteButton = clickedRecipe.user_id != 1 ?
+        <>
+            <Link className="btn btn-secondary" onClick={deleteRecipe}>Delete</Link>
+        </>
+        :
+        null
+
     const modifyButton = clickedRecipe.user_id != 1 ?
         <>
             <Link className="btn btn-secondary" onClick={() => setUrl(url)} to={"/modify"}>Edit</Link>
         </>
         :
         null
+
 
     const recipeInfo = () => {
         return (
@@ -59,7 +102,7 @@ export default function RecipeDisplay(props) {
                                 {clickedRecipe.tags.map((tag) =>
                                     <li className="text-left text-muted"><small className="text-muted">{tag.category}</small></li>
                                 )}
-                                {modifyButton}
+                                {modifyButton} {deleteButton}
                             </div>
                         </div>
                     </div>

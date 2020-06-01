@@ -14,25 +14,21 @@ import {
 
 export default function UserView(props) {
    
-   
-    var propsRecipes = props.recipes;
-    console.log(propsRecipes);
+    
     var userInfo = JSON.parse(localStorage.getItem("auth"));
     var storageId = userInfo.user.id;
-    console.log(storageId);
-    // console.log(props);
+    // console.log(storageId);
+  
     const lsRecipes = JSON.parse(localStorage.getItem("recipes"));
     console.log(lsRecipes);
     const userRecipes = lsRecipes.filter(item => item.user_id == storageId);
-    const [url, setUrl] = useState('');
-
-
+   
     console.log(userRecipes);
 
     const displayedRecipes = userRecipes.map((item, index) => {
         return (
             //    Link to view recipe as full page
-            <div className="col-sm-12 col-lg-4  " key={index}>
+            <div className="col-sm-12 col-lg-4  " key={index}>                 
                 <div className=" text-left  p-5 " id="recipe">
                     <div className="card-header text-center text-wrap overflow-auto m-3 border border-secondary bg bg-light" id="recipeView" >
                         <Link onClick={() => props.storeId(item.id)} to={'/recipe'} id="link">

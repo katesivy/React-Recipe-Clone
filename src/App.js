@@ -12,7 +12,6 @@ import UserRecipes from './Components/UserRecipes';
 import AllRecipes from './Components/AllRecipes';
 import RecipeDisplay from './Components/RecipeDisplay';
 import RecipeForm from './Components/RecipeForm';
-import Modify from './Components/Modify';
 import axios from 'axios';
 
 
@@ -123,6 +122,11 @@ function App() {
           <Profile />
           <RecipeForm recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
         </Route>
+
+        {/* <Route path="/delete">
+          <Profile />
+          <UserRecipes recipes={recipes} storeId={storeId}  />
+        </Route> */}
 
         <Route path="/view">
           <Profile />

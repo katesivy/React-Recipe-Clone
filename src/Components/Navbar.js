@@ -88,7 +88,7 @@ function Navbar(props) {
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul className="navbar-nav  flex-sm-fill">
                                 <li className="nav-item dropdown flex-sm-fill">
-                                    <a className="nav-link dropdown-toggle" href="#" id="link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a className="nav-link dropdown-toggle"  id="link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Recipe Categories
                              </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink text-center" id="link">
