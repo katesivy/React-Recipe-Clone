@@ -27,11 +27,9 @@ export default function Profile(props) {
                 <div className="container bg bg-secondary  border border-secondary" id="profileContainer">
 
                     <div className="row  m-5 bg bg-light border border-secondary">
-                        {/* <div className="col-sm-1">
-                        </div> */}
-                       
+                        
                         <div className="col-sm-4 mt-2 border border-light" >
-                        {/* <Link onClick={goToCreate} to={"/create"} id="link"> */}
+                       
                             <div className="card text-center bg bg-light border border-light " id="profileCard">
                                 <div className="card-body  ">
                                     <h5 className="card-body">Create recipes</h5>
@@ -40,24 +38,12 @@ export default function Profile(props) {
                                     </Link>
                                 </div>
                             </div>
-                            {/* </Link> */}
+                            
                         </div>
                         <div className="col-sm-4"> 
-                        {/* <a className="navbar-brand p-2" href="/"> */}
                         <img src="./Images/smallesttart.jpeg" className="card-img-top img-fluid mx-auto" id="logo" alt="..." />
-                        {/* </a> */}
                         </div>
 
-                        {/* <div className="col-sm-4" >
-                            <div className="card text-center bg-light" id="profileCard">
-                                <div className="card-body mb-3">
-                                    <h5 className="card-body">Modify your recipes</h5>
-                                    <Link onClick={() => setUrl(url)} to={"/modify"}>
-                                    <button className="btn btn-secondary">Modify</button>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div> */}
 
                         <div className="col-sm-4 mt-2 " >
                             <div className="card text-center bg bg-light  border border-light" id="profileCard">

@@ -12,19 +12,12 @@ export default function RecipeDisplay(props) {
     // console.log(props.recipeId);
 
     var lsId = props.recipeId != 0 ? props.recipeId : JSON.parse(localStorage.getItem("id"))
-    // lsId = lsId ? lsId : 0;
+    lsId = lsId ? lsId : 0;
 
     var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
-    // lsRecipes = lsRecipes ? lsRecipes : 0;
+    lsRecipes = lsRecipes ? lsRecipes : 0;
 
     const clickedRecipe = lsRecipes.find(item => item.id == lsId);
-    // console.log(clickedRecipe);
-
-    // localStorage.setItem('clickedRecipe', [{clickedRecipe}]);
-    // var userInfo = JSON.parse(localStorage.getItem("auth"));
-    // const storageId = userInfo.user.id;
-    // console.log(storageId);
-
 
     const deleteRecipe = (e) => {
         e.preventDefault();
@@ -44,17 +37,14 @@ export default function RecipeDisplay(props) {
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
-                // console.log(clickedRecipe);//recipe to be deleted
-                // console.log(lsRecipes);//existing list of all recipes
                 var newRecipes = lsRecipes.filter(item => item.id != clickedRecipe.id);
-                // console.log(newRecipes);//recipe list without deleted recipe
-                localStorage.setItem("recipes", JSON.stringify(newRecipes));  
+                localStorage.setItem("recipes", JSON.stringify(newRecipes));
                 history.push('/view');
             })
             .catch(error => {
                 console.log(error)
             });
-        }
+    }
 
     const deleteButton = clickedRecipe.user_id != 1 ?
         <>
@@ -70,6 +60,16 @@ export default function RecipeDisplay(props) {
         :
         null
 
+    const clickedRecipeImage = clickedRecipe.image ?
+        <>
+            <div className="col-md-4">
+                <img src={`/Images/${clickedRecipe.image}`} className="card-img" alt="recipe pic"></img>
+            </div>
+        </>
+        :
+        <div className="col-md-4 p-5">
+           
+        </div>
 
     const recipeInfo = () => {
         return (
@@ -77,9 +77,7 @@ export default function RecipeDisplay(props) {
 
                 <div className="card mb-3" >
                     <div className="row no-gutters">
-                        <div className="col-md-4">
-                            <img src={`/Images/${clickedRecipe.image}`} className="card-img" alt="recipe pic"></img>
-                        </div>
+                        {clickedRecipeImage}
                         <div className="col-md-8">
                             <div className="card-body">
                                 <h5 className="card-title">{clickedRecipe.title}</h5>

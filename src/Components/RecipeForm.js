@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Switch, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+// <i class="fas fa-trash"></i>
 
 export default function RecipeForm(props) {
     // State variables 
@@ -54,7 +57,7 @@ export default function RecipeForm(props) {
             item.index = i
             i++
         }
-        if (tagArray.length != 0 && ingredArray.length != 0) {
+        if (tagArray.length != 0) {
             setTagRows(tagArray)
 
             setLoading(true)
@@ -76,18 +79,19 @@ export default function RecipeForm(props) {
         var newTagArray = tagRows.filter(item => item.index != i)
         setTagRows([...newTagArray])
     }
+
     const deleteIngredient = (e, i) => {
         // console.log("clicked", i, e.target)
         let newIngredientRows = [...ingredientRows]
-        var newIngredArray = ingredientRows.filter(item => item.index != i)
-        setIngredientRows([...newIngredArray])
+        newIngredientRows = ingredientRows.filter(item => item.index != i)
+        setIngredientRows([...newIngredientRows])
     }
 
     function updateIngredientName(e, i) {
         let newIngredientRows = [...ingredientRows]
-        // console.log(ingredientRows, e.target.value)
+        console.log(ingredientRows, e.target.value)
         for (var item of newIngredientRows) {
-            // console.log("line 82", item, i)
+             console.log("ingred", item, i)
             if (item.index == i) {
                 // console.log("found specific item", item, i)
                 item.id = parseInt(e.target.value)
@@ -99,7 +103,7 @@ export default function RecipeForm(props) {
             }
         }
         setIngredientRows([...newIngredientRows])
-        // console.log("update ingredient id:", e.target.value, i, newIngredientRows)
+        console.log("update ingredient id:", e.target.value, i, newIngredientRows)
     }
 
     function updateIngredientQuantity(e, i) {
@@ -152,7 +156,7 @@ export default function RecipeForm(props) {
         return (
             <div className="form-group row">
                 <label for={inputIngredient} className="col-sm-2 col-form-label">Ingredients</label>
-                <div className="col-sm-6">
+                <div className="col-sm-4">
                     <select
                         onChange={(e) => updateIngredientName(e, i)}
                         type="dropdown" className="form-control" id={inputIngredient}
@@ -179,7 +183,10 @@ export default function RecipeForm(props) {
                         defaultValue={item.quantity}
                     >
                     </input>
-                    <div onClick={(e) => deleteIngredient(e, item.index)} type="button" class="btn btn-secondary  my-1">Delete Ingredient</div>
+                    </div>
+                    <div className="col-sm-2">
+                    <FontAwesomeIcon onClick={(e) => deleteIngredient(e, item.index)} className="text-secondary p-1" size="2x" icon={faTrash}/>
+                   
                 </div>
             </div>)
     })
@@ -203,13 +210,12 @@ export default function RecipeForm(props) {
                                     >
                                         {tag.category}
                                     </option>
-
                                 )
                             }
                             )}
                         </select>
                     </div>
-                    <div onClick={(e) => deleteTag(e, item.index)} type="button" class="btn btn-secondary  my-1">Delete Tag</div>
+                    <FontAwesomeIcon onClick={(e) => deleteTag(e, item.index)} className="text-secondary p-1" size="2x" icon={faTrash}/>
                 </div>
 
             </>
