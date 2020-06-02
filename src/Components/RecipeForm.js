@@ -74,6 +74,14 @@ export default function RecipeForm(props) {
     const deleteTag = () => {
         // setTagRows([...tagRows, { index: tagRows.length -1 }])
     }
+    const deleteIngredient = (e, i) => {
+        console.log("clicked", i, e.target)
+        let newIngredientRows = [...ingredientRows]
+        // index is e.target.value
+        var newIngredArray = ingredientRows.filter(item => item.index != i)    // remove ingredRows[index] (slice)
+        // then setIngred Rows
+         setIngredientRows([...newIngredArray])
+    }
 
     function updateIngredientName(e, i) {
         let newIngredientRows = [...ingredientRows]
@@ -120,9 +128,6 @@ export default function RecipeForm(props) {
                 break;
             }
         }
-        // console.log(item.index)
-        // console.log(e.target.value)
-        // console.log(item.id)
 
         setTagRows([...newTagRows])
     }
@@ -171,6 +176,7 @@ export default function RecipeForm(props) {
                         defaultValue={item.quantity}
                     >
                     </input>
+                    <div onClick={(e) => deleteIngredient(e, item.index)} type="button" class="btn btn-secondary  my-1">Delete Ingredient</div>
                 </div>
             </div>)
     })
@@ -179,6 +185,7 @@ export default function RecipeForm(props) {
         // console.log(item);
         let inputTag = "inputTag" + i;
         return (
+            <>
             <div className="form-group row">
                 <label for={inputTag} className="col-sm-2 col-form-label">Tags</label>
                 <div className="col-sm-6">
@@ -186,7 +193,6 @@ export default function RecipeForm(props) {
                         onChange={(e) => updateTags(e, i)}
                         type="dropdown" className="form-control" id={inputTag}
                         placeholder="Tags">
-
                         {props.tagsList.map((tag, index) => {
                             return (
                                 <option key={index} value={tag.id}
@@ -201,6 +207,8 @@ export default function RecipeForm(props) {
                     </select>
                 </div>
             </div>
+ 
+ </>
         )
     })
 
@@ -286,7 +294,7 @@ export default function RecipeForm(props) {
                         {renderIngredientRows}
 
                         <div onClick={addUserIngredient} type="submit" class="btn btn-secondary my-1">Add Ingredient</div>
-
+                       
 
                         <div className="form-group row">
                             <label for="inputDirections" className="col-sm-2 col-form-label">Directions</label>
