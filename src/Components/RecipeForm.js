@@ -3,37 +3,25 @@ import { Link, Switch, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function RecipeForm(props) {
-     // State variables 
-     const [title, setTitle] = useState('');
-     const [direction, setDirection] = useState('');
-     const [servings, setServings] = useState('');
-     const [cooking_time, setCooking_time] = useState('');
-     const [image, setImage] = useState('');
-     const [tagRows, setTagRows] = useState([]);
-     const [ingredientRows, setIngredientRows] = useState([])
-     const [loading, setLoading] = useState(false);
-     
-     const history = useHistory();
-    
-     var userInfo = JSON.parse(localStorage.getItem("auth"));
-     var lsId = JSON.parse(localStorage.getItem("id"));
-     var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
-     var clickedRecipe = lsRecipes.find(item => item.id == lsId);
-     
-    //  console.log(history.location.pathname);
-    //  const modify = history.location.pathname == '/modify';
-    //  const create = history.location.pathname == '/create';
-    //  console.log(clickedRecipe);
-    //  console.log(ingredientRows); 
-    //  if (history.location.pathname == '/modify') {
-    //      console.log('modify')
-    //  }
-    //  else {
-    //      console.log('create')
-    //  }
+    // State variables 
+    const [title, setTitle] = useState('');
+    const [direction, setDirection] = useState('');
+    const [servings, setServings] = useState('');
+    const [cooking_time, setCooking_time] = useState('');
+    const [image, setImage] = useState('');
+    const [tagRows, setTagRows] = useState([]);
+    const [ingredientRows, setIngredientRows] = useState([])
+    const [loading, setLoading] = useState(false);
+
+    const history = useHistory();
+
+    var userInfo = JSON.parse(localStorage.getItem("auth"));
+    var lsId = JSON.parse(localStorage.getItem("id"));
+    var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
+    var clickedRecipe = lsRecipes.find(item => item.id == lsId);
 
     useEffect(() => {
-        // console.log(clickedRecipe, lsId);
+        console.log(clickedRecipe);
         var titleInfo = clickedRecipe ? clickedRecipe.title : title
         setTitle(titleInfo);
         var directionsInfo = clickedRecipe ? clickedRecipe.directions[0].direction : direction
@@ -46,27 +34,29 @@ export default function RecipeForm(props) {
         setImage(imageInfo);
 
         var ingredArray = clickedRecipe ? clickedRecipe.ingredients : []
-        var i = 1
-
+        var i = 0
+        console.log(ingredArray)
         for (var item of ingredArray) {
-            // console.log(item)
+            console.log(item)
             item.ingredient_id = JSON.stringify(item.id)
             item.quantity = item.pivot.quantity
             item.index = i
             i++
         }
-    
+        setIngredientRows(ingredArray)
+
         var tagArray = clickedRecipe ? clickedRecipe.tags : []
         i = 1
 
         for (var item of tagArray) {
-             console.log(item)
+            //  console.log(item)
             item.index = i
             i++
         }
         if (tagArray.length != 0 && ingredArray.length != 0) {
-            setTagRows(tagArray) 
-            setIngredientRows(ingredArray)
+            // var tagInfo = clickedRecipe ? clickedRecipe.tags : []
+            setTagRows(tagArray)
+
             setLoading(true)
         }
     }, [loading]
@@ -74,34 +64,44 @@ export default function RecipeForm(props) {
 
 
     const addUserIngredient = () => {
-        setIngredientRows([...ingredientRows, { index: ingredientRows.length }])
+        setIngredientRows([...ingredientRows, { index: ingredientRows.length, ingredient_id: 0, id: 0, pivot: { ingredient_id: 0, quantity: 0 }, quantity: 0 }])
     }
 
     const addTag = () => {
         setTagRows([...tagRows, { index: tagRows.length }])
     }
 
-    function updateIngredientName(e, i) {
-        // console.log("update name", e.target.value, i, props, ingredientRows)
-        let newIngredientRows = [...ingredientRows]
+    const deleteTag = () => {
+        // setTagRows([...tagRows, { index: tagRows.length -1 }])
+    }
 
+    function updateIngredientName(e, i) {
+        let newIngredientRows = [...ingredientRows]
+        console.log(ingredientRows, e.target.value)
         for (var item of newIngredientRows) {
+            console.log("line 82", item, i)
             if (item.index == i) {
-                // console.log("found specific item", item, i)
-                item.ingredient_id = e.target.value
+                console.log("found specific item", item, i)
+                item.id = parseInt(e.target.value)
+                item.ingredient_id = parseInt(e.target.value)
+                item.pivot.ingredient_id = (e.target.value)
+                item.ingredient = props.ingredientsList.find(obj => obj.id == parseInt(e.target.value)).ingredient
+
                 break;
             }
         }
         setIngredientRows([...newIngredientRows])
+        console.log("update ingredient id:", e.target.value, i, newIngredientRows)
     }
 
 
     function updateIngredientQuantity(e, i) {
         let newIngredientRows = [...ingredientRows]
-
+        console.log(ingredientRows, e.target.value)
         for (var item of newIngredientRows) {
-            if (item.index == i) {
+            if (item.index == i ) {
                 item.quantity = e.target.value
+                item.pivot.quantity = e.target.value
                 break;
             }
         }
@@ -109,16 +109,21 @@ export default function RecipeForm(props) {
     }
 
     function updateTags(e, i) {
-       console.log("update tag name", e.target.value, tagRows)
+        //    console.log("update tag id:", e.target.value, tagRows)
         let newTagRows = [...tagRows]
 
+
         for (var item of newTagRows) {
-             console.log("found specific tag", item, i)
+            console.log("found specific tag", item, i)
             if (item.index == i) {
                 item.tag_id = e.target.value
                 break;
             }
         }
+        // console.log(item.index)
+        // console.log(e.target.value)
+        // console.log(item.id)
+
         setTagRows([...newTagRows])
     }
 
@@ -147,7 +152,7 @@ export default function RecipeForm(props) {
                         defaultValue={item.id}>
 
                         {props.ingredientsList.map((ingred, index) => {
-                            
+
                             return (
                                 <option key={index} value={ingred.id}
                                     selected={item.id === ingred.id}
@@ -171,7 +176,7 @@ export default function RecipeForm(props) {
     })
 
     const renderTagRows = tagRows.map((item, i) => {
-        console.log(item);
+        // console.log(item);
         let inputTag = "inputTag" + i;
         return (
             <div className="form-group row">
@@ -198,32 +203,24 @@ export default function RecipeForm(props) {
             </div>
         )
     })
-    console.log(tagRows);
+
 
     const createRecipe = (e) => {
         e.preventDefault();
-        // console.log(tagRows);
-        if (clickedRecipe) {
-        const info = {
-            title:  title, 
-            ingredient: ingredientRows,
-            direction: direction,
-            servings:  servings,
-            cooking_time: cooking_time,
-            image:  image,
-            tags:  tagRows,
-            user_id: userInfo.user.id,
-            // title: clickedRecipe.title != title ? title : clickedRecipe.title ,
-            // ingredient: clickedRecipe.ingredients != ingredientRows ? ingredientRows : clickedRecipe.ingredients,
-            // direction: direction,
-            // servings: clickedRecipe.servings != servings ? servings : clickedRecipe.servings,
-            // cooking_time: clickedRecipe ? clickedRecipe.cooking_time : cooking_time,
-            // image: clickedRecipe ? clickedRecipe.image : image,
-            //  tags: clickedRecipe ? clickedRecipe.tags : tagRows,
-            //  user_id: userInfo.user.id,
-            recipe_id: clickedRecipe ? clickedRecipe.id : null
-        }
 
+        if (clickedRecipe) {
+            const info = {
+                title: title,
+                ingredient: ingredientRows,
+                direction: direction,
+                servings: servings,
+                cooking_time: cooking_time,
+                image: image,
+                tags: tagRows,
+                user_id: userInfo.user.id,
+                recipe_id: clickedRecipe ? clickedRecipe.id : null
+            }
+            console.log(info)
             axios.post("http://127.0.0.1:8000/api/updateform", info)
                 // axios.post("https://recipe-final-project.uc.r.appspot.com/api/update", info)
                 .then(response => {
@@ -237,15 +234,15 @@ export default function RecipeForm(props) {
                 });
         } else {
             const info = {
-            title:  title,
-            ingredient: ingredientRows,
-            direction: direction,
-            servings:  servings,
-            cooking_time: cooking_time,
-            image:  image,
-            tags:  tagRows,
-            user_id: userInfo.user.id,
-            
+                title: title,
+                ingredient: ingredientRows,
+                direction: direction,
+                servings: servings,
+                cooking_time: cooking_time,
+                image: image,
+                tags: tagRows,
+                user_id: userInfo.user.id,
+
             }
             axios.post("http://127.0.0.1:8000/api/createform", info)
                 // axios.post('https://recipe-final-project.uc.r.appspot.com/api/createform', info)
@@ -261,7 +258,7 @@ export default function RecipeForm(props) {
         }
     }
     const formTitle =
-    (history.location.pathname == '/modify') ?
+        (history.location.pathname == '/modify') ?
             <>
                 <h4>Modify Your Recipe:</h4>
             </>
@@ -282,7 +279,7 @@ export default function RecipeForm(props) {
                                 <input onChange={(e) => setTitle(e.target.value)} type="text" className="form-control" id="inputTitle" placeholder="Title"
 
                                     defaultValue={clickedRecipe ? clickedRecipe.title : null}></input>
-                               
+
                             </div>
                         </div>
 
@@ -321,7 +318,8 @@ export default function RecipeForm(props) {
 
                         {renderTagRows}
 
-                        <div onClick={addTag} type="submit" class="btn btn-secondary  my-1">Add a Tag</div>
+                        <div onClick={addTag} type="submit" class="btn btn-secondary  my-1">Add a Tag</div><br></br>
+                        <div onClick={deleteTag} type="submit" class="btn btn-secondary  my-1">Delete Tag</div>
                         <div></div>
                         <br></br>
                         {submitBtns}
