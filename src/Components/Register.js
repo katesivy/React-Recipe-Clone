@@ -26,8 +26,8 @@ export default function Register(props) {
             password: password,
             // confirmPassword: confirmPassword
         }
-       await axios.post('https://recipe-final-project.uc.r.appspot.com/api/register', regInfo)
-    //    await axios.post('http://127.0.0.1:8000/api/register', regInfo)
+    //    await axios.post('https://recipe-final-project.uc.r.appspot.com/api/register', regInfo)
+       await axios.post('http://127.0.0.1:8000/api/register', regInfo)
             .then(response => {
                 setRegInfo(response.data)
                 console.log(response.data);

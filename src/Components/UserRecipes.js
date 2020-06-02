@@ -13,31 +13,24 @@ import {
 
 
 export default function UserView(props) {
-    // const [url, setUrl] = ('');
+   
     
-    var propsRecipes = props.recipes;
-    console.log(propsRecipes);
     var userInfo = JSON.parse(localStorage.getItem("auth"));
     var storageId = userInfo.user.id;
-    console.log(storageId);
-    // console.log(props);
+    // console.log(storageId);
+  
     const lsRecipes = JSON.parse(localStorage.getItem("recipes"));
     console.log(lsRecipes);
     const userRecipes = lsRecipes.filter(item => item.user_id == storageId);
-    const userPropsRecipes = propsRecipes.filter(item => item.user_id == storageId);
-
-    // if (lsRecipes) {
-    // } else {
-    // } 
-
+   
     console.log(userRecipes);
 
     const displayedRecipes = userRecipes.map((item, index) => {
         return (
             //    Link to view recipe as full page
-            <div className="col-sm-12 col-lg-4 " key={index}>
-                <div className=" text-left  p-3" id="recipe">
-                    <div className="card-header text-center text-wrap overflow-auto m-3 " id="recipeView" >
+            <div className="col-sm-12 col-lg-4  " key={index}>                 
+                <div className=" text-left  p-5 " id="recipe">
+                    <div className="card-header text-center text-wrap overflow-auto m-3 border border-secondary bg bg-light" id="recipeView" >
                         <Link onClick={() => props.storeId(item.id)} to={'/recipe'} id="link">
                             <h4 className=" p-2"> {item.title}</h4>
                         </Link>
@@ -57,7 +50,8 @@ export default function UserView(props) {
                         <p className="card-text font-weight-bold text-left">Cooking Time:</p>
                         <p className="text-left"> {item.cooking_time} minutes</p>
                         <img src={`/Images/${item.image}`} className="card-img-bottom img-fluid  mx-auto d-block" id="recipePic" alt="pic"></img>
-
+                        {/* <Link className="btn btn-secondary" onClick={() => setUrl(url)} to={"/modify"}>
+                        </Link> */}
                     </div>
                 </div>
             </div>
@@ -70,7 +64,7 @@ export default function UserView(props) {
 
     return (
 
-        <div className="row bg content-justify-center p-5" >
+        <div className="row bg  m-1 " >
             {displayedRecipes}
         </div>
 

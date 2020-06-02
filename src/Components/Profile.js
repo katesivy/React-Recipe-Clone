@@ -6,6 +6,11 @@ export default function Profile(props) {
 
     const [url, setUrl] = useState('');
 
+    function goToCreate() {
+        localStorage.removeItem('id');
+        setUrl(url)
+    }
+
     var userInfo = JSON.parse(localStorage.getItem("auth"));
 
 
@@ -19,37 +24,33 @@ export default function Profile(props) {
                     </div>
                 </div>
 
-                <div className="container" id="profileContainer">
-                    <div className="row p-5">
+                <div className="container bg bg-secondary  border border-secondary" id="profileContainer">
 
-                        <div className="col-sm-4" >
-                            <div className="card text-center bg-light" id="profileCard">
-                                <div className="card-body mb-3">
+                    <div className="row  m-5 bg bg-light border border-secondary">
+                        
+                        <div className="col-sm-4 mt-2 border border-light" >
+                       
+                            <div className="card text-center bg bg-light border border-light " id="profileCard">
+                                <div className="card-body  ">
                                     <h5 className="card-body">Create recipes</h5>
-                                    <Link onClick={() => setUrl(url)} to={"/create"}>
-                                    <button className="btn btn-secondary">Create</button>
+                                    <Link className="btn btn-secondary" onClick={goToCreate} to={"/create"}>
+                                        Create
                                     </Link>
                                 </div>
                             </div>
+                            
+                        </div>
+                        <div className="col-sm-4"> 
+                        <img src="./Images/smallesttart.jpeg" className="card-img-top img-fluid mx-auto" id="logo" alt="..." />
                         </div>
 
-                        <div className="col-sm-4" >
-                            <div className="card text-center bg-light" id="profileCard">
-                                <div className="card-body mb-3">
-                                    <h5 className="card-body">Modify your recipes</h5>
-                                    <Link onClick={() => setUrl(url)} to={"/modify"}>
-                                    <button className="btn btn-secondary">Modify</button>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="col-sm-4" >
-                            <div className="card text-center bg-light" id="profileCard">
-                                <div className="card-body mb-3">
-                                    <h5 className="card-body">View your recipes</h5>
-                                    <Link onClick={() => setUrl(url)} to={"/view"}>
-                                    <button className="btn btn-secondary">View</button>
+                        <div className="col-sm-4 mt-2 " >
+                            <div className="card text-center bg bg-light  border border-light" id="profileCard">
+                                <div className="card-body ">
+                                    <h5 className="card-body ">View your recipes</h5>
+                                    <Link className="btn btn-secondary" onClick={() => setUrl(url)} to={"/view"}>
+                                        View
                                     </Link>
                                 </div>
                             </div>

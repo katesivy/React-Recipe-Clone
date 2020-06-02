@@ -25,8 +25,8 @@ function Navbar(props) {
                 'Accept': 'application/json'
             }
         }
-        axios.post('https://recipe-final-project.uc.r.appspot.com/api/logout', logOut, config)
-        // axios.post('http://127.0.0.1:8000/api/logout', logOut, config)
+        // axios.post('https://recipe-final-project.uc.r.appspot.com/api/logout', logOut, config)
+        axios.post('http://127.0.0.1:8000/api/logout', logOut, config)
             .then(response => {
                 console.log(response.data);
                 setUrl(url);
@@ -88,7 +88,7 @@ function Navbar(props) {
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul className="navbar-nav  flex-sm-fill">
                                 <li className="nav-item dropdown flex-sm-fill">
-                                    <a className="nav-link dropdown-toggle" href="#" id="link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a className="nav-link dropdown-toggle"  id="link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Recipe Categories
                              </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink text-center" id="link">

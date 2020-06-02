@@ -1,18 +1,75 @@
 import React, { useState, useEffect } from 'react';
-
+import {
+    Link, useHistory
+} from "react-router-dom";
+import axios from 'axios';
 
 export default function RecipeDisplay(props) {
-    console.log(props);
-    console.log(props.recipeId);
+    const [info, setInfo] = useState('');
+    const [url, setUrl] = useState('');
+    const history = useHistory();
+    // console.log(props);
+    // console.log(props.recipeId);
 
     var lsId = props.recipeId != 0 ? props.recipeId : JSON.parse(localStorage.getItem("id"))
     lsId = lsId ? lsId : 0;
-    
+
     var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
     lsRecipes = lsRecipes ? lsRecipes : 0;
 
     const clickedRecipe = lsRecipes.find(item => item.id == lsId);
-    console.log(clickedRecipe);
+
+    const deleteRecipe = (e) => {
+        e.preventDefault();
+
+        const info = {
+            title: clickedRecipe.title,
+            ingredient: clickedRecipe.ingredients,
+            direction: clickedRecipe.directions,
+            servings: clickedRecipe.servings,
+            cooking_time: clickedRecipe.cooking_time,
+            image: clickedRecipe.image,
+            tags: clickedRecipe.tags,
+            recipe_id: clickedRecipe.id
+        }
+        axios.post("http://127.0.0.1:8000/api/deleteRecipe", info)
+            // axios.post("https://recipe-final-project.uc.r.appspot.com/api/deleteRecipe", info)
+            .then(response => {
+                setInfo(response.data)
+                console.log(response.data);
+                var newRecipes = lsRecipes.filter(item => item.id != clickedRecipe.id);
+                localStorage.setItem("recipes", JSON.stringify(newRecipes));
+                history.push('/view');
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+
+    const deleteButton = clickedRecipe.user_id != 1 ?
+        <>
+            <Link className="btn btn-secondary" onClick={deleteRecipe}>Delete</Link>
+        </>
+        :
+        null
+
+    const modifyButton = clickedRecipe.user_id != 1 ?
+        <>
+            <Link className="btn btn-secondary" onClick={() => setUrl(url)} to={"/modify"}>Edit</Link>
+        </>
+        :
+        null
+
+    const clickedRecipeImage = clickedRecipe.image ?
+        <>
+            <div className="col-md-4">
+                <img src={`/Images/${clickedRecipe.image}`} className="card-img" alt="recipe pic"></img>
+            </div>
+        </>
+        :
+        <div className="col-md-4 p-5">
+           
+        </div>
 
     const recipeInfo = () => {
         return (
@@ -20,9 +77,7 @@ export default function RecipeDisplay(props) {
 
                 <div className="card mb-3" >
                     <div className="row no-gutters">
-                        <div className="col-md-4">
-                            <img src={`/Images/${clickedRecipe.image}`} className="card-img" alt="recipe pic"></img>
-                        </div>
+                        {clickedRecipeImage}
                         <div className="col-md-8">
                             <div className="card-body">
                                 <h5 className="card-title">{clickedRecipe.title}</h5>
@@ -40,10 +95,11 @@ export default function RecipeDisplay(props) {
                                 <p className="text-left">{clickedRecipe.servings}</p>
                                 <p className="card-text font-weight-bold text-left">Cooking Time:</p>
                                 <p className="text-left"> {clickedRecipe.cooking_time} minutes</p>
-                                <p className="card-text"><small className="text-muted">Tags</small></p>  
+                                <p className="card-text"><small className="text-muted">Tags</small></p>
                                 {clickedRecipe.tags.map((tag) =>
                                     <li className="text-left text-muted"><small className="text-muted">{tag.category}</small></li>
                                 )}
+                                {modifyButton} {deleteButton}
                             </div>
                         </div>
                     </div>
@@ -55,7 +111,7 @@ export default function RecipeDisplay(props) {
 
     return (
         <div className="row bg bg-secondary content-justify-center p-3">
-            { lsId == 0 ? null : recipeInfo()}
+            {lsId == 0 ? null : recipeInfo()}
         </div>
 
     );
