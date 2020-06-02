@@ -8,8 +8,8 @@ export default function RecipeDisplay(props) {
     const [info, setInfo] = useState('');
     const [url, setUrl] = useState('');
     const history = useHistory();
-    console.log(props);
-    console.log(props.recipeId);
+    // console.log(props);
+    // console.log(props.recipeId);
 
     var lsId = props.recipeId != 0 ? props.recipeId : JSON.parse(localStorage.getItem("id"))
     // lsId = lsId ? lsId : 0;
@@ -18,7 +18,7 @@ export default function RecipeDisplay(props) {
     // lsRecipes = lsRecipes ? lsRecipes : 0;
 
     const clickedRecipe = lsRecipes.find(item => item.id == lsId);
-    console.log(clickedRecipe);
+    // console.log(clickedRecipe);
 
     // localStorage.setItem('clickedRecipe', [{clickedRecipe}]);
     // var userInfo = JSON.parse(localStorage.getItem("auth"));

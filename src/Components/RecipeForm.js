@@ -22,6 +22,7 @@ export default function RecipeForm(props) {
 
     useEffect(() => {
         console.log(clickedRecipe);
+
         var titleInfo = clickedRecipe ? clickedRecipe.title : title
         setTitle(titleInfo);
         var directionsInfo = clickedRecipe ? clickedRecipe.directions[0].direction : direction
@@ -35,9 +36,9 @@ export default function RecipeForm(props) {
 
         var ingredArray = clickedRecipe ? clickedRecipe.ingredients : []
         var i = 0
-        console.log(ingredArray)
+        // console.log(ingredArray)
         for (var item of ingredArray) {
-            console.log(item)
+            // console.log(item)
             item.ingredient_id = JSON.stringify(item.id)
             item.quantity = item.pivot.quantity
             item.index = i
@@ -46,15 +47,14 @@ export default function RecipeForm(props) {
         setIngredientRows(ingredArray)
 
         var tagArray = clickedRecipe ? clickedRecipe.tags : []
-        i = 1
+        i = 0
 
         for (var item of tagArray) {
-            //  console.log(item)
+            // console.log(item)
             item.index = i
             i++
         }
         if (tagArray.length != 0 && ingredArray.length != 0) {
-            // var tagInfo = clickedRecipe ? clickedRecipe.tags : []
             setTagRows(tagArray)
 
             setLoading(true)
@@ -68,28 +68,28 @@ export default function RecipeForm(props) {
     }
 
     const addTag = () => {
-        setTagRows([...tagRows, { index: tagRows.length }])
+        setTagRows([...tagRows, { index: tagRows.length, id: 0, tag_id: 0, pivot: { tag_id: 0 } }])
     }
 
-    const deleteTag = () => {
-        // setTagRows([...tagRows, { index: tagRows.length -1 }])
+    const deleteTag = (e, i) => {
+        let newTagRows = [...tagRows]
+        var newTagArray = tagRows.filter(item => item.index != i)
+        setTagRows([...newTagArray])
     }
     const deleteIngredient = (e, i) => {
-        console.log("clicked", i, e.target)
+        // console.log("clicked", i, e.target)
         let newIngredientRows = [...ingredientRows]
-        // index is e.target.value
-        var newIngredArray = ingredientRows.filter(item => item.index != i)    // remove ingredRows[index] (slice)
-        // then setIngred Rows
-         setIngredientRows([...newIngredArray])
+        var newIngredArray = ingredientRows.filter(item => item.index != i)
+        setIngredientRows([...newIngredArray])
     }
 
     function updateIngredientName(e, i) {
         let newIngredientRows = [...ingredientRows]
-        console.log(ingredientRows, e.target.value)
+        // console.log(ingredientRows, e.target.value)
         for (var item of newIngredientRows) {
-            console.log("line 82", item, i)
+            // console.log("line 82", item, i)
             if (item.index == i) {
-                console.log("found specific item", item, i)
+                // console.log("found specific item", item, i)
                 item.id = parseInt(e.target.value)
                 item.ingredient_id = parseInt(e.target.value)
                 item.pivot.ingredient_id = (e.target.value)
@@ -99,15 +99,14 @@ export default function RecipeForm(props) {
             }
         }
         setIngredientRows([...newIngredientRows])
-        console.log("update ingredient id:", e.target.value, i, newIngredientRows)
+        // console.log("update ingredient id:", e.target.value, i, newIngredientRows)
     }
-
 
     function updateIngredientQuantity(e, i) {
         let newIngredientRows = [...ingredientRows]
-        console.log(ingredientRows, e.target.value)
+        // console.log(ingredientRows, e.target.value)
         for (var item of newIngredientRows) {
-            if (item.index == i ) {
+            if (item.index == i) {
                 item.quantity = e.target.value
                 item.pivot.quantity = e.target.value
                 break;
@@ -117,19 +116,23 @@ export default function RecipeForm(props) {
     }
 
     function updateTags(e, i) {
-        //    console.log("update tag id:", e.target.value, tagRows)
+        // console.log("update tag id:", e.target.value, tagRows)
         let newTagRows = [...tagRows]
 
 
         for (var item of newTagRows) {
-            console.log("found specific tag", item, i)
+            // console.log("found specific tag", item, i)
             if (item.index == i) {
-                item.tag_id = e.target.value
+                console.log("line 125", item, i)
+                item.id = parseInt(e.target.value)
+                item.tag_id = parseInt(e.target.value)
+                item.pivot.tag_id = e.target.value
+                item.category = props.tagsList.find(obj => obj.id == parseInt(e.target.value)).category
                 break;
             }
         }
-
         setTagRows([...newTagRows])
+        console.log(newTagRows)
     }
 
     let submitBtns =
@@ -186,29 +189,30 @@ export default function RecipeForm(props) {
         let inputTag = "inputTag" + i;
         return (
             <>
-            <div className="form-group row">
-                <label for={inputTag} className="col-sm-2 col-form-label">Tags</label>
-                <div className="col-sm-6">
-                    <select
-                        onChange={(e) => updateTags(e, i)}
-                        type="dropdown" className="form-control" id={inputTag}
-                        placeholder="Tags">
-                        {props.tagsList.map((tag, index) => {
-                            return (
-                                <option key={index} value={tag.id}
-                                    selected={item.category === tag.category}
-                                >
-                                    {tag.category}
-                                </option>
+                <div className="form-group row">
+                    <label for={inputTag} className="col-sm-2 col-form-label">Tags</label>
+                    <div className="col-sm-6">
+                        <select
+                            onChange={(e) => updateTags(e, i)}
+                            type="dropdown" className="form-control" id={inputTag}
+                            placeholder="Tags">
+                            {props.tagsList.map((tag, index) => {
+                                return (
+                                    <option key={index} value={tag.id}
+                                        selected={item.category === tag.category}
+                                    >
+                                        {tag.category}
+                                    </option>
 
-                            )
-                        }
-                        )}
-                    </select>
+                                )
+                            }
+                            )}
+                        </select>
+                    </div>
+                    <div onClick={(e) => deleteTag(e, item.index)} type="button" class="btn btn-secondary  my-1">Delete Tag</div>
                 </div>
-            </div>
- 
- </>
+
+            </>
         )
     })
 
@@ -294,7 +298,7 @@ export default function RecipeForm(props) {
                         {renderIngredientRows}
 
                         <div onClick={addUserIngredient} type="submit" class="btn btn-secondary my-1">Add Ingredient</div>
-                       
+
 
                         <div className="form-group row">
                             <label for="inputDirections" className="col-sm-2 col-form-label">Directions</label>
@@ -327,7 +331,7 @@ export default function RecipeForm(props) {
                         {renderTagRows}
 
                         <div onClick={addTag} type="submit" class="btn btn-secondary  my-1">Add a Tag</div><br></br>
-                        <div onClick={deleteTag} type="submit" class="btn btn-secondary  my-1">Delete Tag</div>
+                        
                         <div></div>
                         <br></br>
                         {submitBtns}
