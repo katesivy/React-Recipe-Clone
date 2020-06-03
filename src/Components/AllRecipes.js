@@ -10,6 +10,7 @@ import {
 export default function AllRecipes(props) {
     const adminRecipes = props.recipes.filter(item => item.user_id == 1);
     console.log(adminRecipes);
+    // window.location.reload(false);
     const mappedRecipes = adminRecipes.map((item, index) => {
         return (
 

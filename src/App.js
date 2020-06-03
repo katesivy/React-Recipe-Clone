@@ -36,9 +36,9 @@ function App() {
   const [recipeId, setRecipeId] = useState(0);
   // const [userInfo, setUserInfo] = useState({});
 
-  //  const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
-   const apiLink =  "http://127.0.0.1:8000/api";
-  // axios
+   const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
+  //  const apiLink =  "http://127.0.0.1:8000/api";
+ 
   useEffect(() => {
     const fetchData = async () => {
       await axios.get(apiLink + '/recipes')
@@ -50,6 +50,7 @@ function App() {
         })
         .catch(error => {
           console.log(error)
+          // window.location.reload(false);
         });
     }
     fetchData();
@@ -63,6 +64,7 @@ function App() {
       .catch(error => {
         console.log(error)
       });
+      // window.location.reload(false);
     // console.log(ingredientsList);
   }, []);
 
@@ -75,7 +77,7 @@ function App() {
       .catch(error => {
         console.log(error)
       });
-
+      // window.location.reload(false);
   }, []);
 
   function storeId(recipeId) {

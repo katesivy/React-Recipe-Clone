@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 export default function Profile(props) {
 
     const [url, setUrl] = useState('');
+    // window.location.reload(false);
 
     function goToCreate() {
         localStorage.removeItem('id');
