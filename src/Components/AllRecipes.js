@@ -5,13 +5,16 @@ import {
 } from "react-router-dom";
 
 export default function AllRecipes(props) {
-    var userInfo = JSON.parse(localStorage.getItem("auth"));
-    var storageId = userInfo.user.id
-    
-    const adminRecipes = props.recipes.filter(item => item.user_id == 1 || item.user_id == storageId);
-    console.log(adminRecipes);
+    const adminRecipes = props.recipes.filter(item => item.user_id == 1);
+   
+    var userInfo = true ? JSON.parse(localStorage.getItem("auth")) : 0;
+    console.log({userInfo});
+    var storageId = userInfo ? userInfo.user.id : 0;
+    console.log({storageId});
+    const allRecipes = userInfo ? props.recipes.filter(item => item.user_id == 1 || item.user_id == storageId) : adminRecipes;
+    console.log({allRecipes});
 
-    const mappedRecipes = adminRecipes.map((item, index) => {
+    const mappedRecipes = allRecipes.map((item, index) => {
         return (
 
             <div className="col-sm-12 bg bg-light col-lg-4 p-3" key={index}>
