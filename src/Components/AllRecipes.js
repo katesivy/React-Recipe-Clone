@@ -5,9 +5,12 @@ import {
 } from "react-router-dom";
 
 export default function AllRecipes(props) {
-    const adminRecipes = props.recipes.filter(item => item.user_id == 1);
+    var userInfo = JSON.parse(localStorage.getItem("auth"));
+    var storageId = userInfo.user.id
+    
+    const adminRecipes = props.recipes.filter(item => item.user_id == 1 || item.user_id == storageId);
     console.log(adminRecipes);
-    // window.location.reload(false);
+
     const mappedRecipes = adminRecipes.map((item, index) => {
         return (
 
@@ -19,7 +22,7 @@ export default function AllRecipes(props) {
                             <h4 className="text-center p-2" id="link"> {item.title}</h4>
                         </Link>
 
-                            <br></br>
+                        <br></br>
                         <p className="font-weight-bold text-left">Ingredients:</p>
                         {item.ingredients.map((ingredient, key) =>
                             <li className="text-left">{ingredient.pivot.quantity} {ingredient.ingredient}  </li>

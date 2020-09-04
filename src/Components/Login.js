@@ -47,8 +47,7 @@ export default function Login(props) {
 
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
-    console.log("login", userInfo)
-    userInfo == null ? console.log('null') : console.log('userInfo');
+    
 
     return (
         userInfo != null ?

@@ -40,9 +40,6 @@ function Navbar(props) {
     }
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
-    console.log({userInfo});
-    userInfo == null ? console.log('null') : console.log('userInfo');
-   
 
     const navOptions =
         userInfo == null ?
