@@ -17,6 +17,7 @@ export default function RecipeForm(props) {
     const [loading, setLoading] = useState(false);
 
     const history = useHistory();
+    // window.location.reload(false);
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
     var lsId = JSON.parse(localStorage.getItem("id"));
@@ -63,6 +64,7 @@ export default function RecipeForm(props) {
             setLoading(true)
         }
     }, [loading]
+    
     )
 
 
@@ -91,7 +93,7 @@ export default function RecipeForm(props) {
         let newIngredientRows = [...ingredientRows]
         console.log(ingredientRows, e.target.value)
         for (var item of newIngredientRows) {
-             console.log("ingred", item, i)
+            console.log("ingred", item, i)
             if (item.index == i) {
                 // console.log("found specific item", item, i)
                 item.id = parseInt(e.target.value)
@@ -183,10 +185,10 @@ export default function RecipeForm(props) {
                         defaultValue={item.quantity}
                     >
                     </input>
-                    </div>
-                    <div className="col-sm-2">
-                    <FontAwesomeIcon onClick={(e) => deleteIngredient(e, item.index)} className="text-secondary p-1" size="2x" icon={faTrash}/>
-                   
+                </div>
+                <div className="col-sm-2">
+                    <FontAwesomeIcon onClick={(e) => deleteIngredient(e, item.index)} className="text-secondary p-1" size="2x" icon={faTrash} />
+
                 </div>
             </div>)
     })
@@ -215,7 +217,7 @@ export default function RecipeForm(props) {
                             )}
                         </select>
                     </div>
-                    <FontAwesomeIcon onClick={(e) => deleteTag(e, item.index)} className="text-secondary p-1" size="2x" icon={faTrash}/>
+                    <FontAwesomeIcon onClick={(e) => deleteTag(e, item.index)} className="text-secondary p-1" size="2x" icon={faTrash} />
                 </div>
 
             </>
@@ -239,8 +241,8 @@ export default function RecipeForm(props) {
                 recipe_id: clickedRecipe ? clickedRecipe.id : null
             }
             console.log(info)
-            axios.post("http://127.0.0.1:8000/api/updateform", info)
-                // axios.post("https://recipe-final-project.uc.r.appspot.com/api/update", info)
+            // axios.post("http://127.0.0.1:8000/api/updateform", info)
+            axios.post("https://recipe-final-project.uc.r.appspot.com/api/updateform", info)
                 .then(response => {
                     console.log(response.data);
                     window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
@@ -262,8 +264,8 @@ export default function RecipeForm(props) {
                 user_id: userInfo.user.id,
 
             }
-            axios.post("http://127.0.0.1:8000/api/createform", info)
-                // axios.post('https://recipe-final-project.uc.r.appspot.com/api/createform', info)
+            // axios.post("http://127.0.0.1:8000/api/createform", info)
+            axios.post('https://recipe-final-project.uc.r.appspot.com/api/createform', info)
                 .then(response => {
                     console.log(response.data);
                     console.log("create clicked");
@@ -337,7 +339,7 @@ export default function RecipeForm(props) {
                         {renderTagRows}
 
                         <div onClick={addTag} type="submit" class="btn btn-secondary  my-1">Add a Tag</div><br></br>
-                        
+
                         <div></div>
                         <br></br>
                         {submitBtns}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Link, useHistory
 } from "react-router-dom";
@@ -32,8 +32,8 @@ export default function RecipeDisplay(props) {
             tags: clickedRecipe.tags,
             recipe_id: clickedRecipe.id
         }
-        axios.post("http://127.0.0.1:8000/api/deleteRecipe", info)
-            // axios.post("https://recipe-final-project.uc.r.appspot.com/api/deleteRecipe", info)
+        // axios.post("http://127.0.0.1:8000/api/deleteRecipe", info)
+            axios.post("https://recipe-final-project.uc.r.appspot.com/api/deleteRecipe", info)
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);

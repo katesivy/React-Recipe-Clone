@@ -19,10 +19,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory,
-  Link,
-  useParams,
-  useRouteMatch
+  useHistory
 } from "react-router-dom";
 
 
@@ -36,9 +33,9 @@ function App() {
   const [recipeId, setRecipeId] = useState(0);
   // const [userInfo, setUserInfo] = useState({});
 
-  //  const apiLink =   "https://recipe-final-project.uc.r.appspot.com/api";
-   const apiLink =  "http://127.0.0.1:8000/api";
-  // axios
+  const apiLink = "https://recipe-final-project.uc.r.appspot.com/api";
+  //  const apiLink =  "http://127.0.0.1:8000/api";
+
   useEffect(() => {
     const fetchData = async () => {
       await axios.get(apiLink + '/recipes')
@@ -50,6 +47,7 @@ function App() {
         })
         .catch(error => {
           console.log(error)
+
         });
     }
     fetchData();
@@ -63,6 +61,7 @@ function App() {
       .catch(error => {
         console.log(error)
       });
+
     // console.log(ingredientsList);
   }, []);
 
@@ -107,54 +106,59 @@ function App() {
 
   return (
     <>
-      <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
+
       <Switch>
         <Route path="/profile">
-          <Profile setUrl={setUrl} recipes={recipes} setUrl={setUrl} ingredientsList={ingredientsList} tagsList={tagsList} />
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
+          <Profile setUrl={setUrl} recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
         </Route>
 
         <Route path="/create">
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
           <Profile />
           <RecipeForm recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
         </Route>
 
         <Route path="/modify">
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
           <Profile />
           <RecipeForm recipes={recipes} ingredientsList={ingredientsList} tagsList={tagsList} />
         </Route>
 
-        {/* <Route path="/delete">
-          <Profile />
-          <UserRecipes recipes={recipes} storeId={storeId}  />
-        </Route> */}
-
         <Route path="/view">
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
           <Profile />
-          <UserRecipes recipes={recipes} storeId={storeId}  />
+          <UserRecipes recipes={recipes} storeId={storeId} />
         </Route>
 
         <Route path="/recipe">
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
           <RecipeDisplay recipes={recipes} recipeId={recipeId} />
         </Route>
 
         <Route path="/all">
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
           <AllRecipes recipes={recipes} storeId={storeId} />
         </Route>
 
         <Route path="/register">
-          <Register setUrl={setUrl}/>
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
+          <Register setUrl={setUrl} />
         </Route>
-      
+
         <Route path="/login">
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
           <Login setUrl={setUrl} />
         </Route>
 
 
         <Route path="/recipes/:url">
-          <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} storeId={storeId}/>
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
+          <SubCategory url={url} options={optionsArray} recipes={recipes} goTo={setUrl} ingredientsList={ingredientsList} storeId={storeId} />
         </Route>
 
         <Route exact path="/">
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} />
           <Home optionsArray={optionsArray} setUrl={setUrl} />
         </Route>
 
