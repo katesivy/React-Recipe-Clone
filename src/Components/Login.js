@@ -29,8 +29,10 @@ export default function Login(props) {
             .then(response => {
                 setInfo(response.data)
                 console.log(response.data);
+                console.log('logged in');
                 let storageData = JSON.stringify(response.data);
                 localStorage.setItem('auth', storageData);
+                
                 setLoggedIn(true);
                 setAuth(response.data);
                 setUrl(url);
@@ -45,7 +47,8 @@ export default function Login(props) {
 
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
-
+    console.log("login", userInfo)
+    userInfo == null ? console.log('null') : console.log('userInfo');
 
     return (
         userInfo != null ?

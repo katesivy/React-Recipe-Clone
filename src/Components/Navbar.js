@@ -40,6 +40,9 @@ function Navbar(props) {
     }
 
     var userInfo = JSON.parse(localStorage.getItem("auth"));
+    console.log({userInfo});
+    userInfo == null ? console.log('null') : console.log('userInfo');
+   
 
     const navOptions =
         userInfo == null ?
@@ -87,29 +90,29 @@ function Navbar(props) {
                         </button>
                         <div className="collapse navbar-collapse text-right" id="navbarNavDropdown ">
                             <ul className="navbar-nav  flex-lg-fill">
-                                <li className="nav-item dropdown flex-sm-fill flex-lg-fill">
+                                <div className="nav-item dropdown flex-sm-fill flex-lg-fill">
                                     <a className="nav-link dropdown-toggle text-right" id="link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Recipe Categories
                              </a>
                                     <div className="dropdown-menu dropdown-menu-lg-right dropdown-menu-sm-center text-center" aria-labelledby="navbarDropdownMenuLink " id="link">
                                         {props.optionsArray.map((item, index) => {
                                             return (
-                                                <Link className="a:hover" id="link" onClick={() => props.goTo(item.url)} to={'/recipes' + item.url}>
+                                                <Link className="a:hover" key={index} id="link" onClick={() => props.goTo(item.url)} to={'/recipes' + item.url}>
                                                     <li>{item.type}</li>
                                                 </Link>
                                             )
                                         })
                                         }
                                     </div>
-                                </li>
+                                </div>
                             </ul>
                         </div>
 
-                        <div className="navbar-nav flex-sm-fill">
+                        <ul className="navbar-nav flex-sm-fill">
                             <li className="nav-item flex-sm-fill">
                                 <Link className="a:hover text-justify-center " id="link" onClick={() => setUrl(url)} to={'/profile'}>My Profile</Link>
                             </li>
-                        </div>
+                        </ul>
                         {navOptions}
                     </nav>
                 </div>
@@ -121,7 +124,3 @@ function Navbar(props) {
     )
 }
 export default Navbar;
-
-
-
-

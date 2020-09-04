@@ -1,312 +1,312 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Switch, useHistory } from 'react-router-dom';
-import axios from 'axios';
+// import React, { useState, useEffect } from 'react';
+// import { Link, Switch, useHistory } from 'react-router-dom';
+// import axios from 'axios';
 
-export default function RecipeForm(props) {
-    // State variables 
-    const [title, setTitle] = useState('');
-    const [direction, setDirection] = useState('');
-    const [servings, setServings] = useState('');
-    const [cooking_time, setCooking_time] = useState('');
-    const [image, setImage] = useState('');
-    const [tagRows, setTagRows] = useState([]);
-    const [ingredientRows, setIngredientRows] = useState([])
-    const [loading, setLoading] = useState(false);
+// export default function RecipeForm(props) {
+//     // State variables 
+//     const [title, setTitle] = useState('');
+//     const [direction, setDirection] = useState('');
+//     const [servings, setServings] = useState('');
+//     const [cooking_time, setCooking_time] = useState('');
+//     const [image, setImage] = useState('');
+//     const [tagRows, setTagRows] = useState([]);
+//     const [ingredientRows, setIngredientRows] = useState([])
+//     const [loading, setLoading] = useState(false);
     
-    const history = useHistory();
+//     const history = useHistory();
    
-    var userInfo = JSON.parse(localStorage.getItem("auth"));
-    var lsId = JSON.parse(localStorage.getItem("id"));
-    var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
-    var clickedRecipe = lsRecipes.find(item => item.id == lsId);
+//     var userInfo = JSON.parse(localStorage.getItem("auth"));
+//     var lsId = JSON.parse(localStorage.getItem("id"));
+//     var lsRecipes = JSON.parse(localStorage.getItem("recipes"));
+//     var clickedRecipe = lsRecipes.find(item => item.id == lsId);
     
-    console.log(history.location.pathname);
-    const modify = history.location.pathname == '/modify';
-    const create = history.location.pathname == '/create';
-    console.log(clickedRecipe);
-    console.log(ingredientRows); 
+//     console.log(history.location.pathname);
+//     const modify = history.location.pathname == '/modify';
+//     const create = history.location.pathname == '/create';
+//     console.log(clickedRecipe);
+//     console.log(ingredientRows); 
 
-    useEffect(() => {
-        console.log(clickedRecipe, lsId);
-        var ingredArray = clickedRecipe ? clickedRecipe.ingredients : []
-        var i = 1
+//     useEffect(() => {
+//         console.log(clickedRecipe, lsId);
+//         var ingredArray = clickedRecipe ? clickedRecipe.ingredients : []
+//         var i = 1
 
-        for (var item of ingredArray) {
-            console.log(item)
-            item.ingredient_id = JSON.stringify(item.id)
-            item.quantity = item.pivot.quantity
-            item.index = i
-            i++
-        }
+//         for (var item of ingredArray) {
+//             console.log(item)
+//             item.ingredient_id = JSON.stringify(item.id)
+//             item.quantity = item.pivot.quantity
+//             item.index = i
+//             i++
+//         }
     
-        var tagArray = clickedRecipe ? clickedRecipe.tags : []
-        // console.log(clickedRecipe.tags)
-        i = 1
+//         var tagArray = clickedRecipe ? clickedRecipe.tags : []
+//         // console.log(clickedRecipe.tags)
+//         i = 1
 
-        for (var item of tagArray) {
-            console.log(item)
-            item.index = i
-            i++
-        }
-        if (tagArray.length != 0 && ingredArray.length != 0) {
-            setTagRows(tagArray) 
-            setIngredientRows(ingredArray)
-            setLoading(true)
-        }
-    }, [loading]
-    )
+//         for (var item of tagArray) {
+//             console.log(item)
+//             item.index = i
+//             i++
+//         }
+//         if (tagArray.length != 0 && ingredArray.length != 0) {
+//             setTagRows(tagArray) 
+//             setIngredientRows(ingredArray)
+//             setLoading(true)
+//         }
+//     }, [loading]
+//     )
 
-    const addUserIngredient = () => {
-        setIngredientRows([...ingredientRows, { index: ingredientRows.length }])
-    }
+//     const addUserIngredient = () => {
+//         setIngredientRows([...ingredientRows, { index: ingredientRows.length }])
+//     }
 
-    const addTag = () => {
-        setTagRows([...tagRows, { index: tagRows.length }])
-    }
+//     const addTag = () => {
+//         setTagRows([...tagRows, { index: tagRows.length }])
+//     }
 
-    function updateIngredientName(e, i) {
-        // console.log("update name", e.target.value, i, props, ingredientRows)
-        let newIngredientRows = [...ingredientRows]
+//     function updateIngredientName(e, i) {
+//         // console.log("update name", e.target.value, i, props, ingredientRows)
+//         let newIngredientRows = [...ingredientRows]
 
-        for (var item of newIngredientRows) {
-            if (item.index == i) {
-                console.log("found specific item", item, i)
-                item.ingredient_id = e.target.value
-                break;
-            }
-        }
-        setIngredientRows([...newIngredientRows])
-    }
-
-
-    function updateIngredientQuantity(e, i) {
-        // console.log("update quantity", e.target.value, i, props, ingredientRows)
-        let newIngredientRows = [...ingredientRows]
-
-        for (var item of newIngredientRows) {
-            if (item.index == i) {
-                // console.log("found specific item", item, i)
-                item.quantity = e.target.value
-                break;
-            }
-        }
-        setIngredientRows([...newIngredientRows])
-    }
-
-    function updateTags(e, i) {
-        // console.log("update tag", e.target.value, i, tagOptions)
-        let newTagRows = [...tagRows]
-
-        for (var item of newTagRows) {
-            if (item.index == i) {
-                // console.log("found tag", item, i)
-                item.tag_id = e.target.value
-                break;
-            }
-        }
-        setTagRows([...newTagRows])
-    }
-
-    let submitBtns =
-        clickedRecipe == null ?
-            <>
-                <button type="submit" className="btn btn-secondary ">Submit</button>
-            </>
-            :
-
-            <button type="submit" className="btn btn-secondary ">Update</button>
+//         for (var item of newIngredientRows) {
+//             if (item.index == i) {
+//                 console.log("found specific item", item, i)
+//                 item.ingredient_id = e.target.value
+//                 break;
+//             }
+//         }
+//         setIngredientRows([...newIngredientRows])
+//     }
 
 
-    const renderIngredientRows = ingredientRows.map((item, i) => {
-        // console.log(item);
-        let inputIngredient = "inputIngredient" + i;
-        let inputQuantity = "inputQuantity" + i;
-        return (
-            <div className="form-group row">
-                <label for={inputIngredient} className="col-sm-2 col-form-label">Ingredients</label>
-                <div className="col-sm-6">
-                    <select
-                        onChange={(e) => updateIngredientName(e, i)}
-                        type="dropdown" className="form-control" id={inputIngredient}
-                        placeholder="Choose an ingredient"
-                        defaultValue={item.ingredient}>
+//     function updateIngredientQuantity(e, i) {
+//         // console.log("update quantity", e.target.value, i, props, ingredientRows)
+//         let newIngredientRows = [...ingredientRows]
 
-                        {props.ingredientsList.map((ingred, index) => {
-                            if (item.ingredient === ingred.ingredient) {
-                                console.log(ingred, item)
-                            }
-                            return (
-                                <option key={index} value={ingred.id}
-                                    selected={item.ingredient === ingred.ingredient}
-                                >
-                                    {ingred.ingredient}
-                                </option>
-                            )
-                        }
-                        )}
-                    </select>
-                </div>
-                <label for={inputQuantity} className="col-sm-2 col-form-label">Quantity</label>
-                <div className="col-sm-2">
-                    <input onChange={(e) => updateIngredientQuantity(e, i)}
-                        type="text" className="form-control" id={inputQuantity} placeholder="Quantity"
-                        defaultValue={item.quantity}
-                    >
-                    </input>
-                </div>
-            </div>)
-    })
+//         for (var item of newIngredientRows) {
+//             if (item.index == i) {
+//                 // console.log("found specific item", item, i)
+//                 item.quantity = e.target.value
+//                 break;
+//             }
+//         }
+//         setIngredientRows([...newIngredientRows])
+//     }
 
-    const renderTagRows = tagRows.map((item, i) => {
-        let inputTag = "inputTag" + i;
-        return (
-            <div className="form-group row">
-                <label for={inputTag} className="col-sm-2 col-form-label">Tags</label>
-                <div className="col-sm-6">
-                    <select
-                        onChange={(e) => updateTags(e, i)}
-                        type="dropdown" className="form-control" id={inputTag}
-                        placeholder="Tags">
+//     function updateTags(e, i) {
+//         // console.log("update tag", e.target.value, i, tagOptions)
+//         let newTagRows = [...tagRows]
 
-                        {props.tagsList.map((tag, index) => {
-                            return (
-                                <option key={index} value={tag.id}
-                                    selected={item.category === tag.category}
-                                >
-                                    {tag.category}
-                                </option>
-                            )
-                        }
-                        )}
-                    </select>
-                </div>
-            </div>
-        )
-    })
-// console.log(clickedRecipe.ingredients)
-    const createRecipe = (e) => {
-        e.preventDefault();
-        const info = {
-            title:  title,
-            ingredient:  ingredientRows,
-            direction: direction,
-            servings:  servings,
-            cooking_time:  cooking_time,
-            image:  image,
-            tags:  tagRows,
-            user_id: userInfo.user.id,
-            recipe_id: clickedRecipe ? clickedRecipe.id : null
-            // title: clickedRecipe ? clickedRecipe.title : title,
-            // ingredient: clickedRecipe ? clickedRecipe.ingredients : ingredientRows,
-            // direction: clickedRecipe ? clickedRecipe.directions[0].direction : direction,
-            // servings: clickedRecipe ? clickedRecipe.servings : servings,
-            // cooking_time: clickedRecipe ? clickedRecipe.cooking_time : cooking_time,
-            // image: clickedRecipe ? clickedRecipe.image : image,
-            // tags: clickedRecipe ? clickedRecipe.tags : tagRows,
-            // user_id: userInfo.user.id,
-            // recipe_id: clickedRecipe ? clickedRecipe.id : null
-        }
-        console.log(info);
+//         for (var item of newTagRows) {
+//             if (item.index == i) {
+//                 // console.log("found tag", item, i)
+//                 item.tag_id = e.target.value
+//                 break;
+//             }
+//         }
+//         setTagRows([...newTagRows])
+//     }
 
-        if (clickedRecipe) {
-            console.log("update clicked");
-            axios.post("http://127.0.0.1:8000/api/updateform", info)
-                // axios.post("https://recipe-final-project.uc.r.appspot.com/api/update", info)
-                .then(response => {
-                    console.log(response.data);
-                    window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
-                    console.log("update clicked, after api");
-                    history.push('/view');
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-        } else {
-            axios.post("http://127.0.0.1:8000/api/createform", info)
-                // axios.post('https://recipe-final-project.uc.r.appspot.com/api/createform', info)
-                .then(response => {
-                    console.log(response.data);
-                    console.log("create clicked");
-                    window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
-                    history.push('/view');
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-        }
-    }
-    const formTitle =
-        clickedRecipe ?
-            <>
-                <h4>Modify Your Own Recipe:</h4>
-            </>
-            :
-            <h4>Create Your Own Recipe:</h4>
+//     let submitBtns =
+//         clickedRecipe == null ?
+//             <>
+//                 <button type="submit" className="btn btn-secondary ">Submit</button>
+//             </>
+//             :
 
-    return (
-        <div className="container bg bg-light" id="createform">
-            <div className="row text-center">
-                <div className="col-10 offset-1">
-                    <br></br>
-                    {formTitle}
-                    <br></br>
-                    <form onSubmit={createRecipe}>
-                        <div className="form-group row">
-                            <label for="inputTitle" className="col-sm-2 col-form-label">Title</label>
-                            <div className="col-sm-10">
-                                <input onChange={(e) => setTitle(e.target.value)} type="text" className="form-control" id="inputTitle" placeholder="Title"
-
-                                    defaultValue={clickedRecipe ? clickedRecipe.title : null}></input>
-                            </div>
-                        </div>
-
-                        {renderIngredientRows}
-
-                        <div onClick={addUserIngredient} type="submit" class="btn btn-secondary my-1">Add Ingredient</div>
+//             <button type="submit" className="btn btn-secondary ">Update</button>
 
 
-                        <div className="form-group row">
-                            <label for="inputDirections" className="col-sm-2 col-form-label">Directions</label>
-                            <div className="col-sm-10">
-                                <input onChange={(e) => setDirection(e.target.value)} 
+//     const renderIngredientRows = ingredientRows.map((item, i) => {
+//         // console.log(item);
+//         let inputIngredient = "inputIngredient" + i;
+//         let inputQuantity = "inputQuantity" + i;
+//         return (
+//             <div className="form-group row">
+//                 <label for={inputIngredient} className="col-sm-2 col-form-label">Ingredients</label>
+//                 <div className="col-sm-6">
+//                     <select
+//                         onChange={(e) => updateIngredientName(e, i)}
+//                         type="dropdown" className="form-control" id={inputIngredient}
+//                         placeholder="Choose an ingredient"
+//                         defaultValue={item.ingredient}>
 
-                                defaultValue={clickedRecipe ? clickedRecipe.directions[0].direction : null} 
-                                type="text" className="form-control" id="inputDirections" placeholder="Directions"></input>
-                            </div>
-                        </div>
+//                         {props.ingredientsList.map((ingred, index) => {
+//                             if (item.ingredient === ingred.ingredient) {
+//                                 console.log(ingred, item)
+//                             }
+//                             return (
+//                                 <option key={index} value={ingred.id}
+//                                     selected={item.ingredient === ingred.ingredient}
+//                                 >
+//                                     {ingred.ingredient}
+//                                 </option>
+//                             )
+//                         }
+//                         )}
+//                     </select>
+//                 </div>
+//                 <label for={inputQuantity} className="col-sm-2 col-form-label">Quantity</label>
+//                 <div className="col-sm-2">
+//                     <input onChange={(e) => updateIngredientQuantity(e, i)}
+//                         type="text" className="form-control" id={inputQuantity} placeholder="Quantity"
+//                         defaultValue={item.quantity}
+//                     >
+//                     </input>
+//                 </div>
+//             </div>)
+//     })
 
-                        <div className="form-group row">
-                            <label for="inputServings" className="col-sm-2 col-form-label">Servings</label>
-                            <div className="col-sm-10">
-                                <input onChange={(e) => setServings(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.servings : null} type="text" className="form-control" id="inputServings" placeholder="Servings"></input>
-                            </div>
-                        </div>
+//     const renderTagRows = tagRows.map((item, i) => {
+//         let inputTag = "inputTag" + i;
+//         return (
+//             <div className="form-group row">
+//                 <label for={inputTag} className="col-sm-2 col-form-label">Tags</label>
+//                 <div className="col-sm-6">
+//                     <select
+//                         onChange={(e) => updateTags(e, i)}
+//                         type="dropdown" className="form-control" id={inputTag}
+//                         placeholder="Tags">
 
-                        <div className="form-group row">
-                            <label for="inputCookingTime" className="col-sm-2 col-form-label">Cooking Time (min)</label>
-                            <div className="col-sm-10">
-                                <input onChange={(e) => setCooking_time(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.cooking_time : null} type="text" className="form-control" id="inputCookingTime" placeholder="Cooking Time"></input>
-                            </div>
-                        </div>
+//                         {props.tagsList.map((tag, index) => {
+//                             return (
+//                                 <option key={index} value={tag.id}
+//                                     selected={item.category === tag.category}
+//                                 >
+//                                     {tag.category}
+//                                 </option>
+//                             )
+//                         }
+//                         )}
+//                     </select>
+//                 </div>
+//             </div>
+//         )
+//     })
+// // console.log(clickedRecipe.ingredients)
+//     const createRecipe = (e) => {
+//         e.preventDefault();
+//         const info = {
+//             title:  title,
+//             ingredient:  ingredientRows,
+//             direction: direction,
+//             servings:  servings,
+//             cooking_time:  cooking_time,
+//             image:  image,
+//             tags:  tagRows,
+//             user_id: userInfo.user.id,
+//             recipe_id: clickedRecipe ? clickedRecipe.id : null
+//             // title: clickedRecipe ? clickedRecipe.title : title,
+//             // ingredient: clickedRecipe ? clickedRecipe.ingredients : ingredientRows,
+//             // direction: clickedRecipe ? clickedRecipe.directions[0].direction : direction,
+//             // servings: clickedRecipe ? clickedRecipe.servings : servings,
+//             // cooking_time: clickedRecipe ? clickedRecipe.cooking_time : cooking_time,
+//             // image: clickedRecipe ? clickedRecipe.image : image,
+//             // tags: clickedRecipe ? clickedRecipe.tags : tagRows,
+//             // user_id: userInfo.user.id,
+//             // recipe_id: clickedRecipe ? clickedRecipe.id : null
+//         }
+//         console.log(info);
 
-                        <div className="form-group row">
-                            <label for="image" className="col-sm-2 col-form-label">Image</label>
-                            <div className="col-sm-10">
-                                <input onChange={(e) => setImage(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.image : null} type="inputImage" className="form-control" id="inputImage" placeholder="Image"></input>
-                            </div>
-                        </div>
+//         if (clickedRecipe) {
+//             console.log("update clicked");
+//             axios.post("http://127.0.0.1:8000/api/updateform", info)
+//                 // axios.post("https://recipe-final-project.uc.r.appspot.com/api/update", info)
+//                 .then(response => {
+//                     console.log(response.data);
+//                     window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
+//                     console.log("update clicked, after api");
+//                     history.push('/view');
+//                 })
+//                 .catch(error => {
+//                     console.log(error)
+//                 });
+//         } else {
+//             axios.post("http://127.0.0.1:8000/api/createform", info)
+//                 // axios.post('https://recipe-final-project.uc.r.appspot.com/api/createform', info)
+//                 .then(response => {
+//                     console.log(response.data);
+//                     console.log("create clicked");
+//                     window.localStorage.setItem("recipes", JSON.stringify(response.data.data));
+//                     history.push('/view');
+//                 })
+//                 .catch(error => {
+//                     console.log(error)
+//                 });
+//         }
+//     }
+//     const formTitle =
+//         clickedRecipe ?
+//             <>
+//                 <h4>Modify Your Own Recipe:</h4>
+//             </>
+//             :
+//             <h4>Create Your Own Recipe:</h4>
 
-                        {renderTagRows}
+//     return (
+//         <div className="container bg bg-light" id="createform">
+//             <div className="row text-center">
+//                 <div className="col-10 offset-1">
+//                     <br></br>
+//                     {formTitle}
+//                     <br></br>
+//                     <form onSubmit={createRecipe}>
+//                         <div className="form-group row">
+//                             <label for="inputTitle" className="col-sm-2 col-form-label">Title</label>
+//                             <div className="col-sm-10">
+//                                 <input onChange={(e) => setTitle(e.target.value)} type="text" className="form-control" id="inputTitle" placeholder="Title"
 
-                        <div onClick={addTag} type="submit" class="btn btn-secondary  my-1">Add a Tag</div>
-                        <div></div>
-                        <br></br>
-                        {submitBtns}
-                        {/*  conditionally render disabled */}
-                    </form>
-                </div>
-            </div>
-        </div>
+//                                     defaultValue={clickedRecipe ? clickedRecipe.title : null}></input>
+//                             </div>
+//                         </div>
 
-    )
-}
+//                         {renderIngredientRows}
+
+//                         <div onClick={addUserIngredient} type="submit" class="btn btn-secondary my-1">Add Ingredient</div>
+
+
+//                         <div className="form-group row">
+//                             <label for="inputDirections" className="col-sm-2 col-form-label">Directions</label>
+//                             <div className="col-sm-10">
+//                                 <input onChange={(e) => setDirection(e.target.value)} 
+
+//                                 defaultValue={clickedRecipe ? clickedRecipe.directions[0].direction : null} 
+//                                 type="text" className="form-control" id="inputDirections" placeholder="Directions"></input>
+//                             </div>
+//                         </div>
+
+//                         <div className="form-group row">
+//                             <label for="inputServings" className="col-sm-2 col-form-label">Servings</label>
+//                             <div className="col-sm-10">
+//                                 <input onChange={(e) => setServings(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.servings : null} type="text" className="form-control" id="inputServings" placeholder="Servings"></input>
+//                             </div>
+//                         </div>
+
+//                         <div className="form-group row">
+//                             <label for="inputCookingTime" className="col-sm-2 col-form-label">Cooking Time (min)</label>
+//                             <div className="col-sm-10">
+//                                 <input onChange={(e) => setCooking_time(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.cooking_time : null} type="text" className="form-control" id="inputCookingTime" placeholder="Cooking Time"></input>
+//                             </div>
+//                         </div>
+
+//                         <div className="form-group row">
+//                             <label for="image" className="col-sm-2 col-form-label">Image</label>
+//                             <div className="col-sm-10">
+//                                 <input onChange={(e) => setImage(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.image : null} type="inputImage" className="form-control" id="inputImage" placeholder="Image"></input>
+//                             </div>
+//                         </div>
+
+//                         {renderTagRows}
+
+//                         <div onClick={addTag} type="submit" class="btn btn-secondary  my-1">Add a Tag</div>
+//                         <div></div>
+//                         <br></br>
+//                         {submitBtns}
+//                         {/*  conditionally render disabled */}
+//                     </form>
+//                 </div>
+//             </div>
+//         </div>
+
+//     )
+// }

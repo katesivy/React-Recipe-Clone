@@ -15,10 +15,9 @@ import {
 export default function SubCategory(props) {
 
     // console.log(props.options);
-    // const lowerprops = props.subtype.toLowerCase();
     console.log(props);
     const [subtype, setSubtype] = useState('');
-    // console.log(props.url);
+    console.log(props.url);
     const splitUrl = '/' + props.url.split('/')[1];
     console.log(splitUrl, props);
     // console.log(subtype);
@@ -45,7 +44,7 @@ export default function SubCategory(props) {
     }) : <h2>no recipes found</h2>;
 
     return (
-        <>
+        <> 
             <div className="row">
                 {subcategories}
             </div>

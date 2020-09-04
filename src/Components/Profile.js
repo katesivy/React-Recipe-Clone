@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+{/* <div className="dropdown-menu dropdown-menu-lg-right dropdown-menu-sm-center text-center"  */}
 
 export default function Profile(props) {
 
@@ -34,7 +34,7 @@ export default function Profile(props) {
                             <div className="card text-center bg bg-light border border-light " id="profileCard">
                                 <div className="card-body  ">
                                     <h5 className="card-body">Create recipes</h5>
-                                    <Link className="btn btn-secondary" onClick={goToCreate} to={"/create"}>
+                                    <Link className="btn btn-secondary" id="btn1" onClick={goToCreate} to={"/create"}>
                                         Create
                                     </Link>
                                 </div>
@@ -50,7 +50,7 @@ export default function Profile(props) {
                             <div className="card text-center bg bg-light  border border-light" id="profileCard">
                                 <div className="card-body ">
                                     <h5 className="card-body ">View your recipes</h5>
-                                    <Link className="btn btn-secondary" onClick={() => setUrl(url)} to={"/view"}>
+                                    <Link className="btn btn-secondary" id="btn1" onClick={() => setUrl(url)} to={"/view"}>
                                         View
                                     </Link>
                                 </div>
