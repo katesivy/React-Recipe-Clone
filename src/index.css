@@ -77,6 +77,11 @@ padding: 10px 0px;
   min-height: 25em;
   min-width: 20em;
  }
+ #recipe {
+  max-height: 25em;
+  min-height: 25em;
+  min-width: 20em;
+ }
 
  #profileContainer { 
    /* background-color:#809574; */
@@ -104,7 +109,9 @@ padding: 10px 0px;
  /* a:active { */
 
  #allrecipes {
-   color: #809574;
+   /* color: #809574; */
+   /* color: grey; */
+   color: dark;
  }
 
  #btn1 {
