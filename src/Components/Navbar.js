@@ -71,12 +71,12 @@ function Navbar(props) {
 
             <div className="row text-right mb-2 flex-sm-fill  sticky-top bg bg-white p-3  ">
                 <div className="col-lg-12   text-justify-right bg bg-white">
-                    {/* <nav className="navbar flex-sm-fill navbar-expand-lg navbar-light " id="navbar"> */}
-                    {/* <form className="form-inline">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+                    <nav className="navbar flex-sm-fill navbar-expand-lg navbar-light " id="navbar">
+                    <form className="form-inline">
+                            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"></input>
                             <button className="btn  my-2 my-sm-0 bg bg-light border border-secondary text-secondary" type="submit" id="searchBtn">Search</button>
-                        </form> */}
-                    {/* </nav> */}
+                        </form>
+                     </nav>
                 </div>
                 <div className="col-lg-11 ml-5 ">
                     <nav className="navbar text-justify-center flex-sm-fill flex-md-fill flex-lg-fill navbar-expand-lg navbar-light " id="navbar">

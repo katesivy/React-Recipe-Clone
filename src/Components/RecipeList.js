@@ -30,15 +30,21 @@ export default function RecipeList(props) {
   console.log(filteredRecipes);
 
   const renderedRecipes = filteredRecipes.map((item, index) => {
+    const recipeImage =
+    item.image ?
+       <img src={`/Images/${item.image}`} className="card-img-bottom img-fluid  mx-auto d-block" id="recipePic" alt="click on title or scroll down for recipe"></img>
+       :
+       <div></div>;
+
     return (
 
-      <div className="col-sm-12 col-lg-6  d-flex" key={index}>
-        <div className="card text-left" id="recipe">
-          <div className="card-header text-center text-wrap overflow-auto m-3" id="recipeCard" >
+      <div className="col-sm-12  col-lg-4 p-3 d-flex" key={index}>
+        <div className="card text-left" >
+          <div className="card-header text-center text-wrap overflow-auto p-3 m-3" id="recipeCard" >
           <Link onClick={() => props.storeId(item.id)} to={'/recipe'}>
               <h4 className="" id="link"> {item.title}</h4>
             </Link>
-            <img src={`/Images/${item.image}`} className="card-img-top" id="recipePic" alt="pic"></img>
+            {recipeImage}
             <p className="font-weight-bold text-left">Ingredients:</p>
             {item.ingredients.map((ingredient) =>
               <li className="text-left">{ingredient.pivot.quantity} {ingredient.ingredient}  </li>

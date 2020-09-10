@@ -64,7 +64,7 @@ export default function RecipeForm(props) {
             setLoading(true)
         }
     }, [loading]
-    
+
     )
 
 
@@ -250,7 +250,9 @@ export default function RecipeForm(props) {
                     history.push('/view');
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log(error);
+                    // alert(error.message);
+                    alert("Invalid entry");
                 });
         } else {
             const info = {
@@ -273,7 +275,8 @@ export default function RecipeForm(props) {
                     history.push('/view');
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log(error);
+                    alert("Invalid entry");
                 });
         }
     }
@@ -309,9 +312,10 @@ export default function RecipeForm(props) {
 
 
                         <div className="form-group row">
-                            <label for="inputDirections" className="col-sm-2 col-form-label">Directions</label>
+                            <label for="inputDirections" className="col-sm-2 col-form-textarea">Directions</label>
                             <div className="col-sm-10">
-                                <input onChange={(e) => setDirection(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.directions[0].direction : null} type="text" className="form-control" id="inputDirections" placeholder="Directions"></input>
+                                    <textarea class="form-control" id="inputDirections" rows="3" placeholder="Directions" onChange={(e) => setDirection(e.target.value)} defaultValue={clickedRecipe ? clickedRecipe.directions[0].direction : null} type="text" className="form-control" >    
+                                </textarea>   
                             </div>
                         </div>
 

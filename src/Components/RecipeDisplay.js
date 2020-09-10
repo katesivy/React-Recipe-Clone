@@ -67,7 +67,7 @@ export default function RecipeDisplay(props) {
             </div>
         </>
         :
-        <div className="col-md-4 p-5">
+        <div className=" p-1 m-1">
            
         </div>
 
@@ -110,7 +110,7 @@ export default function RecipeDisplay(props) {
 
 
     return (
-        <div className="row bg bg-secondary content-justify-center p-3">
+        <div className="row bg bg-secondary content-justify-center m-1 p-3">
             {lsId == 0 ? null : recipeInfo()}
         </div>
 

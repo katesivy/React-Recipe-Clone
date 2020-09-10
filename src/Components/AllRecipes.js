@@ -27,7 +27,7 @@ export default function AllRecipes(props) {
         return (
 
             <div className="col-sm-12 bg bg-secondary col-lg-4 p-3 " key={index}>
-                <div className=" text-left" id="allrecipes">
+                <div className=" text-left" >
                     <div className="card-header bg bg-light  text-center text-wrap overflow-auto m-3 " id="recipeView" >
 
                         <Link onClick={() => props.storeId(item.id)} to={'/recipe'}>

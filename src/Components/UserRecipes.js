@@ -29,8 +29,8 @@ export default function UserView(props) {
         return (
             //    Link to view recipe as full page
             <div className="col-sm-12 col-lg-4  " key={index}>                 
-                <div className=" text-left  p-5 " id="recipe">
-                    <div className="card-header text-center text-wrap overflow-auto m-3 border border-secondary bg bg-light" id="recipeView" >
+                <div className=" text-left m-3 mt-5 "  >
+                    <div className="card-header text-center text-wrap overflow-auto m-3 border border-secondary " id="recipeView" >
                         <Link onClick={() => props.storeId(item.id)} to={'/recipe'} id="link">
                             <h4 className=" p-2"> {item.title}</h4>
                         </Link>
