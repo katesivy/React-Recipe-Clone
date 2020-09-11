@@ -12,12 +12,12 @@ export default function AllRecipes(props) {
     var storageId = userInfo ? userInfo.user.id : 0;
     console.log({ storageId });
     const allRecipes = userInfo ? props.recipes.filter(item => item.user_id == 1 || item.user_id == storageId) : adminRecipes;
-    console.log({ allRecipes });
+    // console.log({ allRecipes });
 
 
 
     const mappedRecipes = allRecipes.map((item, index) => {
-        console.log(item.image)
+        // console.log(item.image)
         const recipeImage =
              item.image ?
                 <img src={`/Images/${item.image}`} className="card-img-bottom img-fluid  mx-auto d-block" id="recipePic" alt="click on title or scroll down for recipe"></img>

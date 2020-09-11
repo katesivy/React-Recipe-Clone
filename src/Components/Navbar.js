@@ -12,6 +12,9 @@ function Navbar(props) {
     const history = useHistory();
     const [url, setUrl] = useState(history.location.pathname.split('/recipes')[1]);
     const [loggedIn, setLoggedIn] = useState('');
+    const [input, setInput] = useState('');
+    const [matchedId, setMatchedId] = useState({});
+
 
     const userLogout = (e) => {
         e.preventDefault();
@@ -60,6 +63,28 @@ function Navbar(props) {
                 </form>
             </span>
 
+    var recipes = JSON.parse(localStorage.getItem("recipes"));
+
+    const checkSearch = (e) => {
+        e.preventDefault();
+        console.log(input);
+
+        recipes.map((item, index) => {
+            if (input.toString().toLowerCase() == item.title.toLowerCase()) {
+                console.log('match');
+                console.log(item);
+                console.log(item.id);
+                setMatchedId(item.id);
+                props.storeId(item.id);
+                history.push('/recipe');
+            }
+            else {
+                console.log('no match');
+            }
+        })
+    }
+
+
     return (
         <>
             <div className="row">
@@ -72,12 +97,16 @@ function Navbar(props) {
             <div className="row text-right mb-2 flex-sm-fill  sticky-top bg bg-white p-3  ">
                 <div className="col-lg-12   text-justify-right bg bg-white">
                     <nav className="navbar flex-sm-fill navbar-expand-lg navbar-light " id="navbar">
-                    <form className="form-inline">
-                            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"></input>
-                            <button className="btn  my-2 my-sm-0 bg bg-light border border-secondary text-secondary" type="submit" id="searchBtn">Search</button>
+                        <form onSubmit={checkSearch} className="form-inline">
+                            <input onChange={(e) => setInput(e.target.value)}
+                                className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                            </input>
+                            <button
+                                className="btn  my-2 my-sm-0 bg bg-light border border-secondary text-secondary" type="submit" id="searchBtn">Search</button>
                         </form>
-                     </nav>
+                    </nav>
                 </div>
+
                 <div className="col-lg-11 ml-5 ">
                     <nav className="navbar text-justify-center flex-sm-fill flex-md-fill flex-lg-fill navbar-expand-lg navbar-light " id="navbar">
                         <Link className="a:hover text-justify-center " id="link" onClick={() => setUrl(url)} to={'/all'}>View All Recipes</Link>
@@ -118,6 +147,6 @@ function Navbar(props) {
 
         </>
 
-    )
+    );
 }
 export default Navbar;
