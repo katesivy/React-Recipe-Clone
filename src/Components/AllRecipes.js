@@ -14,7 +14,8 @@ export default function AllRecipes(props) {
     const allRecipes = userInfo ? props.recipes.filter(item => item.user_id == 1 || item.user_id == storageId) : adminRecipes;
     // console.log({ allRecipes });
 
-
+    var lsId = props.recipeId != 0 ? props.recipeId : JSON.parse(localStorage.getItem("id"));
+    console.log(lsId);
 
     const mappedRecipes = allRecipes.map((item, index) => {
         // console.log(item.image)

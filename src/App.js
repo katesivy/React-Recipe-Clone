@@ -133,8 +133,8 @@ function App() {
         </Route>
 
         <Route path="/recipe">
-          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} matchedId={matchedId} storeId={storeId} />
-          <RecipeDisplay recipes={recipes} recipeId={recipeId} matchedId={matchedId} storeId={storeId} />
+          <Navbar optionsArray={optionsArray} setUrl={setUrl} goTo={setUrl} storeId={storeId} recipeId={recipeId} />
+          <RecipeDisplay recipes={recipes} recipeId={recipeId}  storeId={storeId} />
         </Route>
 
         <Route path="/all">

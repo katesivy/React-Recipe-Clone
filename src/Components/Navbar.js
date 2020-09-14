@@ -47,17 +47,18 @@ function Navbar(props) {
     const navOptions =
         userInfo == null ?
             <>
-                <span className="navbar-text text-content-right  mr-sm-2 flex-sm-fill bg bg-white">
-                    <Link className="a:hover text-justify-center " id="link" onClick={() => setUrl(url)} to={'/login'}>Login</Link>
+           
+                <span className="navbar-text text-left d-inline-flex  flex-lg-fill flex-sm-fill mr-5">
+                    <Link className="a:hover  d-inline-flex" id="link" onClick={() => setUrl(url)} to={'/login'}>Login</Link>
                 </span>
-                <span className="navbar-text text-content-right  mr-sm-2 flex-sm-fill">
-                    <Link className="a:hover text-justify-center " id="link" onChange={() => setUrl(url)} to={'/register'}>Register</Link>
+                
+                <span className=" navbar-text text-content-right d-inline-flex flex-lg-fill flex-sm-fill ml-5">
+                    <Link className="a:hover  d-inline-flex" id="link" onChange={() => setUrl(url)} to={'/register'}>Register</Link>
                 </span>
+                
             </>
             :
-            <span className="navbar-text text-content-right  mr-sm-2 flex-sm-fill">
-
-                {/* <Link className="a:hover text-justify-center " id="link" onClick={() => setUrl(url)} to={'/'}>Logout</Link> */}
+            <span className=" navbar-text text-content-right flex-lg-fill mr-sm-2 flex-sm-fill">
                 <form onSubmit={userLogout}>
                     <button type="submit" className="btn btn-white a:hover" id="link">Logout</button>
                 </form>
@@ -70,16 +71,14 @@ function Navbar(props) {
         console.log(input);
 
         recipes.map((item, index) => {
-            if (input.toString().toLowerCase() == item.title.toLowerCase()) {
+            if (input.toString().toLowerCase() === item.title.toLowerCase()) {
                 console.log('match');
                 console.log(item);
                 console.log(item.id);
-                setMatchedId(item.id);
+                // setMatchedId(item.id);
                 props.storeId(item.id);
                 history.push('/recipe');
-            }
-            else {
-                console.log('no match');
+                // console.log(matchedId);
             }
         })
     }
@@ -95,26 +94,29 @@ function Navbar(props) {
             </div>
 
             <div className="row text-right mb-2 flex-sm-fill  sticky-top bg bg-white p-3  ">
-                <div className="col-lg-12   text-justify-right bg bg-white">
-                    <nav className="navbar flex-sm-fill navbar-expand-lg navbar-light " id="navbar">
-                        <form onSubmit={checkSearch} className="form-inline">
+
+                <nav className="navbar text-justify-center flex-sm-fill flex-md-fill flex-lg-fill navbar-expand-lg navbar-light " id="navbar">
+
+                    <div className="col-lg-3   text-justify-left ">
+                        <form onSubmit={checkSearch} className="form-inline ">
                             <input onChange={(e) => setInput(e.target.value)}
                                 className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                             </input>
                             <button
-                                className="btn  my-2 my-sm-0 bg bg-light border border-secondary text-secondary" type="submit" id="searchBtn">Search</button>
+                                className="btn  my-2 my-sm-0 bg bg-light text-secondary" type="submit" id="searchBtn">Search</button>
                         </form>
-                    </nav>
-                </div>
+                    </div>
 
-                <div className="col-lg-11 ml-5 ">
-                    <nav className="navbar text-justify-center flex-sm-fill flex-md-fill flex-lg-fill navbar-expand-lg navbar-light " id="navbar">
-                        <Link className="a:hover text-justify-center " id="link" onClick={() => setUrl(url)} to={'/all'}>View All Recipes</Link>
+                    <div className="col-lg-2   text-left">
+                        <Link className="a:hover text-left  " id="link" onClick={() => setUrl(url)} to={'/all'}>View All Recipes</Link>
 
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div className="collapse navbar-collapse text-right" id="navbarNavDropdown ">
+                    </div>
+
+                    <div className="col-lg-2 text-left">
+                        <div className="collapse navbar-collapse text-left " id="navbarNavDropdown ">
                             <ul className="navbar-nav  flex-lg-fill">
                                 <div className="nav-item dropdown flex-sm-fill flex-lg-fill">
                                     <a className="nav-link dropdown-toggle text-right" id="link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -133,16 +135,21 @@ function Navbar(props) {
                                 </div>
                             </ul>
                         </div>
+                    </div>
 
-                        <ul className="navbar-nav flex-sm-fill">
+                    <div className="col-lg-2   text-justify-center">
+                        <ul className="navbar-nav flex-sm-fill flex-md-fill flex-lg-fill ">
                             <li className="nav-item flex-sm-fill">
-                                <Link className="a:hover text-justify-center " id="link" onClick={() => setUrl(url)} to={'/profile'}>My Profile</Link>
+                                <Link className="a:hover text-justify-center mr-3 " id="link" onClick={() => setUrl(url)} to={'/profile'}>My Profile</Link>
                             </li>
                         </ul>
-                        {navOptions}
-                    </nav>
-                </div>
+                    </div>
 
+                    <div className="col-3 text-center ">
+                        {navOptions}
+                    </div>
+
+                </nav>
             </div>
 
         </>

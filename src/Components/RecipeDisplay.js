@@ -8,8 +8,7 @@ export default function RecipeDisplay(props) {
     const [info, setInfo] = useState('');
     const [url, setUrl] = useState('');
     const history = useHistory();
-    // console.log(props);
-    // console.log(props.recipeId);
+    console.log(props.recipeId);
 
     var lsId = props.recipeId != 0 ? props.recipeId : JSON.parse(localStorage.getItem("id"))
     lsId = lsId ? lsId : 0;
